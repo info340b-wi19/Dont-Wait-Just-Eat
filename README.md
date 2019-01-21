@@ -2,4 +2,4 @@
 
 This repository contains code for an interactive web app, created for the _Client-Side Web Development_ course at the UW iSchool.
 
-The site can be viewed at <https://info340b-wi19.github.io/project-ramonidea/proposal.html/>
+The site can be viewed at <https://info340b-wi19.github.io/project-ramonidea/proposal.html>
