@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Seattle Foodie Map</title>
+    <meta name="author" content="Ramon Qu">
+    <meta name="description" content="Seattle Foodie Map">
+    <meta name="keywords" content="info340,foodie,map,restaurant,waittime">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script src="./js/main.js"></script>
+    <link rel="icon" type="image/png" href="./img/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="./img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Seattle Foodie Map
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                aria-label="Toggle Navigation Bar">
+                <span class="fa fa-bars"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="phoneNav">
+
+                <ul class="navbar-nav nav navbar-right">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Where are you?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">What do you want eat?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">How long do I need to wait?</a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+        </nav>
+
+    </header>
+    <main>
+        <div class="container-fluid">
+            <div class="loc row">
+                <!--Here is either enter an location or use GPS location-->
+                <div class="jumbotron col-12">
+                    <h1 class="display-4">Seattle Foodie Map</h1>
+                    <p class="lead">You can start search the amazing food around you!</p>
+                    <hr class="my-4">
+                    <div class="row">
+                        <a class="btn btn-primary btn-lg col-3 mr-4" href="#" role="button" onclick="return getLocation();">Locate
+                            Me</a>
+                        <input class="form-control col-6 mr-4" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary col-2 btn-lg " type="submit">Search</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <!--Here is the first Map to find the restaurant near me-->
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=university%20of%20Washington&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <!--Here is to view the restaurant reviews and so on-->
+
+            </div>
+
+
+            <div class="row">
+                <!--Here is to reserve in line or add a wait time-->
+
+
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+
+
+</body>
+
+</html>
