@@ -1,3 +1,5 @@
+secret.json
+
 # ignore node dependency files
 node_modules
 
