@@ -1,17 +1,6 @@
 body{
     font-family: 'Courier New', Courier, monospace;
-}
-.mapouter {
-    text-align: right;
-    height: 500px;
-    width: 600px;
-}
-
-.gmap_canvas {
-    overflow: hidden;
-    background: none !important;
-    height: 500px;
-    width: 600px;
+    padding-top: 55px; 
 }
 
 h1 {
@@ -38,5 +27,85 @@ p{
 .loc .form-control{
     font-size: 1.25rem;
     height: 3rem;
-   
 }
+.loc .jumbotron button{
+    margin-top:0rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.loc .jumbotron input{
+    margin-top:1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+}
+.card-body{
+    padding:0;
+}
+.loc .display-4{
+    font-size: 3rem;
+}
+
+.map h4, .reservation form h4{
+    text-align: center;
+    margin-top:1.4rem;
+}
+.reservation form {
+    width:100%;
+}
+.btn-dark .fa,.btn-dark .fas,.btn-dark .far{
+    color:white;
+}
+a.btn-dark{
+    color:white !important;
+}
+#restaurant{
+    padding: 0 !important;
+}
+
+#waitView .card{
+    height:30rem;
+    overflow: scroll;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 11px;
+}
+
+.waitTimeTable tr,.waitTimeTable th{
+    height:3rem;
+}
+.waitTimeTable tr:hover{
+    background-color: beige;
+    transition: 0.5s ease;
+}
+.waitTimeTable td,.waitTimeTable th{
+    padding-left:1rem;
+    padding-right: 1rem;
+}
+
+.waitTimeTable tr td:nth-child(even) i{
+    padding-top: 1rem;
+    margin-right:1rem;
+}
+
+/* From online https://codepen.io/stevenlewis/pen/hubpL how to force vertical scrollbar */
+#waitView .card::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+#waitView .card::-webkit-scrollbar:vertical {
+    width: 11px;
+}
+
+#waitView .card::-webkit-scrollbar:horizontal {
+    height: 11px;
+}
+
+#waitView .card::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .5);
+}
+/* End*/
+
