@@ -92,22 +92,29 @@ a.btn-dark {
 .waitTimeTable tr,
 .waitTimeTable th {
     height: 3rem;
+    width:50rem;
 }
 
-.waitTimeTable tr:hover {
-    background-color: beige;
-    transition: 0.5s ease;
-}
+
 
 .waitTimeTable td,
 .waitTimeTable th {
     padding-left: 1rem;
     padding-right: 1rem;
+    
 }
 
-.waitTimeTable tr td:nth-child(even) i {
+.waitTimeTable tbody tr td:nth-child(even) i {
     padding-top: 1rem;
     margin-right: 1rem;
+}
+.waitTimeTable tbody tr td:nth-child(even){
+    padding:0;
+}
+
+.waitTimeTable tbody  tr:hover {
+    background-color: beige;
+    transition: 0.5s ease;
 }
 
 
