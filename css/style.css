@@ -1,10 +1,15 @@
+html {
+    scroll-behavior: smooth;
+    min-width: 320px;
+}
+
 body {
     font-family: 'Courier New', Courier, monospace;
     padding-top: 55px;
 }
 
-h1 {
-    text-shadow: 4px 4px 9px rgba(150, 150, 150, 1);
+.navbar-brand {
+    color: #d32323 !important;
 }
 
 section img {
@@ -20,13 +25,92 @@ p {
     padding-right: 5%;
 }
 
-.navbar{
-    width:100vw;
+.navbar {
+    width: 100vw;
+}
+
+.title {
+    background-image: url(../img/food/head1.jpg);
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 14px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.jumbotron {
+    background-color: rgba(193, 238, 255, 0.5);
+    margin-bottom: 0;
+    text-shadow: 0px 0px 12px #FFFFFF;
+}
+
+.btn-select {
+    background-color: #f5f5f5;
+    border: 1px solid #29445B;
+    color: #29445B;
+}
+
+.btn-select:hover {
+    background: #d32323;
+    color: #fff;
 }
 
 .jumbotron h1,
 .jumbotron p {
     text-align: center;
+    font-weight: bold;
+}
+
+.jumbotron h1 {
+    color: #d32323;
+    -webkit-text-stroke: #FFFFFF 1px;
+    text-shadow:
+        1px 1px 0 #FFF,
+        -1px -1px 0 #FFF,
+        1px -1px 0 #FFF,
+        -1px 1px 0 #FFF;
+
+}
+
+.section-title {
+    color: #d32323 !important;
+    text-align: center !important;
+    font-weight: bold !important;
+
+}
+
+.loc {
+    background: url("../img/waiting.jpg") center no-repeat !important;
+    background-size: cover;
+
+}
+
+.loc .wrapper {
+    background-color: rgba(255, 255, 255, .7);
+}
+
+
+.loc,
+.reservation {
+    background-color: #f5f5f5;
+}
+
+.loc button,
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+    background-color: #d32323;
+    border-color: #d32323;
+}
+
+.loc a.btn,
+#reserveBtn {
+    background-color: #29445B;
+    border-color: #29445B;
+}
+
+#updateWait {
+    background-color: #d32323;
+    border-color: #d32323;
 }
 
 .loc .form-control {
@@ -81,6 +165,14 @@ a.btn-dark {
     padding: 0 !important;
 }
 
+.no-reserve,
+.reserve-success {
+    text-align: center;
+
+}
+
+
+
 #waitView .card {
     height: 30rem;
     overflow: scroll;
@@ -89,10 +181,20 @@ a.btn-dark {
     padding-left: 11px;
 }
 
+.map .btn-dark:active,
+.map .btn-dark:hover {
+    background-color: #29445B !important;
+    border-color: #29445B !important;
+}
+
+.waitTimeTable {
+    color: #29445B;
+}
+
 .waitTimeTable tr,
 .waitTimeTable th {
     height: 3rem;
-    width:50rem;
+    width: 50rem;
 }
 
 
@@ -101,57 +203,37 @@ a.btn-dark {
 .waitTimeTable th {
     padding-left: 1rem;
     padding-right: 1rem;
-    
+
 }
 
-.waitTimeTable tbody tr td:nth-child(even) i {
+.waitTimeTable tbody tr td:nth-child(even) span {
     padding-top: 1rem;
     margin-right: 1rem;
 }
-.waitTimeTable tbody tr td:nth-child(even){
-    padding:0;
+
+.waitTimeTable tbody tr td:nth-child(even) {
+    padding: 0;
 }
 
-.waitTimeTable tbody  tr:hover {
+.waitTimeTable tbody tr:hover {
     background-color: beige;
     transition: 0.5s ease;
 }
 
 
-
-/* From online https://codepen.io/stevenlewis/pen/hubpL how to force vertical scrollbar */
-#waitView .card::-webkit-scrollbar {
-    -webkit-appearance: none;
-}
-
-#waitView .card::-webkit-scrollbar:vertical {
-    width: 11px;
-}
-
-#waitView .card::-webkit-scrollbar:horizontal {
-    height: 11px;
-}
-
-#waitView .card::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    border: 2px solid white;
-    /* should match background, can't be transparent */
-    background-color: rgba(0, 0, 0, .5);
-}
-
-
-/* End*/
 .footer {
     height: 100px;
     overflow: hidden;
 }
-.copyright{
-    width:100vw;
-    margin:0;
+
+.copyright {
+    width: 100vw;
+    margin: 0;
 }
-.copyright ul li a{
+
+.copyright ul li a {
     text-decoration: none;
-    color:inherit;
+    color: inherit;
     font-size: 1.5rem;
 }
 
@@ -170,17 +252,135 @@ a.btn-dark {
     filter: blur(3px);
 }
 
-.copyright p,.copyright ul {
+.copyright p,
+.copyright ul {
     text-align: center;
     margin: 0;
     color: white;
 }
 
-.copyright ul, .copyright li{
-    list-style:none;
+.copyright ul,
+.copyright li {
+    list-style: none;
     display: inline;
 }
 
-.mapBox{
-height:30rem;
+.mapBox {
+    height: 30rem;
+}
+
+.marker {
+    text-decoration: underline;
+}
+
+footer .container {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+@media(min-width: 768px) {
+
+    .loc h4,
+    .loc select {
+        margin-left: 0 !important;
+    }
+
+    .loc button {
+        margin-top: 0 !important;
+    }
+
+    .loc a {
+        margin-left: 14rem !important;
+    }
+
+    .waitTimeTable {
+        width: 70%;
+        margin-left: 15%;
+        text-align: center;
+    }
+
+    .form-group {
+        width: 70%;
+        margin-left: 15%;
+    }
+
+    #updatewait {
+        margin-left: 3rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .title {
+        height: 90vh;
+    }
+
+    .jumbotron h1 {
+        font-size: 5rem;
+    }
+
+    .jumbotron .lead {
+        font-size: 2rem;
+    }
+
+    .loc a {
+        display: none;
+    }
+
+    .loc input,
+    .loc button {
+        margin-top: 3rem !important;
+    }
+
+    #nav-map {
+        display: none;
+    }
+
+    .outter-wrap #mapview,
+    .outter-wrap #waitView {
+        display: inherit !important;
+    }
+
+    #waitView {
+        padding: 0;
+        margin-left: 55%;
+        background-color: #d32323;
+    }
+
+    #waitView .card,
+    .waitTimeTable {
+        margin: 0;
+        background: rgba(0, 0, 0, 0);
+        width: 100%;
+        border: none;
+        padding: 0;
+    }
+
+    #mapView {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .waitTimeTable thead {
+        background: #FFF;
+        color: #d32323;
+    }
+
+    .reservation-form button {
+        margin: 0 20%;
+    }
+
+    .waitTimeTable tbody tr,
+    .waitTimeTable tbody td {
+        color: #fff;
+    }
+
+    .overlay {
+        opacity: .7;
+        z-index: 2;
+    }
 }

@@ -1,26 +1,41 @@
-
 var api_key = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A"
 var first_time = false;
+var onlywait = 5;
 
-function showReserve(){
+function select(num) {
+  let button_group = document.getElementsByClassName("button-group")[0];
+  onlywait = num;
+  for (i = 0; i < button_group.children[0].children.length; i++) {
+    if (i == num) {
+      document.getElementsByClassName("button-group")[0].children[0].children[i].style = "background: #d32323;color:#fff;";
+    } else {
+      document.getElementsByClassName("button-group")[0].children[0].children[i].style = "background: #fff;color:#29445B;";
+    }
+  }
+  return true;
+}
+
+function showReserve() {
   $(".reservation").show();
   document.getElementsByClassName("reservation")[0].scrollIntoView();
 }
-function showReserveSuccess(){
-  document.getElementById("reservation-form").setAttribute("style","display:none;");
-  document.getElementsByClassName("reserve-success")[0].setAttribute("style","display:inherit;");
+
+function showReserveSuccess() {
+  document.getElementById("reservation-form").setAttribute("style", "display:none;");
+  document.getElementsByClassName("reserve-success")[0].setAttribute("style", "display:inherit;");
 }
-function genReserve(id){
+
+function genReserve(id) {
   document.getElementsByClassName('select-restaurant')[0].children[0].innerHTML = exampleRestaurantList["businesses"][id]["name"];
   var noreserve = document.getElementsByClassName("no-reserve")[0];
   var reserveSuccess = document.getElementsByClassName("reserve-success")[0];
-  reserveSuccess.setAttribute("style","display:none;")
-  if (exampleRestaurantList["businesses"][id]["wait"] <4){
-    noreserve.setAttribute("style","display:none;");
-    document.getElementById("reservation-form").setAttribute("style","display:inherit;");
-  }else{
-    document.getElementById("reservation-form").setAttribute("style","display:none;");
-    noreserve.setAttribute("style","display:inherit;");
+  reserveSuccess.setAttribute("style", "display:none;")
+  if (exampleRestaurantList["businesses"][id]["wait"] < 4) {
+    noreserve.setAttribute("style", "display:none;");
+    document.getElementById("reservation-form").setAttribute("style", "display:inherit;");
+  } else {
+    document.getElementById("reservation-form").setAttribute("style", "display:none;");
+    noreserve.setAttribute("style", "display:inherit;");
   }
   showReserve();
 }
@@ -29,10 +44,12 @@ function showMap() {
   $("#waitView").hide();
   $("#mapView").show();
 }
+
 function showWait() {
   $("#mapView").hide();
   $("#waitView").show();
 }
+
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -75,7 +92,7 @@ function genRestLayer() {
   for (i = 0; i < exampleRestaurantList["businesses"].length; i++) {
     let message = "";
     let rest = exampleRestaurantList["businesses"][i];
-    message += "<h4>" + rest["name"] + "</h4><br>" +
+    message += "<h4 class='marker' onclick='return genReserve(" + i + ");'>" + rest["name"] + "</h4><br>" +
       "Rating: " + rest['rating'].toString() + "/5.";
     if (rest["price"] != undefined) {
       message += "Price: " + rest["price"] + "<br>";
@@ -85,10 +102,10 @@ function genRestLayer() {
     "Wait Time: ";
     let waitTime = getWaitTime(i);
     for (j = 0; j < waitTime; j++) {
-      message += "<i class='fas fa-clock mr-1'></i>"
+      message += "<span class='fas fa-clock mr-1'></span>"
     }
     for (j = 0; j < 5 - waitTime; j++) {
-      message += '<i class="far fa-clock mr-1"></i>'
+      message += '<span class="far fa-clock mr-1"></span>'
     }
     message += "<br></div>"
     restaurant.push(L.marker([rest["coordinates"]["latitude"], rest["coordinates"]["longitude"]]).bindPopup(
@@ -117,13 +134,13 @@ function formWaitTimeList() {
   var tableContent = "<thead><tr><th class='col'>Restaurant Name</th><th class='col'>Current Wait time</th></tr></thead><tbody>"
   for (i = 0; i < exampleRestaurantList["businesses"].length; i++) {
     let rest = exampleRestaurantList["businesses"][i];
-    tableContent += "<tr onclick='return genReserve("+i+");'><td>" + rest["name"] + "</td><td>";
+    tableContent += "<tr onclick='return genReserve(" + i + ");'><td>" + rest["name"] + "</td><td>";
     let waitTime = rest["wait"];
     for (j = 0; j < waitTime; j++) {
-      tableContent += "<i class='fas fa-clock'></i>"
+      tableContent += "<span class='fas fa-clock'></span>"
     }
     for (j = 0; j < 5 - waitTime; j++) {
-      tableContent += '<i class="far fa-clock"></i>'
+      tableContent += '<span class="far fa-clock"></span>'
     }
     tableContent += "</td></tr>";
   }
@@ -133,8 +150,7 @@ function formWaitTimeList() {
 // Data is from Yelp. In the future this will be replace by Yelp AJAX call
 
 var exampleRestaurantList = {
-  "businesses": [
-    {
+  "businesses": [{
       "id": "JXRZqx7qpqmvMt5K10djAA",
       "alias": "chi-mac-seattle",
       "name": "Chi Mac",
@@ -142,8 +158,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/chi-mac-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 252,
-      "categories": [
-        {
+      "categories": [{
           "alias": "korean",
           "title": "Korean"
         },
@@ -191,12 +206,10 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/little-duck-seattle-2?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 3,
-      "categories": [
-        {
-          "alias": "chinese",
-          "title": "Chinese"
-        }
-      ],
+      "categories": [{
+        "alias": "chinese",
+        "title": "Chinese"
+      }],
       "rating": 5,
       "coordinates": {
         "latitude": 47.65707,
@@ -229,8 +242,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/yoroshiku-seattle-4?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 452,
-      "categories": [
-        {
+      "categories": [{
           "alias": "ramen",
           "title": "Ramen"
         },
@@ -279,8 +291,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/pomodoro-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 386,
-      "categories": [
-        {
+      "categories": [{
           "alias": "italian",
           "title": "Italian"
         },
@@ -326,8 +337,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/taste-of-xian-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 256,
-      "categories": [
-        {
+      "categories": [{
           "alias": "chinese",
           "title": "Chinese"
         },
@@ -375,8 +385,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/kedai-makan-seattle-4?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 678,
-      "categories": [
-        {
+      "categories": [{
           "alias": "malaysian",
           "title": "Malaysian"
         },
@@ -417,8 +426,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/thackeray-seattle-2?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 337,
-      "categories": [
-        {
+      "categories": [{
           "alias": "bars",
           "title": "Bars"
         },
@@ -459,8 +467,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/hanok-seattle-2?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 43,
-      "categories": [
-        {
+      "categories": [{
           "alias": "korean",
           "title": "Korean"
         },
@@ -500,8 +507,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/xian-noodles-seattle-3?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 583,
-      "categories": [
-        {
+      "categories": [{
           "alias": "chinese",
           "title": "Chinese"
         },
@@ -546,12 +552,10 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/manolin-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 417,
-      "categories": [
-        {
-          "alias": "seafood",
-          "title": "Seafood"
-        }
-      ],
+      "categories": [{
+        "alias": "seafood",
+        "title": "Seafood"
+      }],
       "rating": 4.5,
       "coordinates": {
         "latitude": 47.651215,
@@ -584,12 +588,10 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/mkt-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 288,
-      "categories": [
-        {
-          "alias": "newamerican",
-          "title": "American (New)"
-        }
-      ],
+      "categories": [{
+        "alias": "newamerican",
+        "title": "American (New)"
+      }],
       "rating": 4.5,
       "coordinates": {
         "latitude": 47.6686946,
@@ -622,8 +624,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/portage-bay-cafe-roosevelt-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 1997,
-      "categories": [
-        {
+      "categories": [{
           "alias": "newamerican",
           "title": "American (New)"
         },
@@ -670,8 +671,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/pair-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 215,
-      "categories": [
-        {
+      "categories": [{
           "alias": "newamerican",
           "title": "American (New)"
         },
@@ -716,12 +716,10 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/oaky-s-tex-mex-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 5,
-      "categories": [
-        {
-          "alias": "tex-mex",
-          "title": "Tex-Mex"
-        }
-      ],
+      "categories": [{
+        "alias": "tex-mex",
+        "title": "Tex-Mex"
+      }],
       "rating": 5,
       "coordinates": {
         "latitude": 47.62603,
@@ -753,8 +751,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/din-tai-fung-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 1945,
-      "categories": [
-        {
+      "categories": [{
           "alias": "taiwanese",
           "title": "Taiwanese"
         },
@@ -799,8 +796,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/bczhang-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 21,
-      "categories": [
-        {
+      "categories": [{
           "alias": "chinese",
           "title": "Chinese"
         },
@@ -840,8 +836,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/the-zouave-restaurant-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 179,
-      "categories": [
-        {
+      "categories": [{
           "alias": "italian",
           "title": "Italian"
         },
@@ -882,8 +877,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/kokkaku-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 71,
-      "categories": [
-        {
+      "categories": [{
           "alias": "newamerican",
           "title": "American (New)"
         },
@@ -930,8 +924,7 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/tapas-lab-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 83,
-      "categories": [
-        {
+      "categories": [{
           "alias": "tapasmallplates",
           "title": "Tapas/Small Plates"
         },
@@ -977,12 +970,10 @@ var exampleRestaurantList = {
       "is_closed": false,
       "url": "https://www.yelp.com/biz/tasty-seattle-2?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
       "review_count": 11,
-      "categories": [
-        {
-          "alias": "chinese",
-          "title": "Chinese"
-        }
-      ],
+      "categories": [{
+        "alias": "chinese",
+        "title": "Chinese"
+      }],
       "rating": 3.5,
       "coordinates": {
         "latitude": 47.66015,

@@ -39,8 +39,8 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="./img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-                    Food Only
+                    <img src="./img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="Icon">
+                    Only Food No Wait
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                     aria-label="Toggle Navigation Bar">
@@ -54,13 +54,13 @@
                             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Where are you?</a>
+                            <a class="nav-link" href="#location">Where are you?</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">What do you want eat?</a>
+                            <a class="nav-link" href="#map">What do you want eat?</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">How long do I need to wait?</a>
+                            <a class="nav-link" href="#reservation">Reserve a Table</a>
                         </li>
 
                     </ul>
@@ -77,65 +77,74 @@
                 <!--Here is either enter an location or use GPS location-->
                 <div class="jumbotron col-12">
                     <h1 class="display-6">
-                        <i class="fas fa-utensils"></i><br />
-                        Only Food<br /> <i class="fas fa-clock"></i><br /> No Wait</h1>
+                        <span class="fas fa-utensils"></span><br />
+                        Only Food<br /> <span class="fas fa-clock"></span><br /> No Wait</h1>
                     <p class="lead">Let's help you to enjoy food sooner!</p>
                 </div>
                 <hr class="my-1" />
             </div>
 
 
-            <div class="loc row">
-                <h4 class="control-label col-md-3 col-sm-10 ml-4 mr-4" for="waitLimit">How long can you wait?</h4>
-                <select id="waitLimit" name="waitLimit" class="form-control col-md-3 col-sm-10 mb-4 ml-4 mr-4" required>
-                    <option value="1">Less then 10 minutes</option>
-                    <option value="2">Less then 30 minutes</option>
-                    <option value="3">Less than 45 minutes</option>
-                    <option value="4">I have enough patience today.</option>
-                </select>
-                <div class="w-100">
-                    <hr class="my-2">
+            <div class="loc mt-4" id="location">
+                <div class="wrapper py-5 row">
+                    <h4 class="control-label col-md-6 col-sm-10 ml-4 mr-4 section-title col-lg-12" for="waitLimit">How
+                        long can you wait?</h4>
+                    <div class="button-group">
+                        <ul>
+                            <li class="btn btn-select m-2" onclick="return select(0);">Less then 10 minutes</li>
+                            <li class="btn btn-select m-2" onclick="return select(1);">Less then 30 minutes</li>
+                            <li class="btn btn-select m-2" onclick="return select(2);">Less than 45 Minutes</li>
+                            <li class="btn btn-select m-2" onclick="return select(3);">Less than 1 Hour</li>
+                            <li class="btn btn-select m-2" onclick="return select(4);">I have enough patience today.</li>
+                        </ul>
+                    </div>
+
+                    <div class="w-100">
+                        <hr class="my-2">
+                    </div>
+                    <a class="btn btn-success text-light btn-lg col-md-5 m-4 col-sm-10" onclick="return locateme();">Locate
+                        Me</a>
+                    <div class="w-100"></div>
+                    <input class="form-control col-md-6 col-sm-5 mx-4 ml-4" type="search" placeholder="Where do you want to eat?"
+                        aria-label="Search">
+                    <button class="btn btn-primary col-md-4  mx-4 mt-2 btn-lg col-sm-4" onclick="search()" id="searchLoc">Start
+                        Search</button>
                 </div>
-                <a class="btn btn-success btn-lg col-md-3 m-4 col-sm-10 text-light" onclick="return locateme();">Locate
-                    Me</a>
-                <div class="w-100"></div>
-                <input class="form-control col-md-6 col-sm-5 mx-4" type="search" placeholder="Where do you want to eat?"
-                    aria-label="Search">
-                <button class="btn btn-primary col-md-2  mx-4 mt-2 btn-lg col-sm-2" onclick="search()" id="searchLoc">Start
-                    Search</button>
             </div>
             <hr>
             <div class="row collapse map" id="map">
                 <div class="col">
-                    <h4>Restaurant Around You</h4>
+                    <h4 class=" section-title">Restaurant Around You</h4>
                 </div>
                 <div class="w-100"></div>
                 <div class="col">
-                    <div class="row">
-                        <button class="btn btn-light col" onclick="showMap()"><i class="fa fa-map-marked-alt mr-2"></i>Map
+                    <div class="row" id="nav-map">
+                        <button class="btn btn-light col" onclick="showMap()"><span class="fa fa-map-marked-alt mr-2"></span>Map
                             View</a>
-                            <button class="btn btn-dark col" onclick="showWait()"><i class="far fa-clock mr-2"></i>Waittime</a>
+                            <button class="btn btn-dark col" onclick="showWait()"><span class="far fa-clock mr-2"></span>Waittime</a>
                     </div>
                 </div>
                 <div class="w-100"></div>
 
                 <div class="col" id="restaurant">
-                    <div class="collapse show" id="mapView" data-parent="#restaurant">
-                        <div class="card card-body">
-                            <!--Here is the first Map to find the restaurant near me-->
-                            <div id="mainMap" class="mapBox"></div>
+                    <div class="row outter-wrap">
+                        <div class="collapse show col-md-12" id="mapView" data-parent="#restaurant">
+                            <div class="card card-body">
+                                <!--Here is the first Map to find the restaurant near me-->
+                                <div id="mainMap" class="mapBox"></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="collapse" id="waitView" data-parent="#restaurant">
-                        <div class="card card-body">
-                            <!--Wait time list-->
-                            <table class="waitTimeTable table table-striped" id="waitTimeTable">
-                                <tr>
-                                    <th>Restaurant Name</th>
-                                    <th>Current Wait time</th>
-                                </tr>
-                            </table>
+                        <div class="collapse col-md-12 overlay col-lg-5 col-lg-offset-5" id="waitView" data-parent="#restaurant">
+                            <div class="card card-body">
+                                <!--Wait time list-->
+                                <table class="waitTimeTable table table-striped" id="waitTimeTable">
+                                    <tr>
+                                        <th>Restaurant Name</th>
+                                        <th>Current Wait time</th>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,14 +153,25 @@
 
             </div>
 
-            <div class="row reservation collapse">
-                <div class="col select-restaurant">
-                    <h4>Restaurant Name</h4>
+            <div class="row reservation collapse mt-5 pb-5" id="reservation">
+                <div class="col select-restaurant pt-5">
+                    <h4 class="section-title">Restaurant Name</h4>
                 </div>
                 <div class="w-100"></div>
-                <div class="col no-reserve">
+                <div class="col no-reserve mt-3">
                     <h5>The restaurant does not accept any more reservation.</h5>
                     <small>The current wait time is over 1 Hour. You may add into the waitlist in store.</small>
+
+                    <hr class="my-4">
+                    <h5 class="section-title">Please Let us know the current wait time.</h5>
+                    <select id="updatewait" name="updatewait" class="form-control col-md-10 col-sm-10 mb-4" aria-label="Current Wait Time"
+                        required>
+                        <option value="1">Less then 10 minutes</option>
+                        <option value="2">Less then 30 minutes</option>
+                        <option value="3">Less than 45 minutes</option>
+                        <option value="4">More than an hour!</option>
+                    </select>
+                    <a class="btn btn-primary text-light" id="updateWait">Submit Update</a>
                 </div>
                 <div class="w-100"></div>
                 <div class="col reserve-success">
@@ -171,8 +191,8 @@
 
                         <!-- name-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">Your Name</label>
-                            <div class="col-md-4">
+                            <label class="col control-label" for="fullname">Your Name</label>
+                            <div class="col">
                                 <input id="fullname" name="fullname" type="text" placeholder="Enter Your Full Name"
                                     class="form-control input-md" required>
 
@@ -181,8 +201,8 @@
 
                         <!-- email-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="email">Your Email</label>
-                            <div class="col-md-4">
+                            <label class="col control-label" for="email">Your Email</label>
+                            <div class="col">
                                 <input id="email" name="email" type="email" placeholder="Enter Your Email" class="form-control input-md"
                                     required>
 
@@ -191,18 +211,18 @@
 
                         <!-- phone number-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="phone">Your Contact Number</label>
-                            <div class="col-md-4">
-                                <input id="phone" name="phone" type="tel" placeholder="Phone Number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-                                    class="form-control input-md" required>
-                                <span class="note">Format: 206123123</span>
+                            <label class="col control-label" for="phone">Your Contact Number</label>
+                            <div class="col">
+                                <input id="phone" name="phone" type="tel" placeholder="Phone Number Format: 206123123"
+                                    pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control input-md" required>
+
                             </div>
                         </div>
 
                         <!-- Select party size -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="size">Party Size</label>
-                            <div class="col-md-4">
+                            <label class="col  control-label" for="size">Party Size</label>
+                            <div class="col">
                                 <select id="size" name="size" class="form-control" required>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -221,8 +241,8 @@
 
                         <!-- Select arrival time-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="time">Time of Arrival</label>
-                            <div class="col-md-4">
+                            <label class="col control-label" for="time">Time of Arrival</label>
+                            <div class="col">
                                 <select id="time" name="time" class="form-control" required>
                                     <option value="1">3:30 PM</option>
                                     <option value="2">4:00 PM</option>
@@ -239,9 +259,10 @@
                                 </select>
                             </div>
                         </div>
-
+                        <button onclick="showReserveSuccess()" class="form-control btn btn-primary col" id="reserveBtn">Reserve
+                            Now</button>
                     </fieldset>
-                    <button onclick="showReserveSuccess()" class="form-control btn btn-primary">Reserve Now</button>
+
                 </form>
 
             </div>
@@ -262,16 +283,16 @@
                 <!--Social Links-->
                 <ul class="col-12 mt-1">
                     <li>
-                        <a href="#"> <i class="fab fa-twitter-square"></i></a>
+                        <a href="#"> <span class="fab fa-twitter-square"></span></a>
                     </li>
                     <li>
-                        <a href="#"> <i class="fab fa-facebook-square"></i></a>
+                        <a href="#"> <span class="fab fa-facebook-square"></span></a>
                     </li>
                     <li>
-                        <a href="#"> <i class="fab fa-google-plus-square"></i></a>
+                        <a href="#"> <span class="fab fa-google-plus-square"></span></a>
                     </li>
                     <li>
-                        <a href="#"> <i class="fab fa-instagram"></i></a>
+                        <a href="#"> <span class="fab fa-instagram"></span></a>
                     </li>
                 </ul>
 
