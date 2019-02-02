@@ -8,13 +8,20 @@ body {
     padding-top: 55px;
 }
 
+section img {
+    margin-left: 30%;
+}
+
+.navbar-brand img {
+    width: 30px;
+    height: 30px;
+}
+
 .navbar-brand {
     color: #d32323 !important;
 }
 
-section img {
-    margin-left: 30%;
-}
+
 
 .walkthrough {
     list-style: decimal;
@@ -30,7 +37,7 @@ p {
 }
 
 .title {
-    background-image: url(../img/food/head1.jpg);
+    background-image: url("../img/food/head1.jpg");
     background-position: center;
     background-size: cover;
     box-shadow: 0 14px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -171,8 +178,6 @@ a.btn-dark {
 
 }
 
-
-
 #waitView .card {
     height: 30rem;
     overflow: scroll;
@@ -269,8 +274,9 @@ a.btn-dark {
     height: 30rem;
 }
 
-.marker {
+.marker ,.mapMarker{
     text-decoration: underline;
+    cursor:pointer;
 }
 
 footer .container {
@@ -279,7 +285,10 @@ footer .container {
 }
 
 @media(min-width: 768px) {
-
+    #updatewait {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
 
     .loc h4,
     .loc select {
@@ -305,9 +314,6 @@ footer .container {
         margin-left: 15%;
     }
 
-    #updatewait {
-        margin-left: 3rem;
-    }
 }
 
 @media (min-width: 992px) {
@@ -336,16 +342,18 @@ footer .container {
         display: none;
     }
 
-    .outter-wrap #mapview,
-    .outter-wrap #waitView {
-        display: inherit !important;
-    }
+
 
     #waitView {
         padding: 0;
         margin-left: 55%;
         background-color: #d32323;
-        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+
+    .outter-wrap #mapview,
+    .outter-wrap #waitView {
+        display: inherit !important;
     }
 
     #waitView .card,
@@ -355,11 +363,6 @@ footer .container {
         width: 100%;
         border: none;
         padding: 0;
-    }
-
-    #updatewait{
-        margin-left:10%;
-        margin-right:10%;
     }
 
     #mapView {

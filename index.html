@@ -40,7 +40,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default fixed-top">
             <div class="container-fluid" role="navbar">
                 <a class="navbar-brand" href="#">
-                    <img src="./img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="Icon">
+                    <img src="./img/favicon.png" class="d-inline-block align-top" alt="Icon">
                     Only Food No Wait
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
@@ -87,28 +87,28 @@
 
 
             <div class="loc mt-4" id="location" role="selections">
-                <div class="wrapper py-5 row">
+                <div class="wrapper py-5 row" role="searchRestaurant">
                     <h4 class="control-label col-md-6 col-sm-10 ml-4 mr-4 section-title col-lg-12" for="waitLimit">How
                         long can you wait?</h4>
-                    <div class="button-group">
+                    <div class="button-group" role="selectWaitTime">
                         <ul>
-                            <li class="btn btn-select m-2" onclick="return select(0);">Less then 10 minutes</li>
-                            <li class="btn btn-select m-2" onclick="return select(1);">Less then 30 minutes</li>
-                            <li class="btn btn-select m-2" onclick="return select(2);">Less than 45 Minutes</li>
-                            <li class="btn btn-select m-2" onclick="return select(3);">Less than 1 Hour</li>
-                            <li class="btn btn-select m-2" onclick="return select(4);">I have enough patience today.</li>
+                            <li class="btn btn-select m-2" >Less then 10 minutes</li>
+                            <li class="btn btn-select m-2" >Less then 30 minutes</li>
+                            <li class="btn btn-select m-2" >Less than 45 Minutes</li>
+                            <li class="btn btn-select m-2" >Less than 1 Hour</li>
+                            <li class="btn btn-select m-2" >I have enough patience today.</li>
                         </ul>
                     </div>
 
                     <div class="w-100">
                         <hr class="my-2">
                     </div>
-                    <a class="btn btn-success text-light btn-lg col-md-5 m-4 col-sm-10" onclick="return locateme();">Locate
+                    <a class="btn btn-success text-light btn-lg col-md-5 m-4 col-sm-10" id="locateme" >Locate
                         Me</a>
                     <div class="w-100"></div>
                     <input class="form-control col-md-6 col-sm-5 mx-4 ml-4" type="search" placeholder="Where do you want to eat?"
                         aria-label="Search">
-                    <button class="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" onclick="search()" id="searchLoc">Start
+                    <button class="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" id="searchLoc">Start
                         Search</button>
                 </div>
             </div>
@@ -120,9 +120,9 @@
                 <div class="w-100"></div>
                 <div class="col">
                     <div class="row" id="nav-map">
-                        <button class="btn btn-light col" onclick="showMap()"><span class="fa fa-map-marked-alt mr-2"></span>Map
-                            View</a>
-                            <button class="btn btn-dark col" onclick="showWait()"><span class="far fa-clock mr-2"></span>Waittime</a>
+                        <button class="btn btn-light col" id="showmap" ><span class="fa fa-map-marked-alt mr-2"></span>Map
+                            View</button>
+                            <button class="btn btn-dark col" id="showwait" ><span class="far fa-clock mr-2"></span>Waittime</button>
                     </div>
                 </div>
                 <div class="w-100"></div>
@@ -260,7 +260,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button onclick="showReserveSuccess()" class="form-control form-group btn btn-primary " id="reserveBtn">Reserve
+                        <button class="form-control form-group btn btn-primary " id="reserveBtn">Reserve
                             Now</button>
                     </fieldset>
 

@@ -1,31 +1,66 @@
-var api_key = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A"
-var first_time = false;
-var onlywait = 5;
+var apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A"
+var firstTime = false;
+var i,j,L;
 
-function select(num) {
-  let button_group = document.getElementsByClassName("button-group")[0];
-  onlywait = num;
-  for (i = 0; i < button_group.children[0].children.length; i++) {
-    if (i == num) {
-      document.getElementsByClassName("button-group")[0].children[0].children[i].style = "background: #d32323;color:#fff;";
+function select(num){
+  var buttonGroup = document.getElementsByClassName("button-group")[0].children[0].children
+  for (j = 0; j < buttonGroup.length; j++) {
+    if (j == num) {
+      buttonGroup[j].style = "background: #d32323;color:#fff;";
     } else {
-      document.getElementsByClassName("button-group")[0].children[0].children[i].style = "background: #fff;color:#29445B;";
+      buttonGroup[j].style = "background: #fff;color:#29445B;";
     }
   }
-  return true;
 }
+$(document).ready(function(){
+  //Intial button/onclick events
+  var buttonGroup = document.getElementsByClassName("button-group")[0].children[0].children;
+  for (i=0;i<buttonGroup.length;i++){
+      buttonGroup[i].onclick = select.bind(this,i);
+  }
+  document.getElementById("showmap").onclick = function(){
+    $("#waitView").hide();
+    $("#mapView").show();
+  }
+  document.getElementById("showwait").onclick = function(){
+    $("#mapView").hide();
+    $("#waitView").show();
+  }
+  
+   document.getElementById("locateme").onclick = function() {
+    $("#map").show();
+    if (!firstTime) {
+      genMap();
+      formWaitTimeList();
+      firstTime = true;
+    }
+    var elmnt = document.getElementById("searchLoc");
+    elmnt.scrollIntoView();
+  }
+  
+  document.getElementById("searchLoc").onclick = function() {
+    $("#map").show();
+    if (!firstTime) {
+      genMap();
+      formWaitTimeList();
+      firstTime = true;
+    }
+    var elmnt = document.getElementById("searchLoc");
+    elmnt.scrollIntoView();
+  }
+
+  $("#reserveBtn").onlick = function() {
+    document.getElementById("reservation-form").setAttribute("style", "display:none;");
+    document.getElementsByClassName("reserve-success")[0].setAttribute("style", "display:inherit;");
+  }
+}); 
 
 function showReserve() {
   $(".reservation").show();
   document.getElementsByClassName("reservation")[0].scrollIntoView();
 }
-
-function showReserveSuccess() {
-  document.getElementById("reservation-form").setAttribute("style", "display:none;");
-  document.getElementsByClassName("reserve-success")[0].setAttribute("style", "display:inherit;");
-}
-
 function genReserve(id) {
+  console.log(id);
   document.getElementsByClassName('select-restaurant')[0].children[0].innerHTML = exampleRestaurantList["businesses"][id]["name"];
   var noreserve = document.getElementsByClassName("no-reserve")[0];
   var reserveSuccess = document.getElementsByClassName("reserve-success")[0];
@@ -40,51 +75,14 @@ function genReserve(id) {
   showReserve();
 }
 
-function showMap() {
-  $("#waitView").hide();
-  $("#mapView").show();
-}
-
-function showWait() {
-  $("#mapView").hide();
-  $("#waitView").show();
-}
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  }
-}
-
-function locateme() {
-  $("#map").show()
-  if (!first_time) {
-    genMap();
-    formWaitTimeList();
-    first_time = true;
-  }
-  var elmnt = document.getElementById("searchLoc");
-  elmnt.scrollIntoView();
-}
-
-function search() {
-  $("#map").show()
-  if (!first_time) {
-    genMap();
-    formWaitTimeList();
-    first_time = true;
-  }
-  var elmnt = document.getElementById("searchLoc");
-  elmnt.scrollIntoView();
-}
 
 function genMap() {
   var map = L.map('mainMap').setView([47.65671, -122.308914], 13);
-  let baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + api_key, {
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + apiKey, {
     maxZoom: 18,
     id: 'mapbox.light'
   }).addTo(map);
-  let restaurants = L.layerGroup(genRestLayer()).addTo(map);
+  L.layerGroup(genRestLayer()).addTo(map);
 }
 
 function genRestLayer() {
@@ -92,7 +90,7 @@ function genRestLayer() {
   for (i = 0; i < exampleRestaurantList["businesses"].length; i++) {
     let message = "";
     let rest = exampleRestaurantList["businesses"][i];
-    message += "<h4 class='marker' onclick='return genReserve(" + i + ");'>" + rest["name"] + "</h4><br>" +
+    message += "<h4 class='mapMarker' onclick='return genReserve("+i+");'>" + rest["name"] + "</h4><br>" +
       "Rating: " + rest['rating'].toString() + "/5.";
     if (rest["price"] != undefined) {
       message += "Price: " + rest["price"] + "<br>";
@@ -134,7 +132,7 @@ function formWaitTimeList() {
   var tableContent = "<thead><tr><th class='col'>Restaurant Name</th><th class='col'>Current Wait time</th></tr></thead><tbody>"
   for (i = 0; i < exampleRestaurantList["businesses"].length; i++) {
     let rest = exampleRestaurantList["businesses"][i];
-    tableContent += "<tr onclick='return genReserve(" + i + ");'><td>" + rest["name"] + "</td><td>";
+    tableContent += "<tr class='marker' id='marker" + i + "'><td>" + rest["name"] + "</td><td>";
     let waitTime = rest["wait"];
     for (j = 0; j < waitTime; j++) {
       tableContent += "<span class='fas fa-clock'></span>"
@@ -145,12 +143,20 @@ function formWaitTimeList() {
     tableContent += "</td></tr>";
   }
   waitTimeTable.innerHTML = tableContent + "</tbody>";
+
+  var markers = document.getElementsByClassName("marker");
+  for (i=0;i<markers.length;i++){
+    console.log(eval(markers[i].id.substring(6)));
+    markers[i].onclick = genReserve.bind(this,eval(markers[i].id.substring(6)));
+  }
 }
+
 
 // Data is from Yelp. In the future this will be replace by Yelp AJAX call
 
 var exampleRestaurantList = {
-  "businesses": [{
+  "businesses": [
+    {
       "id": "JXRZqx7qpqmvMt5K10djAA",
       "alias": "chi-mac-seattle",
       "name": "Chi Mac",
@@ -233,101 +239,6 @@ var exampleRestaurantList = {
       "phone": "",
       "display_phone": "",
       "distance": 1058.5349390607014
-    },
-    {
-      "id": "OYRdDA88AkyUlUmriMGWxw",
-      "alias": "yoroshiku-seattle-4",
-      "name": "Yoroshiku",
-      "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/boRbK85Pt-8AI62EX6J4Jw/o.jpg",
-      "is_closed": false,
-      "url": "https://www.yelp.com/biz/yoroshiku-seattle-4?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
-      "review_count": 452,
-      "categories": [{
-          "alias": "ramen",
-          "title": "Ramen"
-        },
-        {
-          "alias": "izakaya",
-          "title": "Izakaya"
-        },
-        {
-          "alias": "gastropubs",
-          "title": "Gastropubs"
-        }
-      ],
-      "rating": 4,
-      "coordinates": {
-        "latitude": 47.661275215696,
-        "longitude": -122.334412382889
-      },
-      "transactions": [
-        "delivery",
-        "pickup",
-        "restaurant_reservation"
-      ],
-      "price": "$$",
-      "location": {
-        "address1": "1913 N 45th St",
-        "address2": "",
-        "address3": "",
-        "city": "Seattle",
-        "zip_code": "98103",
-        "country": "US",
-        "state": "WA",
-        "display_address": [
-          "1913 N 45th St",
-          "Seattle, WA 98103"
-        ]
-      },
-      "phone": "+12065474649",
-      "display_phone": "(206) 547-4649",
-      "distance": 2398.7556045235037
-    },
-    {
-      "id": "RzOn1WEsHZ-vY5ZxyfOAkw",
-      "alias": "pomodoro-seattle",
-      "name": "Pomodoro",
-      "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/zq6dQR4Wm2tSyw52LNjufw/o.jpg",
-      "is_closed": false,
-      "url": "https://www.yelp.com/biz/pomodoro-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
-      "review_count": 386,
-      "categories": [{
-          "alias": "italian",
-          "title": "Italian"
-        },
-        {
-          "alias": "spanish",
-          "title": "Spanish"
-        },
-        {
-          "alias": "tapasmallplates",
-          "title": "Tapas/Small Plates"
-        }
-      ],
-      "rating": 4.5,
-      "coordinates": {
-        "latitude": 47.641699,
-        "longitude": -122.325672
-      },
-      "transactions": [],
-      "price": "$$",
-      "location": {
-        "address1": "2366 Eastlake Ave E",
-        "address2": "Ste 101",
-        "address3": "",
-        "city": "Seattle",
-        "zip_code": "98102",
-        "country": "US",
-        "state": "WA",
-        "display_address": [
-          "2366 Eastlake Ave E",
-          "Ste 101",
-          "Seattle, WA 98102"
-        ]
-      },
-      "phone": "+12063243160",
-      "display_phone": "(206) 324-3160",
-      "distance": 2251.7669841357347
     },
     {
       "id": "jzZatlgnWJfdTT_hY7NHLw",
@@ -709,214 +620,6 @@ var exampleRestaurantList = {
       "distance": 1608.6648077432742
     },
     {
-      "id": "1vaAQ_ragENqgcAWtC0T2g",
-      "alias": "oaky-s-tex-mex-seattle",
-      "name": "Oaky’s Tex Mex",
-      "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/kOxN_ANAQ2MjSixhHpVtZg/o.jpg",
-      "is_closed": false,
-      "url": "https://www.yelp.com/biz/oaky-s-tex-mex-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
-      "review_count": 5,
-      "categories": [{
-        "alias": "tex-mex",
-        "title": "Tex-Mex"
-      }],
-      "rating": 5,
-      "coordinates": {
-        "latitude": 47.62603,
-        "longitude": -122.36754
-      },
-      "transactions": [],
-      "location": {
-        "address1": "14147 Elliott Ave W",
-        "address2": null,
-        "address3": "",
-        "city": "Seattle",
-        "zip_code": "98119",
-        "country": "US",
-        "state": "WA",
-        "display_address": [
-          "14147 Elliott Ave W",
-          "Seattle, WA 98119"
-        ]
-      },
-      "phone": "",
-      "display_phone": "",
-      "distance": 5796.212875908077
-    },
-    {
-      "id": "ud5NuBZka9lVZdRlhQDrjQ",
-      "alias": "din-tai-fung-seattle",
-      "name": "Din Tai Fung",
-      "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/wqaerjGmExPpRDMNC3n6dQ/o.jpg",
-      "is_closed": false,
-      "url": "https://www.yelp.com/biz/din-tai-fung-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
-      "review_count": 1945,
-      "categories": [{
-          "alias": "taiwanese",
-          "title": "Taiwanese"
-        },
-        {
-          "alias": "shanghainese",
-          "title": "Shanghainese"
-        },
-        {
-          "alias": "dimsum",
-          "title": "Dim Sum"
-        }
-      ],
-      "rating": 4,
-      "coordinates": {
-        "latitude": 47.66164,
-        "longitude": -122.29921
-      },
-      "transactions": [],
-      "price": "$$",
-      "location": {
-        "address1": "2621 NE 46th St",
-        "address2": "",
-        "address3": "",
-        "city": "Seattle",
-        "zip_code": "98105",
-        "country": "US",
-        "state": "WA",
-        "display_address": [
-          "2621 NE 46th St",
-          "Seattle, WA 98105"
-        ]
-      },
-      "phone": "+12065250958",
-      "display_phone": "(206) 525-0958",
-      "distance": 752.1892806307555
-    },
-    {
-      "id": "lnhKk82pyocPND0lhwq-mQ",
-      "alias": "bczhang-seattle",
-      "name": "BCZhang",
-      "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/okpBQCVFkqyatl9jdLT44g/o.jpg",
-      "is_closed": false,
-      "url": "https://www.yelp.com/biz/bczhang-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
-      "review_count": 21,
-      "categories": [{
-          "alias": "chinese",
-          "title": "Chinese"
-        },
-        {
-          "alias": "creperies",
-          "title": "Creperies"
-        }
-      ],
-      "rating": 4.5,
-      "coordinates": {
-        "latitude": 47.6641,
-        "longitude": -122.31291
-      },
-      "transactions": [],
-      "location": {
-        "address1": "4730 University Way NE",
-        "address2": null,
-        "address3": "",
-        "city": "Seattle",
-        "zip_code": "98105",
-        "country": "US",
-        "state": "WA",
-        "display_address": [
-          "4730 University Way NE",
-          "Seattle, WA 98105"
-        ]
-      },
-      "phone": "+14256157905",
-      "display_phone": "(425) 615-7905",
-      "distance": 1170.626482095466
-    },
-    {
-      "id": "qznc7_yV0VEWtgO27ywhjA",
-      "alias": "the-zouave-restaurant-seattle",
-      "name": "The Zouave Restaurant",
-      "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/pt2sKXKpnX9KZEj1RqkpAg/o.jpg",
-      "is_closed": false,
-      "url": "https://www.yelp.com/biz/the-zouave-restaurant-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
-      "review_count": 179,
-      "categories": [{
-          "alias": "italian",
-          "title": "Italian"
-        },
-        {
-          "alias": "french",
-          "title": "French"
-        }
-      ],
-      "rating": 4.5,
-      "coordinates": {
-        "latitude": 47.6756232,
-        "longitude": -122.29875
-      },
-      "transactions": [],
-      "price": "$$",
-      "location": {
-        "address1": "2615 NE 65th St",
-        "address2": "",
-        "address3": "",
-        "city": "Seattle",
-        "zip_code": "98115",
-        "country": "US",
-        "state": "WA",
-        "display_address": [
-          "2615 NE 65th St",
-          "Seattle, WA 98115"
-        ]
-      },
-      "phone": "+12065257747",
-      "display_phone": "(206) 525-7747",
-      "distance": 2274.043246804022
-    },
-    {
-      "id": "44OpjjkNgtgbYR92p3xNBQ",
-      "alias": "kokkaku-seattle",
-      "name": "Kokkaku",
-      "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/Wn6ModXmN_9JyKseZWgs9w/o.jpg",
-      "is_closed": false,
-      "url": "https://www.yelp.com/biz/kokkaku-seattle?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
-      "review_count": 71,
-      "categories": [{
-          "alias": "newamerican",
-          "title": "American (New)"
-        },
-        {
-          "alias": "japanese",
-          "title": "Japanese"
-        },
-        {
-          "alias": "steak",
-          "title": "Steakhouses"
-        }
-      ],
-      "rating": 4,
-      "coordinates": {
-        "latitude": 47.66163,
-        "longitude": -122.33202
-      },
-      "transactions": [
-        "restaurant_reservation"
-      ],
-      "price": "$$$",
-      "location": {
-        "address1": "2208 N 45th St",
-        "address2": "",
-        "address3": null,
-        "city": "Seattle",
-        "zip_code": "98103",
-        "country": "US",
-        "state": "WA",
-        "display_address": [
-          "2208 N 45th St",
-          "Seattle, WA 98103"
-        ]
-      },
-      "phone": "+12065881568",
-      "display_phone": "(206) 588-1568",
-      "distance": 2242.5371939733873
-    },
-    {
       "id": "RS-Hlsx7k90m5QODHDs5Cg",
       "alias": "tapas-lab-seattle",
       "name": "Tapas Lab",
@@ -961,48 +664,6 @@ var exampleRestaurantList = {
       "phone": "+12067751744",
       "display_phone": "(206) 775-1744",
       "distance": 3084.009400144351
-    },
-    {
-      "id": "6iuWZvByyyILVV7ADo_GQg",
-      "alias": "tasty-seattle-2",
-      "name": "Tasty",
-      "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/nr-_rxS7j4ECm_yiie1CCQ/o.jpg",
-      "is_closed": false,
-      "url": "https://www.yelp.com/biz/tasty-seattle-2?adjust_creative=30c9RjJvoxPpDEtA6bPhLA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=30c9RjJvoxPpDEtA6bPhLA",
-      "review_count": 11,
-      "categories": [{
-        "alias": "chinese",
-        "title": "Chinese"
-      }],
-      "rating": 3.5,
-      "coordinates": {
-        "latitude": 47.66015,
-        "longitude": -122.3134
-      },
-      "transactions": [],
-      "location": {
-        "address1": "4311 University Way NE",
-        "address2": "",
-        "address3": null,
-        "city": "Seattle",
-        "zip_code": "98105",
-        "country": "US",
-        "state": "WA",
-        "display_address": [
-          "4311 University Way NE",
-          "Seattle, WA 98105"
-        ]
-      },
-      "phone": "",
-      "display_phone": "",
-      "distance": 908.617776145585
     }
-  ],
-  "total": 2700,
-  "region": {
-    "center": {
-      "longitude": -122.30358123779297,
-      "latitude": 47.65543269087674
-    }
-  }
+  ]
 }
