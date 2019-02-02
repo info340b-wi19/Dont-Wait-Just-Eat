@@ -78,13 +78,13 @@ p {
 }
 
 .loc {
-    background: url("../img/waiting.jpg") center no-repeat !important;
+    background: url("../img/waiting_1.jpeg") center no-repeat !important;
     background-size: cover;
 
 }
 
 .loc .wrapper {
-    background-color: rgba(255, 255, 255, .7);
+    background-color: rgba(255, 255, 255, .8);
 }
 
 
@@ -278,8 +278,8 @@ footer .container {
     margin-right: 0;
 }
 
-
 @media(min-width: 768px) {
+
 
     .loc h4,
     .loc select {
@@ -345,6 +345,7 @@ footer .container {
         padding: 0;
         margin-left: 55%;
         background-color: #d32323;
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     }
 
     #waitView .card,
@@ -354,6 +355,11 @@ footer .container {
         width: 100%;
         border: none;
         padding: 0;
+    }
+
+    #updatewait{
+        margin-left:10%;
+        margin-right:10%;
     }
 
     #mapView {
@@ -371,7 +377,7 @@ footer .container {
     }
 
     .reservation-form button {
-        margin: 0 20%;
+        margin: 0 20% 0 20%;
     }
 
     .waitTimeTable tbody tr,

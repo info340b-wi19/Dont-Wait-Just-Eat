@@ -7,6 +7,7 @@
     <meta name="author" content="Ramon Qu">
     <meta name="description" content="Seattle Foodie Map">
     <meta name="keywords" content="info340,foodie,map,restaurant,waittime">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no ,user-scalable=1">
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous">
@@ -30,24 +31,24 @@
     <!--Custome JS-->
     <script src="./js/main.js"></script>
     <link rel="icon" type="image/png" href="./img/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default fixed-top">
-            <div class="container-fluid">
+            <div class="container-fluid" role="navbar">
                 <a class="navbar-brand" href="#">
                     <img src="./img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="Icon">
                     Only Food No Wait
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                     aria-label="Toggle Navigation Bar">
-                    <span class="fa fa-bars"></span>
+                    <span class="fa fa-bars" role="menu"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="phoneNav">
+                <div class="collapse navbar-collapse" id="phoneNav" role="phoneNavBar">
 
                     <ul class="navbar-nav nav navbar-right">
                         <li class="nav-item active">
@@ -71,21 +72,21 @@
 
     </header>
     <main>
-        <div class="container-fluid">
+        <div class="container-fluid" role="main">
 
-            <div class="title row">
+            <div class="title row" role="Location">
                 <!--Here is either enter an location or use GPS location-->
-                <div class="jumbotron col-12">
+                <div class="jumbotron col-12" role="title">
                     <h1 class="display-6">
-                        <span class="fas fa-utensils"></span><br />
-                        Only Food<br /> <span class="fas fa-clock"></span><br /> No Wait</h1>
+                        <span class="fas fa-utensils" role="icon"></span><br />
+                        Only Food<br /> <span class="fas fa-clock" role="icon"></span><br /> No Wait</h1>
                     <p class="lead">Let's help you to enjoy food sooner!</p>
                 </div>
                 <hr class="my-1" />
             </div>
 
 
-            <div class="loc mt-4" id="location">
+            <div class="loc mt-4" id="location" role="selections">
                 <div class="wrapper py-5 row">
                     <h4 class="control-label col-md-6 col-sm-10 ml-4 mr-4 section-title col-lg-12" for="waitLimit">How
                         long can you wait?</h4>
@@ -107,7 +108,7 @@
                     <div class="w-100"></div>
                     <input class="form-control col-md-6 col-sm-5 mx-4 ml-4" type="search" placeholder="Where do you want to eat?"
                         aria-label="Search">
-                    <button class="btn btn-primary col-md-4  mx-4 mt-2 btn-lg col-sm-4" onclick="search()" id="searchLoc">Start
+                    <button class="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" onclick="search()" id="searchLoc">Start
                         Search</button>
                 </div>
             </div>
@@ -259,7 +260,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button onclick="showReserveSuccess()" class="form-control btn btn-primary col" id="reserveBtn">Reserve
+                        <button onclick="showReserveSuccess()" class="form-control form-group btn btn-primary " id="reserveBtn">Reserve
                             Now</button>
                     </fieldset>
 
@@ -268,31 +269,26 @@
             </div>
 
 
-            <div class="row">
-                <!--Here is to reserve in line or add a wait time-->
-
-
-            </div>
         </div>
     </main>
     <footer>
-        <div class="container mt-5">
+        <div class="container mt-5" role="footer">
 
-            <div class="copyright pt-3 row">
+            <div class="copyright pt-3 row" role="social links">
 
                 <!--Social Links-->
                 <ul class="col-12 mt-1">
                     <li>
-                        <a href="#"> <span class="fab fa-twitter-square"></span></a>
+                        <a href="#" aria-label="Twitter"> <span class="fab fa-twitter-square"></span></a>
                     </li>
                     <li>
-                        <a href="#"> <span class="fab fa-facebook-square"></span></a>
+                        <a href="#" aria-label="Facebook"> <span class="fab fa-facebook-square"></span></a>
                     </li>
                     <li>
-                        <a href="#"> <span class="fab fa-google-plus-square"></span></a>
+                        <a href="#" aria-label="Google Plus"> <span class="fab fa-google-plus-square"></span></a>
                     </li>
                     <li>
-                        <a href="#"> <span class="fab fa-instagram"></span></a>
+                        <a href="#" aria-label="instagram"> <span class="fab fa-instagram"></span></a>
                     </li>
                 </ul>
 
