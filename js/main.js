@@ -3,7 +3,7 @@ var firstTime = false;
 var i,j,L;
 
 function select(num){
-  var buttonGroup = document.getElementsByClassName("button-group")[0].children[0].children
+  var buttonGroup = $(".button-group")[0].children[0].children
   for (j = 0; j < buttonGroup.length; j++) {
     if (j == num) {
       buttonGroup[j].style = "background: #d32323;color:#fff;";
@@ -14,62 +14,61 @@ function select(num){
 }
 $(document).ready(function(){
   //Intial button/onclick events
-  var buttonGroup = document.getElementsByClassName("button-group")[0].children[0].children;
+  var buttonGroup = $(".button-group")[0].children[0].children;
   for (i=0;i<buttonGroup.length;i++){
       buttonGroup[i].onclick = select.bind(this,i);
   }
-  document.getElementById("showmap").onclick = function(){
+  $("#showmap").click(()=>{
     $("#waitView").hide();
     $("#mapView").show();
-  }
-  document.getElementById("showwait").onclick = function(){
+  });
+  $("#showwait").click(()=>{
     $("#mapView").hide();
     $("#waitView").show();
-  }
+  });
   
-   document.getElementById("locateme").onclick = function() {
+   $("#locateme").click(()=>{
     $("#map").show();
     if (!firstTime) {
       genMap();
       formWaitTimeList();
       firstTime = true;
     }
-    var elmnt = document.getElementById("searchLoc");
+    var elmnt = $("#searchLoc");
     elmnt.scrollIntoView();
-  }
+  });
   
-  document.getElementById("searchLoc").onclick = function() {
+  $("#searchLoc").click (()=>{
     $("#map").show();
     if (!firstTime) {
       genMap();
       formWaitTimeList();
       firstTime = true;
     }
-    var elmnt = document.getElementById("searchLoc");
+    var elmnt = $("#searchLoc");
     elmnt.scrollIntoView();
-  }
+  });
 
-  $("#reserveBtn").onlick = function() {
-    document.getElementById("reservation-form").setAttribute("style", "display:none;");
-    document.getElementsByClassName("reserve-success")[0].setAttribute("style", "display:inherit;");
-  }
+  $("#reserveBtn").click(()=> {
+    $("#reservation-form").attr("style", "display:none;");
+    $(".reserve-success")[0].attr("style", "display:inherit;");
+  })
 }); 
 
 function showReserve() {
   $(".reservation").show();
-  document.getElementsByClassName("reservation")[0].scrollIntoView();
+  $(".reservation")[0].scrollIntoView();
 }
 function genReserve(id) {
-  console.log(id);
-  document.getElementsByClassName('select-restaurant')[0].children[0].innerHTML = exampleRestaurantList["businesses"][id]["name"];
-  var noreserve = document.getElementsByClassName("no-reserve")[0];
-  var reserveSuccess = document.getElementsByClassName("reserve-success")[0];
+  $('.select-restaurant')[0].children[0].innerHTML = exampleRestaurantList["businesses"][id]["name"];
+  var noreserve = $(".no-reserve")[0];
+  var reserveSuccess = $(".reserve-success")[0];
   reserveSuccess.setAttribute("style", "display:none;")
   if (exampleRestaurantList["businesses"][id]["wait"] < 4) {
     noreserve.setAttribute("style", "display:none;");
-    document.getElementById("reservation-form").setAttribute("style", "display:inherit;");
+    $("#reservation-form").setAttribute("style", "display:inherit;");
   } else {
-    document.getElementById("reservation-form").setAttribute("style", "display:none;");
+    $("#reservation-form").setAttribute("style", "display:none;");
     noreserve.setAttribute("style", "display:inherit;");
   }
   showReserve();
@@ -128,7 +127,7 @@ function parseWaitTime(min) {
 }
 
 function formWaitTimeList() {
-  var waitTimeTable = document.getElementById("waitTimeTable");
+  var waitTimeTable = $("#waitTimeTable");
   var tableContent = "<thead><tr><th class='col'>Restaurant Name</th><th class='col'>Current Wait time</th></tr></thead><tbody>"
   for (i = 0; i < exampleRestaurantList["businesses"].length; i++) {
     let rest = exampleRestaurantList["businesses"][i];
@@ -144,7 +143,7 @@ function formWaitTimeList() {
   }
   waitTimeTable.innerHTML = tableContent + "</tbody>";
 
-  var markers = document.getElementsByClassName("marker");
+  var markers = $(".marker");
   for (i=0;i<markers.length;i++){
     console.log(eval(markers[i].id.substring(6)));
     markers[i].onclick = genReserve.bind(this,eval(markers[i].id.substring(6)));
