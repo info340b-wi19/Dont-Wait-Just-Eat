@@ -11,6 +11,12 @@ body {
 section img {
     margin-left: 30%;
 }
+#indicatorContainer{
+    margin-left: calc(35vw);
+    margin-top: calc(35vh);
+    width: 240px !important;
+    height: 240px !important;
+}
 #button_error{
     color: #d32323;
     text-align: center;

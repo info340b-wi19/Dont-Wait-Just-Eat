@@ -8,6 +8,63 @@ var RestaurantList = {};
 var search_location = "University_of_Washington";
 var map;
 var selected;
+var view;
+
+
+class myView{
+  constructor(){
+    this.state = "init";
+  }
+  switch(name){
+    this.state = name;
+    this.render();
+  }
+  render(){
+    switch (this.state) {
+      case "init":
+        $(".reservation").hide();
+        $("#map").hide();
+        $("#location")[0].scrollIntoView();
+        break;
+      case "map":
+        $(".reservation").hide();
+        $("#map").show();
+        $("#searchLoc")[0].scrollIntoView();
+        break;
+      case "reserve":
+        $(".reservation").show();
+        $("#map").show();
+        $(".reservation")[0].scrollIntoView();
+        break;
+    }
+  }
+
+
+
+}
+
+
+
+function loading(){
+
+  document.getElementById("overlay").style.display = "block";
+  var radialObj = $('#indicatorContainer');
+  radialObj.html("");
+  radialObj.radialIndicator({
+    barColor: '#87CEEB',
+    barWidth: 10,
+    initValue: 0,
+    roundCorner : true,
+    percentage: true,
+    displayNumber:false,
+    frameTime:1
+  });
+  radialObj.animate(60);
+}
+function finish_loading(){
+  document.getElementById("overlay").style.display = "none";
+}
+
 
 function searchRest(){
   if (navigator.geolocation) {
@@ -23,7 +80,7 @@ function searchRest(){
   }
 }
 function reloadMapList(){
-  $("#map").show();
+
   if (!firstTime) {
     genMap();
     formWaitTimeList();
@@ -32,7 +89,7 @@ function reloadMapList(){
     refreshMap();
     formWaitTimeList();
   }
-  $("#searchLoc")[0].scrollIntoView();
+  view.switch("map");
 }
 
 
@@ -49,6 +106,7 @@ function select(num){
   }
 }
 $(document).ready(function(){
+  view = new myView();
   $("#locateme").attr("style","display:none;");
   searchRest();
   //Intial button/onclick events
@@ -71,6 +129,8 @@ $(document).ready(function(){
      if(selected === undefined){
        $("#button_error").text("Please select a wait time.");
      }else {
+       view.switch("init");
+       loading();
        getYelpData(false);
      }
    }
@@ -84,22 +144,23 @@ $(document).ready(function(){
         $("#button_error").text("Please enter a valid location");
       }else {
         $("#button_error").text("");
+        view.switch("init");
         search_location = $("#search_place").val();
+        loading();
         getYelpData(true);
       }
     }
   }
   );
-
-  $("#reserveBtn").click(()=> {
+$("#reservation-form").on("submit",(e)=> {
+    e.preventDefault();
     $("#reservation-form").attr("style", "display:none;");
     $(".reserve-success").attr("style", "display:inherit;");
   })
-}); 
+});
 
 function showReserve() {
-  $(".reservation").show();
-  $(".reservation")[0].scrollIntoView();
+  view.switch("reserve");
 }
 function genReserve(id) {
   $('.select-restaurant')[0].children[0].innerHTML = RestaurantList[id]["name"];
@@ -128,8 +189,9 @@ function genMap() {
 }
 
 function refreshMap(){
-  map.off();
-  map.remove();
+  $("#MapWrapper").html("");
+  $("#MapWrapper").append($("<div id=\"mainMap\" class=\"mapBox\"></div>"));
+  map = L.map('mainMap').setView([lat, long], 13);
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + apiKey, {
     maxZoom: 18,
     id: 'mapbox.light'
@@ -211,53 +273,36 @@ function formWaitTimeList() {
   }
 }
 
-function getYelpData(useLoc){
+function getYelpData(useLoc) {
   let url = "https://cors-anywhere.herokuapp.com/http://api.yelp.com/v3/businesses/search?open_now=true&term=restaurant";
   //Because Yelp API blocked the CORS from front end directly, has to use this trick to call this api from front-end
-    if (useLoc){
-        url += "&location="+search_location;
-    }else{
-        url += "&latitude="+lat+"&longitude="+long;
-    }
+  if (useLoc) {
+    url += "&location=" + search_location;
+  } else {
+    url += "&latitude=" + lat + "&longitude=" + long;
+  }
   var settings = {
     "async": true,
     "crossDomain": true,
     url: url,
     method: "GET",
     headers: {
-      "Authorization": "Bearer "+ apikey2
+      "Authorization": "Bearer " + apikey2
     }
   };
-  
+
   $.ajax(settings).done(function (response) {
     RestaurantList = response;
-    for (i=0;i<RestaurantList["businesses"].length;i++){
+    for (i = 0; i < RestaurantList["businesses"].length; i++) {
       getWaitTime(i);
     }
     RestaurantList = RestaurantList["businesses"].filter(rest => rest.wait <= selected);
 
     reloadMapList();
+    finish_loading();
   });
-
-
-
-  function loading(){
-    document.getElementById("overlay").style.display = "block";
-    $('#indicatorContainer').radialIndicator({
-      barColor: '#87CEEB',
-      barWidth: 10,
-      initValue: 0,
-      roundCorner : true,
-      percentage: true,
-      displayNumber:false,
-      frameTime:1
-    });
-  }
-  function finish_loading(){
-    document.getElementById("overlay").style.display = "none";
-  }
-
 }
+
 
 
 

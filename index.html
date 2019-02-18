@@ -22,7 +22,9 @@
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
     <!--Bootstrap JS-->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
             integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
             crossorigin="anonymous"></script>
@@ -162,7 +164,7 @@
             <div class="col" id="restaurant">
                 <div class="row outter-wrap">
                     <div class="collapse show col-md-12" id="mapView" data-parent="#restaurant">
-                        <div class="card card-body">
+                        <div class="card card-body" id="MapWrapper">
                             <!--Here is the first Map to find the restaurant near me-->
                             <div id="mainMap" class="mapBox"></div>
                         </div>
@@ -216,7 +218,7 @@
             </div>
             <div class="w-100"></div>
             <!--Here is to view the restaurant reservation and so on-->
-            <form class="form-horizontal col" id="reservation-form">
+            <form class="form-horizontal col" id="reservation-form" method="get">
                 <fieldset>
                     <!-- Form Name -->
                     <h4>
@@ -294,7 +296,7 @@
                             </select>
                         </div>
                     </div>
-                    <button class="form-control form-group btn btn-primary " id="reserveBtn">Reserve
+                    <button class="form-control form-group btn btn-primary" type="submit" id="reserveBtn">Reserve
                         Now
                     </button>
                 </fieldset>
@@ -333,7 +335,7 @@
             </div>
             <div class="w-100 my-1"></div>
             <p class="col-12"> © Copyright 2019 Yiren Qu </p>
-            <p class="col-12 pb-3">All Rights Reserved</p>
+            <p class="col-12 pb-3">All Rights Reserved. Data is from <a href="yelp.com">Yelp.com</a></p>
         </div>
 
 
