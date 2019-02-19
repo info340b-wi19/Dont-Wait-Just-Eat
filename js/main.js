@@ -1,3 +1,4 @@
+
 var apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A"
 var apikey2 = "0LKzxfI8zGQo_E4vxANgZOo6ybyHbiJrWlz_p13-MWWL1ONkjODBDTPTry3uzntUrh6nDB7H5wsZlp7DzFXh4lWbiFvdXYpm5uITu9MK-RoJD-doRfbBav7qhBhrXHYx"
 var firstTime = false;
@@ -5,7 +6,7 @@ var i,j,L;
 var lat = 47.65671;
 var long =  -122.308914;
 var RestaurantList = {};
-var search_location = "University_of_Washington";
+var searchLocation = "University_of_Washington";
 var map;
 var selected;
 var view;
@@ -61,7 +62,7 @@ function loading(){
   });
   radialObj.animate(60);
 }
-function finish_loading(){
+function finishLoading(){
   document.getElementById("overlay").style.display = "none";
 }
 
@@ -145,7 +146,7 @@ $(document).ready(function(){
       }else {
         $("#button_error").text("");
         view.switch("init");
-        search_location = $("#search_place").val();
+        searchLocation = $("#search_place").val();
         loading();
         getYelpData(true);
       }
@@ -277,7 +278,7 @@ function getYelpData(useLoc) {
   let url = "https://cors-anywhere.herokuapp.com/http://api.yelp.com/v3/businesses/search?open_now=true&term=restaurant";
   //Because Yelp API blocked the CORS from front end directly, has to use this trick to call this api from front-end
   if (useLoc) {
-    url += "&location=" + search_location;
+    url += "&location=" + searchLocation;
   } else {
     url += "&latitude=" + lat + "&longitude=" + long;
   }
@@ -299,7 +300,7 @@ function getYelpData(useLoc) {
     RestaurantList = RestaurantList["businesses"].filter(rest => rest.wait <= selected);
 
     reloadMapList();
-    finish_loading();
+    finishLoading();
   });
 }
 
