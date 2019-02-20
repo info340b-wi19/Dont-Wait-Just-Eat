@@ -45,7 +45,7 @@ class myView{
 function loading(){
   document.getElementById("overlay").style.display = "block";
   $('#indicatorContainer').html("");
-  var radialObj = radialIndicator('#indicatorContainer', {
+  var radialObj = $('#indicatorContainer').radialIndicator({
     radius: 60,
     barWidth: 10,
     barColor: '#343a40',
@@ -58,8 +58,8 @@ function loading(){
 });
 timer = setInterval(function () {
 	value += 5;
-	if(value > 100){value = 0};
-    radialObj.value(value);
+	if(value > 100){value = 0;}
+    radialObj.data('radialIndicator').value(value);
 }, 50);
 }
 function finishLoading(){
@@ -76,7 +76,7 @@ function searchRest(){
       $("#locateme").attr("style","display:block;");
     },()=>{
       $("#locateme").attr("style","display:none;");
-    }, {timeout: 5000});
+    });
   } else {
     $("#locateme").attr("style","display:none;");
   }
