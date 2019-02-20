@@ -10,7 +10,8 @@ var searchLocation = "University_of_Washington";
 var map;
 var selected;
 var view;
-
+var timer;
+var value = 0;
 
 class myView{
   constructor(){
@@ -39,31 +40,31 @@ class myView{
         break;
     }
   }
-
-
-
 }
 
-
-
 function loading(){
-
   document.getElementById("overlay").style.display = "block";
-  var radialObj = $('#indicatorContainer');
-  radialObj.html("");
-  radialObj.radialIndicator({
-    barColor: '#87CEEB',
+  $('#indicatorContainer').html("");
+  var radialObj = radialIndicator('#indicatorContainer', {
+    radius: 60,
     barWidth: 10,
+    barColor: '#343a40',
+    minValue: 0,
+    maxValue: 100,
     initValue: 0,
+    fontWeight: 'normal',
     roundCorner : true,
-    percentage: true,
-    displayNumber:false,
-    frameTime:1
-  });
-  radialObj.animate(60);
+    displayNumber:false
+});
+timer = setInterval(function () {
+	value += 5;
+	if(value > 100){value = 0};
+    radialObj.value(value);
+}, 50);
 }
 function finishLoading(){
   document.getElementById("overlay").style.display = "none";
+  clearInterval(timer);
 }
 
 
@@ -124,6 +125,11 @@ $(document).ready(function(){
     $("#mapView").hide();
     $("#waitView").show();
   });
+
+  $("#updateWait").click(()=>{
+    $(".reserve-update").attr("style","display:inherit;");
+    $(".no-reserve").attr("style","display:none;");
+  });
   
   //register locate Me event
    $("#locateme").click(()=>{
@@ -147,6 +153,7 @@ $(document).ready(function(){
         $("#button_error").text("");
         view.switch("init");
         searchLocation = $("#search_place").val();
+        $("#search_place").val("");
         loading();
         getYelpData(true);
       }
@@ -160,6 +167,7 @@ $("#reservation-form").on("submit",(e)=> {
   })
 });
 
+
 function showReserve() {
   view.switch("reserve");
 }
@@ -168,6 +176,7 @@ function genReserve(id) {
   var noreserve = $(".no-reserve");
   var reserveSuccess = $(".reserve-success");
   reserveSuccess.attr("style", "display:none;");
+  $(".reserve-update").attr("style","display:none");
   if (RestaurantList[id]["wait"] < 4) {
     noreserve.attr("style", "display:none;");
     $("#reservation-form").attr("style", "display:inherit;");

@@ -197,7 +197,7 @@ a.btn-dark {
 }
 
 .no-reserve,
-.reserve-success {
+.reserve-success,.reserve-update {
     text-align: center;
 
 }
