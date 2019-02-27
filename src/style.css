@@ -62,7 +62,7 @@ p {
 }
 
 .title {
-    background-image: url("../img/food/head1.jpg");
+    background-image: url("/img/food/head1.jpg");
     background-position: center;
     background-size: cover;
     box-shadow: 0 14px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -110,7 +110,7 @@ p {
 }
 
 .loc {
-    background: url("../img/waiting_1.jpeg") center no-repeat !important;
+    background: url("/img/waiting_1.jpeg") center no-repeat !important;
     background-size: cover;
 
 }
@@ -274,7 +274,7 @@ a.btn-dark {
     max-height: 100px;
     height: 100px;
     overflow: hidden;
-    background: url("../img/copyright.jpg");
+    background: url("/img/copyright.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
