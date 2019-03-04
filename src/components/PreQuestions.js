@@ -8,8 +8,8 @@ export default class PreQuestions extends Component{
         this.state ={
             data : this.props.data
         }
-        this.onDataChange = (data, view)=>{
-            this.props.onDataChange(data, view);
+        this.onDataChange = (data, view, pos)=>{
+            this.props.onDataChange(data, view,pos);
         }
     }
     render(){
@@ -59,18 +59,21 @@ class Form extends Component{
             searchLocation : "University_of_Washington",
             locateme:false,
             selectedIndex: -1,
-            data:this.props.data
+            data:this.props.data,
+            view:"init"
         };
-        this.onDataChange=(data, view)=>{
-            this.props.onDataChange(data, view);
+        this.onDataChange=(data, view, pos)=>{
+            this.props.onDataChange(data, view, pos);
         }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position)=>{
+                console.log(position.coords.latitude+ " "+position.coords.longitude)
                 this.setState({
                     lat : position.coords.latitude,
                     long :  position.coords.longitude,
                     locateme : true
                 });
+                this.onDataChange(this.state.data, this.state.view, [this.state.lat,this.state.long, this.state.searchLocation])
             },()=>{
                 this.setState({
                     locateme : false
@@ -133,9 +136,10 @@ class Form extends Component{
           }
         this.setState({
             error:"",
-            data: RestaurantList
+            data: RestaurantList,
+            view:"map"
                         })
-        this.onDataChange(RestaurantList, "map");
+        this.onDataChange(RestaurantList, "map", [this.state.lat,this.state.long, this.state.searchLocation]);
     }
 
     getYelpData() {

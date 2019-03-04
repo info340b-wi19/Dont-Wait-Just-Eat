@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import PreQuestions from './components/PreQuestions';
-import Map from './components/Map';
+import MapView from './components/Map';
 import Reservation from './components/Reservation';
 
 export default class App extends Component {
@@ -11,15 +11,18 @@ export default class App extends Component {
     super();
     this.state={
       data : {},
-      view : "init"
+      view : "init", 
+      pos:[]
     }
     this.mapRef = React.createRef();
-    this.onDataChange = (data, view)=>{
+    this.onDataChange = (data, view, pos)=>{
       console.log(view);
       this.setState({
         data: data,
-         view:view
+         view:view,
+         pos:pos
         });
+      
     }
   }
 
@@ -34,7 +37,7 @@ export default class App extends Component {
       <div class="container-fluid" role="main">
       <PreQuestions data={this.state.data} onDataChange={this.onDataChange.bind(this)}/>
       <hr />
-      <Map ref={this.mapRef} data={this.state.data} view={this.state.view} onDataChange={this.onDataChange.bind(this)} />
+      {this.state.view == "map"?<MapView ref={this.mapRef} data={this.state.data} pos={this.state.pos} onDataChange={this.onDataChange.bind(this)} />:<div />}
       <Reservation data={this.state.data} view={this.state.view} onDataChange={this.onDataChange.bind(this)}/>
       </div>
       </main>

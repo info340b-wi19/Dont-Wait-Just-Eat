@@ -8,6 +8,11 @@ body {
     padding-top: 55px;
 }
 
+.leaflet-container {
+    height:100%;
+    width: 100%;
+    margin: 0 auto;
+  }
 .selected{
     background: #d32323 !important;
     color:#fff !important;
