@@ -67,20 +67,6 @@ function finishLoading(){
   clearInterval(timer);
 }
 
-
-function searchRest(){
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position)=>{
-      lat = position.coords.latitude;
-      long = position.coords.longitude;
-      $("#locateme").attr("style","display:block;");
-    },()=>{
-      $("#locateme").attr("style","display:none;");
-    });
-  } else {
-    $("#locateme").attr("style","display:none;");
-  }
-}
 function reloadMapList(){
 
   if (!firstTime) {
@@ -95,18 +81,6 @@ function reloadMapList(){
 }
 
 
-function select(num){
-  $("#button_error").text("");
-  selected = num;
-  const buttonGroup = $(".button-group")[0].children[0].children;
-  for (j = 0; j < buttonGroup.length; j++) {
-    if (j === num) {
-      buttonGroup[j].style = "background: #d32323;color:#fff;";
-    } else {
-      buttonGroup[j].style = "background: #fff;color:#29445B;";
-    }
-  }
-}
 $(document).ready(function(){
   view = new myView();
   $("#locateme").attr("style","display:none;");

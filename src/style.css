@@ -8,9 +8,24 @@ body {
     padding-top: 55px;
 }
 
+.selected{
+    background: #d32323 !important;
+    color:#fff !important;
+    cursor: pointer !important;
+}
+.not-selected{
+    background: #fff !important;
+    color:#29445B !important;
+    cursor: pointer !important;
+}
+
 section img {
     margin-left: 30%;
 }
+.w-100{
+    opacity:0;
+}
+
 #indicatorContainer{
     margin-left: calc(35vw);
     margin-top: calc(35vh);
