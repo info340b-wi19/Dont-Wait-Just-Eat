@@ -8,8 +8,8 @@ export default class PreQuestions extends Component{
         this.state ={
             data : this.props.data
         }
-        this.onDataChange = (data)=>{
-            this.props.onDataChange(data);
+        this.onDataChange = (data, view)=>{
+            this.props.onDataChange(data, view);
         }
     }
     render(){
@@ -61,8 +61,8 @@ class Form extends Component{
             selectedIndex: -1,
             data:this.props.data
         };
-        this.onDataChange=(data)=>{
-            this.props.onDataChange(data);
+        this.onDataChange=(data, view)=>{
+            this.props.onDataChange(data, view);
         }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position)=>{
@@ -125,7 +125,6 @@ class Form extends Component{
     }
 
     async successCallback(response){
-        console.log("ss");
         var RestaurantList = await response.json();
         for (var i = 0; i < RestaurantList["businesses"].length; i++) {
             let rand = Math.floor(Math.random() * 2 * 60) + 1;
@@ -136,7 +135,7 @@ class Form extends Component{
             error:"",
             data: RestaurantList
                         })
-        this.onDataChange(RestaurantList);
+        this.onDataChange(RestaurantList, "map");
     }
 
     getYelpData() {

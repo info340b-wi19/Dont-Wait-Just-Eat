@@ -212,18 +212,7 @@ function genRestLayer() {
   return restaurant;
 }
 
-function getWaitTime(rest) {
-  /* For now, the wait time (0 minute - 2 hour) would be random number betwene 1- 5 */
-  let rand = Math.floor(Math.random() * 2 * 60) + 1;
-  rand = parseWaitTime(rand);
-  RestaurantList["businesses"][rest]["wait"] = rand;
-  return rand
-}
 
-function parseWaitTime(min) {
-  /*Input a time between 0 minute  - 120 minutes and return number of wait icon */
-  return Math.round(min / 120.0 * 5).toString();
-}
 
 function formWaitTimeList() {
   let waitTimeTable = $("#waitTimeTable");

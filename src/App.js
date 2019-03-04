@@ -10,14 +10,19 @@ export default class App extends Component {
   constructor(){
     super();
     this.state={
-      data : {}
+      data : {},
+      view : "init"
     }
-    this.onDataChange = (data)=>{
-      console.log(data);
-      this.setState({data: data});
+    this.mapRef = React.createRef();
+    this.onDataChange = (data, view)=>{
+      console.log(view);
+      this.setState({
+        data: data,
+         view:view
+        });
     }
-
   }
+
   render() {
     return (
       <React.Fragment>
@@ -29,8 +34,8 @@ export default class App extends Component {
       <div class="container-fluid" role="main">
       <PreQuestions data={this.state.data} onDataChange={this.onDataChange.bind(this)}/>
       <hr />
-      <Map data={this.state.data} onDataChange={this.onDataChange.bind(this)}/>
-      <Reservation data={this.state.data} onDataChange={this.onDataChange.bind(this)}/>
+      <Map ref={this.mapRef} data={this.state.data} view={this.state.view} onDataChange={this.onDataChange.bind(this)} />
+      <Reservation data={this.state.data} view={this.state.view} onDataChange={this.onDataChange.bind(this)}/>
       </div>
       </main>
       <footer>

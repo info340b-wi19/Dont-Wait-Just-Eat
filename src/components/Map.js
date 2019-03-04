@@ -3,9 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export default class Map extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            view: this.props.view
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({ view: nextProps.view });  
+      }
+
     render(){
         return(
-            <div className="row collapse map" id="map">
+            <div className={this.state.view==="map"?"row map":"row map collapse"} id="map">
             <div className="col">
                 <h4 className=" section-title">Restaurant Around You</h4>
             </div>
@@ -42,8 +52,6 @@ export default class Map extends Component{
                     </div>
                 </div>
             </div>
-
-
         </div>
         )
     }
