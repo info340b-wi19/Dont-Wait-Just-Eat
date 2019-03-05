@@ -12,7 +12,8 @@ export default class App extends Component {
     this.state={
       data : {},
       view : "init", 
-      pos:[]
+      pos:[],
+      selectedRest:-1
     }
     this.mapRef = React.createRef();
     this.onDataChange = (data, view, pos)=>{
@@ -22,7 +23,11 @@ export default class App extends Component {
          view:view,
          pos:pos
         });
-      
+    };
+    this.onReserveChange= (index) =>{
+      this.setState({
+        selectedRest: index
+      })
     }
   }
 
@@ -37,8 +42,10 @@ export default class App extends Component {
       <div class="container-fluid" role="main">
       <PreQuestions data={this.state.data} onDataChange={this.onDataChange.bind(this)}/>
       <hr />
-      {this.state.view == "map"?<MapView ref={this.mapRef} data={this.state.data} pos={this.state.pos} onDataChange={this.onDataChange.bind(this)} />:<div />}
-      <Reservation data={this.state.data} view={this.state.view} onDataChange={this.onDataChange.bind(this)}/>
+      {this.state.view === "map" ||this.state.view ==='reservation' ?<MapView ref={this.mapRef} data={this.state.data} pos={this.state.pos} 
+            onDataChange={this.onDataChange.bind(this)} 
+            onReserveChange={this.onReserveChange.bind(this)}/>:<></>}
+      {this.state.view === "reservation"?<Reservation data={this.state.data} onDataChange={this.onDataChange.bind(this)}/> :<></>}
       </div>
       </main>
       <footer>

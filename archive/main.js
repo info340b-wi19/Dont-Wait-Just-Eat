@@ -83,13 +83,7 @@ function reloadMapList(){
 
 $(document).ready(function(){
   view = new myView();
-  $("#locateme").attr("style","display:none;");
-  searchRest();
-  //Intial button/onclick events
-  const buttonGroup = $(".button-group")[0].children[0].children;
-  for (i=0;i<buttonGroup.length;i++){
-      buttonGroup[i].onclick = select.bind(this,i);
-  }
+
 //register map and wait list button events
   $("#showmap").click(()=>{
     $("#waitView").hide();
@@ -104,18 +98,6 @@ $(document).ready(function(){
     $(".reserve-update").attr("style","display:inherit;");
     $(".no-reserve").attr("style","display:none;");
   });
-  
-  //register locate Me event
-   $("#locateme").click(()=>{
-     if(selected === undefined){
-       $("#button_error").text("Please select a wait time.");
-     }else {
-       view.switch("init");
-       loading();
-       getYelpData(false);
-     }
-   }
-  );
   
   $("#searchLoc").click (()=>{
     if(selected === undefined){
@@ -162,119 +144,7 @@ function genReserve(id) {
 }
 
 
-function genMap() {
-  //TODO: Add reverse GeoCoding to reset the map view.
-  map = L.map('mainMap').setView([lat, long], 13);
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + apiKey, {
-    maxZoom: 18,
-    id: 'mapbox.light'
-  }).addTo(map);
-  L.layerGroup(genRestLayer()).addTo(map);
-}
 
-function refreshMap(){
-  $("#MapWrapper").html("");
-  $("#MapWrapper").append($("<div id=\"mainMap\" class=\"mapBox\"></div>"));
-  map = L.map('mainMap').setView([lat, long], 13);
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + apiKey, {
-    maxZoom: 18,
-    id: 'mapbox.light'
-  }).addTo(map);
-  L.layerGroup(genRestLayer()).addTo(map);
-}
-
-function genRestLayer() {
-  let restaurant = [];
-  for (i = 0; i < RestaurantList.length; i++) {
-    let message = "";
-    let rest = RestaurantList[i];
-    message += "<h4 class='mapMarker' onclick='return genReserve("+i+");'>" + rest["name"] + "</h4><br>" +
-      "Rating: " + rest['rating'].toString() + "/5.";
-    if (rest["price"] !== undefined) {
-      message += "Price: " + rest["price"] + "<br>";
-    } else {
-      message += "<br>";
-    }
-    message +="Wait Time: ";
-    let waitTime = rest["wait"];
-    for (j = 0; j < waitTime; j++) {
-      message += "<span class='fas fa-clock mr-1'></span>"
-    }
-    for (j = 0; j < 5 - waitTime; j++) {
-      message += '<span class="far fa-clock mr-1"></span>'
-    }
-    message += "<br></div>"
-    restaurant.push(L.marker([rest["coordinates"]["latitude"], rest["coordinates"]["longitude"]]).bindPopup(
-      message
-    ))
-
-  }
-  return restaurant;
-}
-
-
-
-function formWaitTimeList() {
-  let waitTimeTable = $("#waitTimeTable");
-  waitTimeTable.empty();
-  waitTimeTable.append($("<thead><tr><th class='col'>Restaurant Name</th><th class='col'>Current Wait time</th></tr></thead>"));
-  let tableContent = $("<tbody></tbody>");
-  for (i = 0; i < RestaurantList.length; i++) {
-    let rest = RestaurantList[i];
-    let tr = $("<tr></tr>");
-    tr.addClass("marker");
-    tr.attr("id","marker" + i);
-    let td = $("<td></td>");
-    td.text(rest["name"]);
-    tr.append(td);
-    td = $("<td></td>");
-    let waitTime = rest["wait"];
-    for (j = 0; j < waitTime; j++) {
-     td.append($("<span class='fas fa-clock'></span>"));
-    }
-    for (j = 0; j < 5 - waitTime; j++) {
-      td.append($('<span class="far fa-clock"></span>'));
-    }
-    tr.append(td);
-    tableContent.append(tr);
-  }
-  waitTimeTable.append(tableContent);
-
-  let markers = $(".marker");
-  for (i=0;i<markers.length;i++){
-    markers[i].onclick = genReserve.bind(this,eval(markers[i].id.substring(6)));
-  }
-}
-
-function getYelpData(useLoc) {
-  let url = "https://cors-anywhere.herokuapp.com/http://api.yelp.com/v3/businesses/search?open_now=true&term=restaurant";
-  //Because Yelp API blocked the CORS from front end directly, has to use this trick to call this api from front-end
-  if (useLoc) {
-    url += "&location=" + searchLocation;
-  } else {
-    url += "&latitude=" + lat + "&longitude=" + long;
-  }
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    url: url,
-    method: "GET",
-    headers: {
-      "Authorization": "Bearer " + apikey2
-    }
-  };
-
-  $.ajax(settings).done(function (response) {
-    RestaurantList = response;
-    for (i = 0; i < RestaurantList["businesses"].length; i++) {
-      getWaitTime(i);
-    }
-    RestaurantList = RestaurantList["businesses"].filter(rest => rest.wait <= selected);
-
-    reloadMapList();
-    finishLoading();
-  });
-}
 
 
 
