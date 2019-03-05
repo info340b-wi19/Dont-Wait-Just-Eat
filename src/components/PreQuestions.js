@@ -7,7 +7,7 @@ export default class PreQuestions extends Component{
         super(props);
         this.state ={
             data : this.props.data
-        }
+        };
         this.onDataChange = (data, view, pos)=>{
             this.props.onDataChange(data, view,pos);
         }
@@ -16,7 +16,7 @@ export default class PreQuestions extends Component{
         return ( 
             <div>        
             <TitleRow />
-            <Form data={this.state.data} onDataChange={this.onDataChange.bind(this)}/>
+            <Form data={this.state.data} onDataChange={this.onDataChange.bind(this)} onSetLoading={this.props.onSetLoading}/>
             </div>
         )
     }
@@ -122,10 +122,12 @@ class Form extends Component{
     }
 
     searchloc(){
+        this.props.onSetLoading(true);
+        setTimeout(()=>{}, 5000);
         if(this.state.selectedIndex==-1){
             this.setState({error:"Please select a wait time."});
         }else{
-            
+            try{
             fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+this.state.searchLocation+".json?access_token="+
                 this.apiKey).then(async(response)=>{
                     const res = await response.json();
@@ -135,49 +137,88 @@ class Form extends Component{
                         locateme : false
                     });
                     this.onDataChange(this.state.data, this.state.view, [res.features[0].center[1],res.features[0].center[0], this.state.searchLocation]);
-                    this.getYelpData(this.state.searchLocation);
+                    this.getYelpData();
+
                 }, (e)=>{
                     this.setState({error:"Please Try Another Location, Please."})
+                    this.props.onSetLoading(false);
                 });
+            }catch(e){
+                this.setState({error:"Please Enter a Valid Location."})
+                this.props.onSetLoading(false);
+            }
             
         }
+        
     }
 
 
     locateme(){
+        this.props.onSetLoading(true);
         if(this.state.selectedIndex==-1){
             this.setState({error:"Please select a wait time."});
         }else{
-            this.getYelpData();
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position)=>{
+                    console.log(position.coords.latitude+ " "+position.coords.longitude)
+                    this.setState({
+                        lat : position.coords.latitude,
+                        long :  position.coords.longitude,
+                        locateme : true
+                    });
+                    this.onDataChange(this.state.data, this.state.view, [this.state.lat,this.state.long, this.state.searchLocation]);
+                    this.getYelpData();
+                },()=>{
+                    this.setState({
+                        locateme : false
+                    });
+                    this.props.onSetLoading(false);
+                })
+              } else {
+                this.setState({
+                    locateme : false
+                });
+                this.props.onSetLoading(false);
+              };
+            
         }
     }
 
     async successCallback(response){
         var RestaurantList = await response.json();
+        if(RestaurantList["businesses"].length === 0){
+            this.setState({error:"No Restaurant Found, Pleace check another location."})
+        }else{
         for (var i = 0; i < RestaurantList["businesses"].length; i++) {
             let rand = Math.floor(Math.random() * 2 * 60) + 1;
             rand = Math.round(rand / 120.0 * 5).toString();
             RestaurantList["businesses"][i]["wait"] = rand;
           }
+        let data = RestaurantList.businesses.filter(item => eval(item.wait)<=this.state.selectedIndex)
+        RestaurantList.businesses = data;
+        if (RestaurantList.businesses.length === 0){
+            this.setState({error:"No Restaurant Found, Pleace change search query."})
+        }else{
+        
         this.setState({
             error:"",
             data: RestaurantList,
             view:"map"
                         })
         this.onDataChange(RestaurantList, "map", [this.state.lat,this.state.long, this.state.searchLocation]);
+                    }
+        }
+        this.props.onSetLoading(false);
+        
     }
 
-    getYelpData(searchLocation) {
-        if(typeof(searchLocation)==='undefined'){
-            searchLocation = "University_of_Washington"
+    getYelpData() {
+        if(this.state.lat === undefined || this.state.long === undefined){
+            this.setState({error:"Please Enter an Valid Location."})
         }
         let url = "https://cors-anywhere.herokuapp.com/http://api.yelp.com/v3/businesses/search?open_now=true&term=restaurant";
         //Because Yelp API blocked the CORS from front end directly, has to use this trick to call this api from front-end
-        if (!this.state.locateme) {
-          url += "&location=" + searchLocation.replace(" ","_");
-        } else {
-          url += "&latitude=" + this.state.lat + "&longitude=" + this.state.long;
-        }
+        url += "&latitude=" + this.state.lat + "&longitude=" + this.state.long;
         fetch(url, {
             headers:{
                 "Authorization": "Bearer " + this.apikey2
@@ -187,6 +228,7 @@ class Form extends Component{
             credentials: 'same-origin'
             }).then((response)=>{this.successCallback(response)}, function(e){
                 this.setState({error:"Please Try Again Later."});
+                this.props.onSetLoading(false);
             } );
       }
 }

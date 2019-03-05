@@ -30,12 +30,8 @@ section img {
 .w-100{
     opacity:0;
 }
-
-#indicatorContainer{
-    margin-left: calc(35vw);
-    margin-top: calc(35vh);
-    width: 240px !important;
-    height: 240px !important;
+#locateme{
+    cursor:pointer;
 }
 #button_error{
     color: #d32323;
@@ -45,7 +41,6 @@ section img {
 }
 #overlay{
     position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
     top: 0;

@@ -16,7 +16,9 @@
     "react-a11y": "^1.1.0",
     "react-dom": "^16.8.3",
     "react-leaflet": "^2.2.1",
+    "react-loader-spinner": "^2.3.0",
     "react-scripts": "2.1.5",
+    "react-scroll-to-component": "^1.0.2",
     "reactstrap": "^7.1.0",
     "typescript": "^3.3.3333",
     "whatwg-fetch": "^3.0.0"

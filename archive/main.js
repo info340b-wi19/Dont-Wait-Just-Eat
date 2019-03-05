@@ -67,19 +67,6 @@ function finishLoading(){
   clearInterval(timer);
 }
 
-function reloadMapList(){
-
-  if (!firstTime) {
-    genMap();
-    formWaitTimeList();
-    firstTime = true;
-  }else{
-    refreshMap();
-    formWaitTimeList();
-  }
-  view.switch("map");
-}
-
 
 $(document).ready(function(){
   view = new myView();
