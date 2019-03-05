@@ -5,7 +5,7 @@ export default class Reservation extends Component{
     render(){
         return(
             <React.Fragment>
-            <div className="row reservation collapse mt-5 pb-5" id="reservation">
+            <div className="row reservation mt-5 pb-5" id="reservation">
             <div className="col select-restaurant pt-5">
                 <h4 className="section-title">Restaurant Name</h4>
             </div>

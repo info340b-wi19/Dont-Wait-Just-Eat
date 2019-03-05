@@ -51,12 +51,13 @@ class Form extends Component{
                 selectedIndex: index
               });
         }
+        this.apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A";
         this.apikey2 = "0LKzxfI8zGQo_E4vxANgZOo6ybyHbiJrWlz_p13-MWWL1ONkjODBDTPTry3uzntUrh6nDB7H5wsZlp7DzFXh4lWbiFvdXYpm5uITu9MK-RoJD-doRfbBav7qhBhrXHYx"
         this.state ={
             error:"",
             lat : 47.65671,
             long :  -122.308914,
-            searchLocation : "University_of_Washington",
+            searchLocation : "University of Washington",
             locateme:false,
             selectedIndex: -1,
             data:this.props.data,
@@ -86,8 +87,6 @@ class Form extends Component{
           };
     }
 
-          
-
     render(){
         return(
             <div className="loc mt-4" id="location" role="selections">
@@ -110,14 +109,40 @@ class Form extends Component{
                 <input className="form-control col-md-6 col-sm-5 mx-4 ml-4" type="search"
                        placeholder="Where do you want to eat?"
                        aria-label="Search"
-                       id="search_place" />
-                <button className="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" id="searchLoc">Start
+                       id="search_place" 
+                       value={this.state.searchLocation}
+                       onChange={(e)=>this.setState({searchLocation:e.target.value})}
+                       />
+                <button className="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" id="searchLoc" onClick={()=>this.searchloc(this)}>Start
                     Search
                 </button>
             </div>
         </div>
         )
     }
+
+    searchloc(){
+        if(this.state.selectedIndex==-1){
+            this.setState({error:"Please select a wait time."});
+        }else{
+            
+            fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+this.state.searchLocation+".json?access_token="+
+                this.apiKey).then(async(response)=>{
+                    const res = await response.json();
+                    this.setState({
+                        lat : res.features[0].center[1],
+                        long :  res.features[0].center[0],
+                        locateme : false
+                    });
+                    this.onDataChange(this.state.data, this.state.view, [res.features[0].center[1],res.features[0].center[0], this.state.searchLocation]);
+                    this.getYelpData(this.state.searchLocation);
+                }, (e)=>{
+                    this.setState({error:"Please Try Another Location, Please."})
+                });
+            
+        }
+    }
+
 
     locateme(){
         if(this.state.selectedIndex==-1){
@@ -142,11 +167,14 @@ class Form extends Component{
         this.onDataChange(RestaurantList, "map", [this.state.lat,this.state.long, this.state.searchLocation]);
     }
 
-    getYelpData() {
+    getYelpData(searchLocation) {
+        if(typeof(searchLocation)==='undefined'){
+            searchLocation = "University_of_Washington"
+        }
         let url = "https://cors-anywhere.herokuapp.com/http://api.yelp.com/v3/businesses/search?open_now=true&term=restaurant";
         //Because Yelp API blocked the CORS from front end directly, has to use this trick to call this api from front-end
         if (!this.state.locateme) {
-          url += "&location=" + this.state.searchLocation;
+          url += "&location=" + searchLocation.replace(" ","_");
         } else {
           url += "&latitude=" + this.state.lat + "&longitude=" + this.state.long;
         }
