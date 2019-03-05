@@ -45,7 +45,7 @@ export default class App extends Component {
       {this.state.view === "map" ||this.state.view ==='reservation' ?<MapView ref={this.mapRef} data={this.state.data} pos={this.state.pos} 
             onDataChange={this.onDataChange.bind(this)} 
             onReserveChange={this.onReserveChange.bind(this)}/>:<></>}
-      {this.state.view === "reservation"?<Reservation data={this.state.data} onDataChange={this.onDataChange.bind(this)}/> :<></>}
+      {this.state.view === "reservation"?<Reservation data={this.state.data} selectedRest={this.state.selectedRest} onDataChange={this.onDataChange.bind(this)}/> :<></>}
       </div>
       </main>
       <footer>
