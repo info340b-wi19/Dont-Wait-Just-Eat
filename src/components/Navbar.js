@@ -4,8 +4,19 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 //TODO: - import bootstrap and add the collapse function
 
 export default class NavBar extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {collapse: true};
+        this.isClick = this.isClick.bind(this);
+
+    }
+    isClick() {
+        this.setState({collapse: !this.state.collapse});
+    }
     render(){
+        let className = "collapse navbar-collapse";
       return(
+ 
         <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-default fixed-top">
         <div className="container-fluid" role="navbar">
             <a className="navbar-brand" href="#">
@@ -13,11 +24,11 @@ export default class NavBar extends Component{
                 Only Food No Wait
             </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-                    aria-label="Toggle Navigation Bar">
+                    aria-label="Toggle Navigation Bar " onClick = {this.isClick}> 
                 <FontAwesomeIcon icon={faBars} />
             </button>
   
-            <div className="collapse navbar-collapse" id="phoneNav" role="phoneNavBar">
+            <div className={this.state.collapse ? className: className + " show"} id="phoneNav" role="phoneNavBar">
   
                 <ul className="navbar-nav nav navbar-right">
                     <li className="nav-item active">
