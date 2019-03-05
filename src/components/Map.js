@@ -9,7 +9,7 @@ export default class MapView extends Component{
         super(props);
         this.apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A";
         console.log(this.props.pos);
-        if (this.props.pos[0] == undefined || this.props.pos[1] == undefined){
+        if (this.props.pos[0] === undefined || this.props.pos[1] === undefined){
             this.state={
                 pos:[47.65671,-122.308914,"University_of_Washington"],
                 data:this.props.data,
@@ -27,6 +27,14 @@ export default class MapView extends Component{
         }
         this.onReserveChange = (index)=>{
             this.props.onReserveChange(index);
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.pos !== this.state.pos ||nextProps.data !== this.state.data  ){
+            this.setState({
+                pos: nextProps.pos,
+                data:nextProps.data,
+            })
         }
     }
 
@@ -75,10 +83,9 @@ export default class MapView extends Component{
                 <tr key={item.name} className="marker" onClick={()=>this.onSelected(item.id)}>
                     <td>{item.name}</td>
                     <td> {this.genIcons(item.wait)}</td>
-
                 </tr>)
         )
-            }
+    }
 
     onChangeView(view){
         this.setState({
@@ -113,8 +120,9 @@ export default class MapView extends Component{
                             <Map center={[this.state.pos[0],this.state.pos[1]]} zoom={13}>
         <TileLayer
             url={'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='+this.apiKey}
-            attribution={"&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}
+            attribution={""}
             maxZoom= {18}
+            minZoom={10}
             id= {'mapbox.light'}
         />
         {this.genRestLayer()}

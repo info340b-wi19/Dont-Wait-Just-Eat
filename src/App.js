@@ -25,6 +25,7 @@ export default class App extends Component {
         });
     };
     this.onReserveChange= (index) =>{
+      console.log(index);
       this.setState({
         selectedRest: index
       })
