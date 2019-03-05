@@ -7,7 +7,7 @@ export default class PreQuestions extends Component{
         super(props);
         this.state ={
             data : this.props.data
-        }
+        };
         this.onDataChange = (data, view, pos)=>{
             this.props.onDataChange(data, view,pos);
         }
@@ -16,7 +16,7 @@ export default class PreQuestions extends Component{
         return ( 
             <div>        
             <TitleRow />
-            <Form data={this.state.data} onDataChange={this.onDataChange.bind(this)}/>
+            <Form data={this.state.data} onDataChange={this.onDataChange.bind(this)} onSetLoading={this.props.onSetLoading}/>
             </div>
         )
     }
@@ -122,6 +122,8 @@ class Form extends Component{
     }
 
     searchloc(){
+        this.props.onSetLoading(true);
+        setTimeout(()=>{}, 5000);
         if(this.state.selectedIndex==-1){
             this.setState({error:"Please select a wait time."});
         }else{
@@ -136,18 +138,23 @@ class Form extends Component{
                     });
                     this.onDataChange(this.state.data, this.state.view, [res.features[0].center[1],res.features[0].center[0], this.state.searchLocation]);
                     this.getYelpData();
+
                 }, (e)=>{
                     this.setState({error:"Please Try Another Location, Please."})
+                    this.props.onSetLoading(false);
                 });
             }catch(e){
                 this.setState({error:"Please Enter a Valid Location."})
+                this.props.onSetLoading(false);
             }
             
         }
+        
     }
 
 
     locateme(){
+        this.props.onSetLoading(true);
         if(this.state.selectedIndex==-1){
             this.setState({error:"Please select a wait time."});
         }else{
@@ -165,11 +172,13 @@ class Form extends Component{
                     this.setState({
                         locateme : false
                     });
+                    this.props.onSetLoading(false);
                 })
               } else {
                 this.setState({
                     locateme : false
                 });
+                this.props.onSetLoading(false);
               };
             
         }
@@ -199,6 +208,7 @@ class Form extends Component{
         this.onDataChange(RestaurantList, "map", [this.state.lat,this.state.long, this.state.searchLocation]);
                     }
         }
+        this.props.onSetLoading(false);
         
     }
 
@@ -218,6 +228,7 @@ class Form extends Component{
             credentials: 'same-origin'
             }).then((response)=>{this.successCallback(response)}, function(e){
                 this.setState({error:"Please Try Again Later."});
+                this.props.onSetLoading(false);
             } );
       }
 }
