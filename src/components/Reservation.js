@@ -11,6 +11,11 @@ export default class Reservation extends Component {
     update(){
         this.setState({success:true});
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.selectedRest!==this.props.selectedRest){
+          this.setState({success: false });
+        }
+      }
     render() {
         let list = this.props.data.businesses;
         let selRes = _.find(list, ['id',this.props.selectedRest]);
