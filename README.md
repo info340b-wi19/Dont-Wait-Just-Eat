@@ -6,7 +6,7 @@ This repository contains code for an interactive bootstraped React web app.
 
 ### The site can be viewed at <https://foodie-map-b331b.firebaseapp.com>
 
-![](./img/waiting.jpg)
+![](./src/img/waiting.jpg)
 
 In our project, we are looking into problems about waiting in line in restaurants. In Seattle, there are a lot of famous restaurants.
 
