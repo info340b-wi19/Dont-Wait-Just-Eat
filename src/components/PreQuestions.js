@@ -68,7 +68,6 @@ class Form extends Component{
         }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position)=>{
-                console.log(position.coords.latitude+ " "+position.coords.longitude)
                 this.setState({
                     lat : position.coords.latitude,
                     long :  position.coords.longitude,
@@ -89,11 +88,11 @@ class Form extends Component{
 
     render(){
         return(
-            <div className="loc mt-4" id="location" role="selections">
-            <div className="wrapper py-5 row" role="searchRestaurant">
+            <div className="loc mt-4" id="location">
+            <div className="wrapper py-5 row" >
                 <h4 className="control-label col-md-6 col-sm-10 ml-4 mr-4 section-title col-lg-12" htmlFor="waitLimit">How
                     long can you wait?</h4>
-                <div className="button-group" role="selectWaitTime">
+                <div className="button-group">
                     <ButtonGroup selectedIndex={this.state.selectedIndex} onChange={this.change.bind(this)}/>
                 </div>
 
@@ -123,14 +122,18 @@ class Form extends Component{
 
     searchloc(){
         this.props.onSetLoading(true);
-        setTimeout(()=>{}, 5000);
         if(this.state.selectedIndex==-1){
             this.setState({error:"Please select a wait time."});
+            this.props.onSetLoading(false);
         }else{
             try{
             fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+this.state.searchLocation+".json?access_token="+
                 this.apiKey).then(async(response)=>{
                     const res = await response.json();
+                    if (res.features.length==0){
+                        this.setState({error:"Please Try Another Location, Please."})
+                        this.props.onSetLoading(false);
+                    }else{
                     this.setState({
                         lat : res.features[0].center[1],
                         long :  res.features[0].center[0],
@@ -138,6 +141,7 @@ class Form extends Component{
                     });
                     this.onDataChange(this.state.data, this.state.view, [res.features[0].center[1],res.features[0].center[0], this.state.searchLocation]);
                     this.getYelpData();
+                }
 
                 }, (e)=>{
                     this.setState({error:"Please Try Another Location, Please."})
@@ -187,7 +191,8 @@ class Form extends Component{
     async successCallback(response){
         var RestaurantList = await response.json();
         if(RestaurantList["businesses"].length === 0){
-            this.setState({error:"No Restaurant Found, Pleace check another location."})
+            this.setState({error:"No Restaurant Found, Pleace check another location."});
+            this.props.onSetLoading(false);
         }else{
         for (var i = 0; i < RestaurantList["businesses"].length; i++) {
             let rand = Math.floor(Math.random() * 2 * 60) + 1;
@@ -197,7 +202,8 @@ class Form extends Component{
         let data = RestaurantList.businesses.filter(item => eval(item.wait)<=this.state.selectedIndex)
         RestaurantList.businesses = data;
         if (RestaurantList.businesses.length === 0){
-            this.setState({error:"No Restaurant Found, Pleace change search query."})
+            this.setState({error:"No Restaurant Found, Pleace change search query."});
+            this.props.onSetLoading(false);
         }else{
         
         this.setState({
@@ -251,7 +257,7 @@ class ButtonGroup extends Component{
         return(
             <li className={this.state.selectedIndex===index?"btn btn-select m-2 selected":"btn btn-select m-2 not-selected"} 
                 onClick={()=>this.updateIndex(index)}>
-            {Array(num).fill(0).map(_=><FontAwesomeIcon icon={faClock} className="mr-2"  />)}
+            {Array(num).fill(0).map(_=><FontAwesomeIcon key={index+str+Math.random()}  icon={faClock} className="mr-2"  />)}
                 <br/>{str}
             </li>
         )

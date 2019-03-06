@@ -18,7 +18,7 @@ export default class NavBar extends Component{
       return(
  
         <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-default fixed-top">
-        <div className="container-fluid" role="navbar">
+        <div className="container-fluid" >
             <a className="navbar-brand" href="#">
                 <img src="favicon.png" className="d-inline-block align-top" alt="Icon" />
                 Only Food No Wait
@@ -28,11 +28,11 @@ export default class NavBar extends Component{
                 <FontAwesomeIcon icon={faBars} />
             </button>
   
-            <div className={this.state.collapse ? className: className + " show"} id="phoneNav" role="phoneNavBar">
+            <div className={this.state.collapse ? className: className + " show"} id="phoneNav" >
   
                 <ul className="navbar-nav nav navbar-right">
                     <li className="nav-item active">
-                        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="#main_wrapper">Home <span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="#location">Where are you?</a>

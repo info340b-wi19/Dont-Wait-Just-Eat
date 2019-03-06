@@ -118,7 +118,7 @@ p {
 }
 
 .section-title {
-    color: #d32323 !important;
+    font-size:2rem;
     text-align: center !important;
     font-weight: bold !important;
 
@@ -255,9 +255,6 @@ a.btn-dark {
     margin-right: 1rem;
 }
 
-.waitTimeTable tbody tr td:nth-child(even) {
-    padding: 0;
-}
 
 .waitTimeTable tbody tr:hover {
     background-color: beige;

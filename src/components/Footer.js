@@ -9,7 +9,7 @@ export default class Footer extends Component {
 
                 <div className="copyright pt-3 row" role="social links">
 
-                    <ul class="col-12 mt-1">
+                    <ul className="col-12 mt-1">
                         <li>
                             <a href="#" aria-label="Twitter"> <FontAwesomeIcon icon={faTwitter} /></a>
                         </li>
@@ -27,7 +27,7 @@ export default class Footer extends Component {
                     </div>
                     <div className="w-100 my-1"></div>
                     <p className="col-12"> © Copyright 2019 Yiren Qu &amp; Xifei Wang</p>
-                    <p className="col-12 pb-3">All Rights Reserved. Data is from <a href="yelp.com">Yelp.com</a></p>
+                    <p className="col-12 pb-3">All Rights Reserved. Data is from <a href="yelp.com" style={{"color":"white"}}>Yelp.com</a></p>
                 </div>
             </div>
         )

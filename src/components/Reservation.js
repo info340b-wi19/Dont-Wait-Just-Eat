@@ -68,7 +68,7 @@ export default class Reservation extends Component {
                             </h4>
 
                             <div className="form-group">
-                                <label className="col control-label" for="fullname">Your Name</label>
+                                <label className="col control-label" htmlFor="fullname">Your Name</label>
                                 <div className="col">
                                     <input id="fullname" name="fullname" type="text" placeholder="Enter Your Full Name"
                                         className="form-control input-md" required />
@@ -77,7 +77,7 @@ export default class Reservation extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label className="col control-label" for="email">Your Email</label>
+                                <label className="col control-label" htmlFor="email">Your Email</label>
                                 <div className="col">
                                     <input id="email" name="email" type="email" placeholder="Enter Your Email"
                                         className="form-control input-md"
@@ -87,7 +87,7 @@ export default class Reservation extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label className="col control-label" for="phone">Your Contact Number</label>
+                                <label className="col control-label" htmlFor="phone">Your Contact Number</label>
                                 <div className="col">
                                     <input id="phone" name="phone" type="tel" placeholder="Phone Number Format: 2061231234"
                                         pattern="[0-9]{3}[0-9]{3}[0-9]{4}" className="form-control input-md" required />
@@ -96,7 +96,7 @@ export default class Reservation extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label className="col  control-label" for="size">Party Size</label>
+                                <label className="col  control-label" htmlFor="size">Party Size</label>
                                 <div className="col">
                                     <select id="size" name="size" className="form-control" required >
                                         <option value="1">1</option>
@@ -115,7 +115,7 @@ export default class Reservation extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label className="col control-label" for="time">Time of Arrival</label>
+                                <label className="col control-label" htmlFor="time">Time of Arrival</label>
                                 <div className="col">
                                     <select id="time" name="time" className="form-control" required >
                                         <option value="1">3:30 PM</option>

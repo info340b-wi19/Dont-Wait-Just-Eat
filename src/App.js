@@ -61,7 +61,7 @@ export default class App extends Component {
         <Loader type="Puff"
         color="#b2cfff" height="240"	width="240" 
         /></div></div>
-      <div class="container-fluid" role="main">
+      <div className="container-fluid" id="main_wrapper">
       <PreQuestions data={this.state.data} onDataChange={this.onDataChange.bind(this)} onSetLoading={this.onSetLoading.bind(this)}/>
       <hr ref={this.mapViewRef}/>
       {this.state.view === "map" ||this.state.view ==='reservation' ?
