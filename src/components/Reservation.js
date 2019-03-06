@@ -6,32 +6,25 @@ export default class Reservation extends Component {
     constructor(props) {
         super(props);
         this.state = { success: false };
-        let selected = this.props.selectedRest;
-        let list = this.props.data.businesses;
-        let selRes = _.find(list, function (element) {
-            return element.id = selected;
-        });
-        console.log(selected, list, selRes);
         
-        if (parseInt(selRes.wait) < 3) {
-            this.setState({ success: true });
-        } else {
-            this.setState({ success: false });
-        }
-        console.log(this.state);
+    }
+    update(){
+        this.setState({success:true});
     }
     render() {
+        let list = this.props.data.businesses;
+        let selRes = _.find(list, ['id',this.props.selectedRest]);
+        console.log( list, selRes);
 
-        console.log("000000000000000");
         return (
 
             <React.Fragment>
                 <div className="row reservation mt-5 pb-5" id="reservation">
                     <div className="col select-restaurant pt-5">
-                        <h4 className="section-title">Restaurant Name</h4>
+                        <h4 className="section-title">{selRes.name}</h4>
                     </div>
                     <div className="w-100"></div>
-                    <div className="col no-reserve mt-3" Style={this.state.success ? "Display: none" : "Display: inherit"} >
+                    <div className={"col no-reserve mt-3 ".concat(parseInt(selRes.wait) <= 3  || this.state.success? "collapse" : "") }>
                         <h5>The restaurant does not accept any more reservation.</h5>
                         <small>The current wait time is over 1 Hour. You may add into the waitlist in store.</small>
 
@@ -45,24 +38,24 @@ export default class Reservation extends Component {
                             <option value="3">Less than 45 minutes</option>
                             <option value="4">More than an hour!</option>
                         </select>
-                        <a className="btn btn-primary text-light" id="updateWait">Submit Update</a>
+                        <a className="btn btn-primary text-light " id="updateWait" onClick={this.update.bind(this)}>Submit Update</a>
                     </div>
                     <div className="w-100"></div>
-                    <div className="col reserve-success">
+                    <div className={"col reserve-success ".concat((parseInt(selRes.wait) > 3 || !this.state.success) ? "collapse" : "")}>
                         <h4>Reservation Success</h4>
                         <h5>You have reserved a Table 3:30 PM for Party size 2!</h5>
                         <small>Please arrive in 15 mins before your reserved time.</small>
 
                     </div>
                     <div className="w-100"></div>
-                    <div className="col reserve-update">
+                    <div className={"col reserve-update ".concat((parseInt(selRes.wait) <= 3 || !this.state.success) ? "collapse" : "") }>
                         <h4>Wait Time Update</h4>
                         <h5>Thank you for telling us the latest wait time.</h5>
                         <small>We will use the latest data to serve you better.</small>
 
                     </div>
                     <div className="w-100"></div>
-                    <form className="form-horizontal col" id="reservation-form" method="get" Style={!this.state.success ? "Display: none" : "Display: inherit"}>
+                    <form className={"form-horizontal col ".concat(parseInt(selRes.wait) > 3  || this.state.success? "collapse" : "") } id="reservation-form" method="get" >
                         <fieldset>
 
                             <h4>
@@ -135,7 +128,7 @@ export default class Reservation extends Component {
                                     </select>
                                 </div>
                             </div>
-                            <button className="form-control form-group btn btn-primary" type="submit" id="reserveBtn">Reserve
+                            <button className="form-control form-group btn btn-primary" onClick={this.update.bind(this)} type="submit" id="reserveBtn">Reserve
                                 Now
                     </button>
                         </fieldset>
