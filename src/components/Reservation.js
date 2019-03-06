@@ -6,20 +6,23 @@ export default class Reservation extends Component {
     constructor(props) {
         super(props);
         this.state = { success: false };
-
-    }
-    render() {
         let selected = this.props.selectedRest;
         let list = this.props.data.businesses;
         let selRes = _.find(list, function (element) {
             return element.id = selected;
         });
         console.log(selected, list, selRes);
+        
         if (parseInt(selRes.wait) < 3) {
             this.setState({ success: true });
         } else {
             this.setState({ success: false });
         }
+        console.log(this.state);
+    }
+    render() {
+
+        console.log("000000000000000");
         return (
 
             <React.Fragment>
