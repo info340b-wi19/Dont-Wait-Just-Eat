@@ -10,10 +10,11 @@ export default class Reservation extends Component {
     }
     render() {
         let selected = this.props.selectedRest;
-        let list = this.props.data.bussinesses;
+        let list = this.props.data.businesses;
         let selRes = _.find(list, function (element) {
             return element.id = selected;
         });
+        console.log(selected, list, selRes);
         if (parseInt(selRes.wait) < 3) {
             this.setState({ success: true });
         } else {
