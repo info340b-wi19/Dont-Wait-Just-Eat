@@ -57,13 +57,15 @@ class Form extends Component{
             error:"",
             lat : 47.65671,
             long :  -122.308914,
-            searchLocation : "University of Washington",
+            searchLocation : "",
             locateme:false,
             selectedIndex: -1,
             data:this.props.data,
-            view:"init"
+            view:"init",
+            autocomplete : []
         };
         this.onDataChange=(data, view, pos)=>{
+            this.setState({autocomplete:[]});
             this.props.onDataChange(data, view, pos);
         }
         if (navigator.geolocation) {
@@ -86,6 +88,22 @@ class Form extends Component{
           };
     }
 
+
+    TextOnChange(e){
+        this.setState({searchLocation:e.target.value});
+        fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+e.target.value+".json?access_token="+
+        this.apiKey).then(async(response)=>{
+            const res = await response.json();
+
+            if (res.features!==undefined && res.features.length>0){
+                this.setState({autocomplete:res.features});
+            }else{
+                this.setState({autocomplete:[]});
+            }
+        }
+        );
+    }
+
     render(){
         return(
             <div className="loc mt-4" id="location">
@@ -100,21 +118,30 @@ class Form extends Component{
                     <hr className="my-2" />
                 </div>
                 <h4 id="button_error">{this.state.error}</h4>
-                <a className={this.state.locateme? "btn btn-success text-light btn-lg col-md-5 m-4 col-sm-10 .d-block":
+                <a href="#location" className={this.state.locateme? "btn btn-success text-light btn-lg col-md-5 m-4 col-sm-10 .d-block":
                               "btn btn-success text-light btn-lg col-md-5 m-4 col-sm-10 .d-none"} 
                     id="locateme" 
                     onClick={()=>this.locateme(this)}>Locate Me</a>
                 <div className="w-100"></div>
+
                 <input className="form-control col-md-6 col-sm-5 mx-4 ml-4" type="search"
                        placeholder="Where do you want to eat?"
                        aria-label="Search"
                        id="search_place" 
                        value={this.state.searchLocation}
-                       onChange={(e)=>this.setState({searchLocation:e.target.value})}
+                       onChange={(e)=>{
+                           this.TextOnChange(e);
+                        }}
                        />
-                <button className="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" id="searchLoc" onClick={()=>this.searchloc(this)}>Start
+                       <button className="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" id="searchLoc" onClick={()=>this.searchloc(this)}>Start
                     Search
                 </button>
+                <ul className={"col-md-6 col-sm-5 mx-4 ml-4 autocomplete".concat(this.state.autocomplete.length===0?"collapse":"")}>
+                    <AutoComplete data={this.state.autocomplete} callback={(text)=>{
+                        this.setState({searchLocation:text,autocomplete:[]});
+                        }}/>
+                </ul>
+                
             </div>
         </div>
         )
@@ -122,7 +149,7 @@ class Form extends Component{
 
     searchloc(){
         this.props.onSetLoading(true);
-        if(this.state.selectedIndex==-1){
+        if(this.state.selectedIndex===-1){
             this.setState({error:"Please select a wait time."});
             this.props.onSetLoading(false);
         }else{
@@ -130,7 +157,7 @@ class Form extends Component{
             fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+this.state.searchLocation+".json?access_token="+
                 this.apiKey).then(async(response)=>{
                     const res = await response.json();
-                    if (res.features.length==0){
+                    if (res.features===undefined || res.features.length===0){
                         this.setState({error:"Please Try Another Location, Please."})
                         this.props.onSetLoading(false);
                     }else{
@@ -159,12 +186,11 @@ class Form extends Component{
 
     locateme(){
         this.props.onSetLoading(true);
-        if(this.state.selectedIndex==-1){
+        if(this.state.selectedIndex===-1){
             this.setState({error:"Please select a wait time."});
         }else{
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position)=>{
-                    console.log(position.coords.latitude+ " "+position.coords.longitude)
                     this.setState({
                         lat : position.coords.latitude,
                         long :  position.coords.longitude,
@@ -199,7 +225,7 @@ class Form extends Component{
             rand = Math.round(rand / 120.0 * 5).toString();
             RestaurantList["businesses"][i]["wait"] = rand;
           }
-        let data = RestaurantList.businesses.filter(item => eval(item.wait)<=this.state.selectedIndex)
+        let data = RestaurantList.businesses.filter(item => parseInt(item.wait)<=this.state.selectedIndex)
         RestaurantList.businesses = data;
         if (RestaurantList.businesses.length === 0){
             this.setState({error:"No Restaurant Found, Pleace change search query."});
@@ -272,6 +298,16 @@ class ButtonGroup extends Component{
                 {this.item(4, "Less than 1 hour", 4)}
                 {this.item(5, "I have enough patience today.", 5)}
             </ul>
+        )
+    }
+}
+
+class AutoComplete extends Component{
+    render(){
+        let data = this.props.data;
+        data = data.map(item=> <li key={item.place_name+Math.random()} onClick={()=>this.props.callback(item.place_name) }>{item.place_name}</li>)
+        return(
+            data
         )
     }
 }

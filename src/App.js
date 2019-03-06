@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import PreQuestions from './components/PreQuestions';
 import MapView from './components/Map';
 import Reservation from './components/Reservation';
 import Loader from 'react-loader-spinner'
-import ReactDOM from 'react-dom';
-
 export default class App extends Component {
   constructor(){
     super();
@@ -23,7 +20,6 @@ export default class App extends Component {
     this.reserveRef = React.createRef();
 
     this.onDataChange = (data, view, pos)=>{
-      console.log(view);
       this.setState({
         data: data,
          view:view,
@@ -36,13 +32,11 @@ export default class App extends Component {
       }
     };
     this.onReserveChange= (index) =>{
-      console.log(index);
       this.setState({
         selectedRest: index
       })
     };
     this.onSetLoading=(bool)=>{
-      console.log(bool);
       this.setState({loading:bool});
     };
     
@@ -58,7 +52,7 @@ export default class App extends Component {
       <div id="overlay" className={this.state.loading?"d-block":"d-none"}><div style={{
             margin:((window.innerHeight - 240) /2.0)+"px 0 0 "+((window.innerWidth - 240) /2.0)+"px"
             }} >
-        <Loader type="Puff"
+        <Loader className="loader" type="Puff"
         color="#b2cfff" height="240"	width="240" 
         /></div></div>
       <div className="container-fluid" id="main_wrapper">

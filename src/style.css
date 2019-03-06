@@ -48,7 +48,7 @@ section img {
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    z-index: 2000; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
 }
 
@@ -82,7 +82,9 @@ p {
     background-size: cover;
     box-shadow: 0 14px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
-
+#waitView{
+    z-index:1000
+}
 .jumbotron {
     background-color: rgba(193, 238, 255, 0.5);
     margin-bottom: 0;
@@ -116,6 +118,31 @@ p {
         -1px 1px 0 #FFF;
 
 }
+
+.autocomplete{
+  border-radius: 2px;
+  border-top: 1px solid #d9d9d9;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+  height:100px;
+  background:white;
+  list-style: none;
+}
+
+.autocomplete li{
+    padding-left:1rem;
+    color:#495057;
+    font-size: 1rem;
+}
+.autocomplete li:hover{ 
+    background-color: lightgray;
+    cursor:pointer;
+}
+
 
 .section-title {
     font-size:2rem;
@@ -422,6 +449,6 @@ footer .container {
 
     .overlay {
         opacity: .7;
-        z-index: 2;
+        z-index: 2000;
     }
 }

@@ -5,22 +5,22 @@ import { faTwitter, faFacebook, faGooglePlus, faInstagram } from "@fortawesome/f
 export default class Footer extends Component {
     render() {
         return (
-            <div className="container mt-5" role="footer">
+            <div className="container mt-5" >
 
-                <div className="copyright pt-3 row" role="social links">
+                <div className="copyright pt-3 row" >
 
                     <ul className="col-12 mt-1">
                         <li>
-                            <a href="#" aria-label="Twitter"> <FontAwesomeIcon icon={faTwitter} /></a>
+                            <a href="twitter.com" aria-label="Twitter"> <FontAwesomeIcon icon={faTwitter} /></a>
                         </li>
                         <li>
-                            <a href="#" aria-label="Facebook"> <FontAwesomeIcon icon={faFacebook} /></a>
+                            <a href="facebook.com" aria-label="Facebook"> <FontAwesomeIcon icon={faFacebook} /></a>
                         </li>
                         <li>
-                        <a href="#" aria-label="Google Plus"> <FontAwesomeIcon icon={faGooglePlus} /></a>
+                        <a href="google.com" aria-label="Google Plus"> <FontAwesomeIcon icon={faGooglePlus} /></a>
                         </li>
                         <li>
-                        <a href="#" aria-label="Instgram"> <FontAwesomeIcon icon={faInstagram} /></a>
+                        <a href="instgram.com" aria-label="Instgram"> <FontAwesomeIcon icon={faInstagram} /></a>
                         </li>
                     </ul>
                     <div>

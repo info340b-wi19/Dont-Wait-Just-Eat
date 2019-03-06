@@ -18,8 +18,8 @@ export default class NavBar extends Component{
       return(
  
         <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-default fixed-top">
-        <div className="container-fluid" >
-            <a className="navbar-brand" href="#">
+        <div className="container-fluid" id="container_top" >
+            <a className="navbar-brand" href="#container_top">
                 <img src="favicon.png" className="d-inline-block align-top" alt="Icon" />
                 Only Food No Wait
             </a>

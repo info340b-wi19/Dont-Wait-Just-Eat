@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import _ from 'lodash';
 
 export default class Reservation extends Component {
@@ -19,8 +18,6 @@ export default class Reservation extends Component {
     render() {
         let list = this.props.data.businesses;
         let selRes = _.find(list, ['id',this.props.selectedRest]);
-        console.log( list, selRes);
-
         return (
 
             <React.Fragment>
@@ -43,7 +40,7 @@ export default class Reservation extends Component {
                             <option value="3">Less than 45 minutes</option>
                             <option value="4">More than an hour!</option>
                         </select>
-                        <a className="btn btn-primary text-light " id="updateWait" onClick={this.update.bind(this)}>Submit Update</a>
+                        <a href="#updateWait" className="btn btn-primary text-light " id="updateWait" onClick={this.update.bind(this)}>Submit Update</a>
                     </div>
                     <div className="w-100"></div>
                     <div className={"col reserve-success ".concat((parseInt(selRes.wait) > 3 || !this.state.success) ? "collapse" : "")}>

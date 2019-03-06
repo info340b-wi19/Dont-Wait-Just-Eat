@@ -8,7 +8,6 @@ export default class MapView extends Component{
     constructor(props){
         super(props);
         this.apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A";
-        console.log(this.props.pos);
         if (this.props.pos[0] === undefined || this.props.pos[1] === undefined){
             this.state={
                 pos:[47.65671,-122.308914,"University_of_Washington"],
@@ -46,23 +45,21 @@ export default class MapView extends Component{
     genIcons(num){
         return( 
             <>
-            {Array(eval(num)).fill(0).map(_=><FontAwesomeIcon icon={faClock} className="mr-1" />)}
-            {Array(5 - eval(num)).fill(0).map(_=><FontAwesomeIcon icon={farClock} className="mr-1" />)}
+            {Array(parseInt(num)).fill(0).map(_=><FontAwesomeIcon key={"clock"+Math.random()} icon={faClock} className="mr-1" />)}
+            {Array(5 - parseInt(num)).fill(0).map(_=><FontAwesomeIcon key={"clock1"+Math.random()} icon={farClock} className="mr-1" />)}
             </>
         )
     }
 
     genRestLayer() {
-        let restaurant = [];
-        console.log(this.state.data);
         const rest = this.state.data.businesses;
 
         let markers = rest.map(item=>
-            <Marker position={[item["coordinates"]["latitude"], item["coordinates"]["longitude"]]}>
+            <Marker key={item.name+Math.random()} position={[item["coordinates"]["latitude"], item["coordinates"]["longitude"]]}>
                 <Popup>
                     <div onClick={()=>this.onSelected(item.id)}>
                     <h4 className="mapMarker" >{item.name}</h4>
-                    <img src={item.image_url} style={{height:"100px", width:"100px"}}/>
+                    <img src={item.image_url} style={{height:"100px", width:"100px"}} alt={item.name}/>
                     <br />
                     Rating {item.rating} / 5. 
                     <br />
@@ -80,7 +77,7 @@ export default class MapView extends Component{
         const rest = this.state.data.businesses;
         return(
             rest.map(item=>
-                <tr key={item.name} className="marker" onClick={()=>this.onSelected(item.id)}>
+                <tr key={item.name+Math.random()} className="marker" onClick={()=>this.onSelected(item.id)}>
                     <td>{item.name}</td>
                     <td> {this.genIcons(item.wait)}</td>
                 </tr>)
@@ -114,7 +111,7 @@ export default class MapView extends Component{
 
             <div className="col" id="restaurant">
                 <div className="row outter-wrap">
-                    <div className={"col-md-12 ".concat(this.state.localView=="map"?"":"collapse")} id="mapView" data-parent="#restaurant">
+                    <div className={"col-md-12 ".concat(this.state.localView==="map"?"":"collapse")} id="mapView" data-parent="#restaurant">
                         <div className="card card-body" id="MapWrapper">
                             <div id="mainMap" className="mapBox">
                             <Map center={[this.state.pos[0],this.state.pos[1]]} zoom={13}>
@@ -131,7 +128,7 @@ export default class MapView extends Component{
                         </div>
                     </div>
 
-                    <div className={"col-md-12 overlay col-lg-5 col-lg-offset-5 ".concat(this.state.localView=="table"?"":"collapse")} id="waitView"
+                    <div className={"col-md-12 overlay col-lg-5 col-lg-offset-5 ".concat(this.state.localView==="table"?"":"collapse")} id="waitView"
                          data-parent="#restaurant">
                         <div className="card card-body">
                             <table className="waitTimeTable table table-striped" id="waitTimeTable">
