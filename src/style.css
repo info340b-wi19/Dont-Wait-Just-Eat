@@ -8,14 +8,30 @@ body {
     padding-top: 55px;
 }
 
+.leaflet-container {
+    height:100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+.selected{
+    background: #d32323 !important;
+    color:#fff !important;
+    cursor: pointer !important;
+}
+.not-selected{
+    background: #fff !important;
+    color:#29445B !important;
+    cursor: pointer !important;
+}
+
 section img {
     margin-left: 30%;
 }
-#indicatorContainer{
-    margin-left: calc(35vw);
-    margin-top: calc(35vh);
-    width: 240px !important;
-    height: 240px !important;
+.w-100{
+    opacity:0;
+}
+#locateme{
+    cursor:pointer;
 }
 #button_error{
     color: #d32323;
@@ -25,7 +41,6 @@ section img {
 }
 #overlay{
     position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
     top: 0;
@@ -62,7 +77,7 @@ p {
 }
 
 .title {
-    background-image: url("../img/food/head1.jpg");
+    background-image: url("./img/food/head1.jpg");
     background-position: center;
     background-size: cover;
     box-shadow: 0 14px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -103,14 +118,14 @@ p {
 }
 
 .section-title {
-    color: #d32323 !important;
+    font-size:2rem;
     text-align: center !important;
     font-weight: bold !important;
 
 }
 
 .loc {
-    background: url("../img/waiting_1.jpeg") center no-repeat !important;
+    background: url("./img/waiting_1.jpeg") center no-repeat !important;
     background-size: cover;
 
 }
@@ -240,9 +255,6 @@ a.btn-dark {
     margin-right: 1rem;
 }
 
-.waitTimeTable tbody tr td:nth-child(even) {
-    padding: 0;
-}
 
 .waitTimeTable tbody tr:hover {
     background-color: beige;
@@ -274,7 +286,7 @@ a.btn-dark {
     max-height: 100px;
     height: 100px;
     overflow: hidden;
-    background: url("../img/copyright.jpg");
+    background: url("./img/copyright.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
