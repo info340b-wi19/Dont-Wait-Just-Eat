@@ -1,5 +1,5 @@
-
-
+.firebase/*
+.firebase/hosting.YnVpbGQ.cache
 # ignore node dependency files
 node_modules
 

@@ -35,13 +35,13 @@ export default class NavBar extends Component{
                         <a className="nav-link" href="#main_wrapper">Home <span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#location">Where are you?</a>
+                        <a className="nav-link" href="#">Find a Restaurant</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#map">What do you want eat?</a>
+                        <a className="nav-link" href="#">My Reservations</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#reservation">Reserve a Table</a>
+                        <a className="nav-link" href="#">About Us</a>
                     </li>
   
                 </ul>
