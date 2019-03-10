@@ -188,6 +188,7 @@ class Form extends Component{
         this.props.onSetLoading(true);
         if(this.state.selectedIndex===-1){
             this.setState({error:"Please select a wait time."});
+            this.props.onSetLoading(false);
         }else{
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position)=>{
