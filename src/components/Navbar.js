@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-//TODO: - import bootstrap and add the collapse function
+import {Link} from 'react-router-dom';
+
 
 export default class NavBar extends Component{
     constructor(props) {
@@ -19,10 +20,10 @@ export default class NavBar extends Component{
  
         <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-default fixed-top">
         <div className="container-fluid" id="container_top" >
-            <a className="navbar-brand" href="#container_top">
+            <Link className="navbar-brand" to="/">
                 <img src="favicon.png" className="d-inline-block align-top" alt="Icon" />
                 Only Food No Wait
-            </a>
+            </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                     aria-label="Toggle Navigation Bar " onClick = {this.isClick}> 
                 <FontAwesomeIcon icon={faBars} />
@@ -32,16 +33,16 @@ export default class NavBar extends Component{
   
                 <ul className="navbar-nav nav navbar-right">
                     <li className="nav-item active">
-                        <a className="nav-link" href="#main_wrapper">Home <span className="sr-only">(current)</span></a>
+                        <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Find a Restaurant</a>
+                        <Link className="nav-link" to="/">Find a Restaurant</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">My Reservations</a>
+                        <a className="nav-link" to="/">My Reservations</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">About Us</a>
+                        <Link className="nav-link" to="/aboutUs">About Us</Link>
                     </li>
   
                 </ul>
