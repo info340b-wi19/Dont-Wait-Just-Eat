@@ -6,7 +6,8 @@ export default class ResutrantPage extends Component{
         super(props);
         this.state = {
             restID:this.props.match.match.params.id,
-            data: undefined
+            data: undefined,
+            reviews:undefined
         }
         this.apikey="0LKzxfI8zGQo_E4vxANgZOo6ybyHbiJrWlz_p13-MWWL1ONkjODBDTPTry3uzntUrh6nDB7H5wsZlp7DzFXh4lWbiFvdXYpm5uITu9MK-RoJD-doRfbBav7qhBhrXHYx"
         this.DataHandler(this.state.restID);
@@ -32,12 +33,28 @@ export default class ResutrantPage extends Component{
                console.log(e);
                 //this.props.onSetLoading(false);
             } );
+            fetch(url+"/reviews", {
+                headers:{
+                    "Authorization": "Bearer " + this.apikey
+                  },
+                method:"GET",
+                redirect: "follow", 
+                credentials: 'same-origin'
+                }).then(async (response)=>{
+                    let res = await response.json();
+                    console.log(res);
+                    this.setState({reviews:res});
+                    //this.props.onSetLoading(false);
+                }, function(e){
+                   console.log(e);
+                    //this.props.onSetLoading(false);
+                } );
         
     }
 
     render(){
         return(
-            this.state.data ===undefined?<div id="overlay" className={this.state.loading?"d-block":"d-none"}><div style={{
+            this.state.data ===undefined || this.state.reviews===undefined ?<div id="overlay" className="d-block"><div style={{
                 margin:((window.innerHeight - 240) /2.0)+"px 0 0 "+((window.innerWidth - 240) /2.0)+"px"
                 }} >
             <Loader className="loader" type="Puff"
