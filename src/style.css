@@ -347,6 +347,54 @@ footer .container {
     margin-right: 0;
 }
 
+#restBody {
+    display: flex;
+}
+
+#restPictures{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#restPics img {
+    height: 220px;
+    margin: 20px;
+
+    box-shadow: 6px 6px 5px grey;
+}
+
+#aboutRestName {
+    font-weight: 800;
+}
+
+#restBody h4 {
+    font-weight: 700;
+}
+
+#cuisine {
+    font-size: 20px;
+    padding: 0;
+}
+
+#aboutRestPage h2, #aboutRestPage h4, #restBody {
+    padding: 10px;
+}
+
+#reviews h2 {
+    font-weight:700;
+}
+
+#reviews {
+    padding: 10px;
+    background-color: lightyellow;
+}
+
+.review h3 {
+    padding-left: 20px;
+}
+
 @media(min-width: 768px) {
     #updatewait {
         margin-left: 10%;
