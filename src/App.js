@@ -3,7 +3,7 @@ import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import PreQuestions from './components/PreQuestions';
 import MapView from './components/Map';
-import Reservation from './components/Reservation';
+
 import AboutPage from './components/About';
 import RestaurantPage from './components/RestaurantPage';
 import Loader from 'react-loader-spinner';
@@ -23,7 +23,9 @@ export default class App extends Component {
     this.mapRef = React.createRef();
     this.mapViewRef = React.createRef();
     this.reserveRef = React.createRef();
-
+    this.resetSelected=()=>{
+      this.setState({selectedRest:undefined})
+    };
     this.onDataChange = (data, view, pos)=>{
       this.setState({
         data: data,
@@ -32,8 +34,6 @@ export default class App extends Component {
         });
       if(view === "map"){
         window.scrollTo(0, this.mapViewRef.current.offsetTop);
-      }else if(view === "reservation"){
-        window.scrollTo(0, this.reserveRef.current.offsetTop);
       }
     };
     this.onReserveChange= (index) =>{
@@ -46,10 +46,11 @@ export default class App extends Component {
       console.log(bool);
       this.setState({loading:bool});
     };
-    
+    console.log(this.state.selectedRest);
   }
 
   render() {
+    console.log(this.state.selectedRest);
     return (
       <React.Fragment>
       <header>
@@ -74,18 +75,14 @@ export default class App extends Component {
                  onDataChange={this.onDataChange.bind(this)} 
                  onReserveChange={this.onReserveChange.bind(this)}/>:<></>}
      
-           <hr ref={this.reserveRef}/>
-           {this.state.view === "reservation"?
-                 <Reservation data={this.state.data}
-                 selectedRest={this.state.selectedRest}
-                       onDataChange={this.onDataChange.bind(this)} /> :<></>}
            </div>
            </main>:<Redirect from="/" push to={"/restaurant/"+this.state.selectedRest}></Redirect>
         )}} />
         <Route path="/aboutUs" component={AboutPage} />
+        {this.state.selectedRest &&
         <Route path="/restaurant/:id" component={(match)=>{return(
-          <RestaurantPage match={match} onSetLoading={this.onSetLoading.bind(this)}/>
-         )}} />
+          <RestaurantPage match={match} restData={this.state.data} onSetLoading={this.onSetLoading.bind(this)} onDataChange={this.onDataChange.bind(this)} resetSelected={this.resetSelected.bind(this)}/>
+         )}} />}
         <Redirect to="/"></Redirect>
       </Switch>
      
@@ -96,3 +93,5 @@ export default class App extends Component {
     );
   }
 }
+
+

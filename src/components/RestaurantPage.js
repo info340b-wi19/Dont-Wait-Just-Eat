@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
+import Reservation from './Reservation';
 
 export default class ResutrantPage extends Component{
     constructor(props){
@@ -7,10 +8,15 @@ export default class ResutrantPage extends Component{
         this.state = {
             restID:this.props.match.match.params.id,
             data: undefined,
-            reviews:undefined
+            reviews:undefined,
+            restData:this.props.restData
         }
         this.apikey="0LKzxfI8zGQo_E4vxANgZOo6ybyHbiJrWlz_p13-MWWL1ONkjODBDTPTry3uzntUrh6nDB7H5wsZlp7DzFXh4lWbiFvdXYpm5uITu9MK-RoJD-doRfbBav7qhBhrXHYx"
         this.DataHandler(this.state.restID);
+    }
+
+    componentWillUnmount(){
+        this.props.resetSelected();
     }
 
 
@@ -60,7 +66,7 @@ export default class ResutrantPage extends Component{
             <Loader className="loader" type="Puff"
             color="#b2cfff" height="240"	width="240" 
             /></div></div>:
-
+                <>
             <div>
             <h2> {this.state.data.name}</h2>
             <p>Here is some information about us. Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
@@ -69,6 +75,10 @@ export default class ResutrantPage extends Component{
             <p>In mollitia cumque sapiente ducimus quo labore magni qui quas aperiam, voluptatibus nesciunt dicta enim dignissimos doloribus tempora iusto commodi alias recusandae tempore beatae atque? Totam cum et, perferendis itaque.</p>
             <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
         </div>
+      <Reservation data={this.state.restData}
+      selectedRest={this.state.restID}
+            onDataChange={this.props.onDataChange} /> 
+            </>
         )
     }
 }
