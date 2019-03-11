@@ -3,9 +3,9 @@ import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import PreQuestions from './components/PreQuestions';
 import MapView from './components/Map';
-import ReservationPage from './components/reservationPage';
+import ReservationPage from './reservationPage';
 import AboutPage from './components/About';
-import RestaurantPage from './components/RestaurantPage';
+import RestaurantPage from './RestaurantPage';
 import Loader from 'react-loader-spinner';
 import {Route, Switch, Link, Redirect,NavLink} from 'react-router-dom';
 import SignForm from './components/Sign';
@@ -68,7 +68,7 @@ export default class App extends Component {
         // User is signed in.
         this.setState({loading:false,user:user,popUp:false});
       } else{
-        this.setState({loading:false,user:null,popUp:false});
+        this.setState({loading:false,user:undefined,popUp:false});
       }
     });
   }
@@ -99,19 +99,26 @@ export default class App extends Component {
            <PreQuestions data={this.state.data} onDataChange={this.onDataChange.bind(this)} onSetLoading={this.onSetLoading.bind(this)}/>
            <hr ref={this.mapViewRef}/>
            {this.state.view === "map" ||this.state.view ==='reservation' ?
+           <>
                <MapView ref={this.mapRef} data={this.state.data} pos={this.state.pos} 
                  onDataChange={this.onDataChange.bind(this)} 
-                 onReserveChange={this.onReserveChange.bind(this)}/>:<></>}
+                 onReserveChange={this.onReserveChange.bind(this)}/>
+
+                 {this.state.user===undefined? <button className="btn btn-primary" onClick={()=>this.togglePopup()}>Please sign in first to view restaurant info.</button>
+                 :null}
+                 </>
+                 :null}
      
            </div>
+           
            </main>:<Redirect from="/" push to={"/restaurant/"+this.state.selectedRest}></Redirect>
         )}} />
         <Route path="/aboutUs" component={AboutPage} />
-        <Route path="/reservation" component={ReservationPage} />
-        {this.state.selectedRest &&
+        <Route path="/reservation" render={()=>{return <ReservationPage user={this.state.user}/>}} />
+        {this.state.selectedRest && this.state.user!==undefined?
         <Route path="/restaurant/:id" component={(match)=>{return(
-          <RestaurantPage togglePopup={this.togglePopup.bind(this)} user={this.state.user} match={match} restData={this.state.data} onSetLoading={this.onSetLoading.bind(this)} onDataChange={this.onDataChange.bind(this)} resetSelected={this.resetSelected.bind(this)}/>
-         )}} />}
+          <RestaurantPage updateUser={this.updateUser.bind(this)} user={this.state.user} match={match} restData={this.state.data} onSetLoading={this.onSetLoading.bind(this)} onDataChange={this.onDataChange.bind(this)} resetSelected={this.resetSelected.bind(this)}/>
+         )}} />:null}
         <Redirect to="/"></Redirect>
       </Switch>
      

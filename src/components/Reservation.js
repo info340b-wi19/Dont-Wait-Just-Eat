@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import firebase from 'firebase/app';
 
 export default class Reservation extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            user:this.props.user,
             success: false ,
-            fullname:undefined,
-            email:undefined,
-            phone:undefined,
-            size:undefined,
-            time:undefined
+            "fullname":undefined,
+            "email":undefined,
+            "phone":undefined,
+            "size":"1",
+            "time":"3:30 PM"
         };
         
     }
     update(e){
         e.preventDefault();
-        console.log(e);
         this.setState({success:true});
+        
+        let newReservation = {
+            fullname: this.state.fullname,
+            email: this.state.email,
+            phone:this.state.phone,
+            size: this.state.size,
+            time: this.state.time
+          }
+          var reservationListRef = firebase.database().ref("reservations/"+this.state.user.m);
+          var newresRef = reservationListRef.push();
+          newresRef.set(newReservation);
+      
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.selectedRest!==this.props.selectedRest){
@@ -54,7 +67,7 @@ export default class Reservation extends Component {
                     <div className="w-100"></div>
                     <div className={"col reserve-success ".concat((parseInt(selRes.wait) > 3 || !this.state.success) ? "collapse" : "")}>
                         <h4>Reservation Success</h4>
-                        <h5>You have reserved a Table 3:30 PM for Party size 2!</h5>
+                        <h5>You have reserved a Table {this.state.time} for Party size of {this.state.size}!</h5>
                         <small>Please arrive in 15 mins before your reserved time.</small>
 
                     </div>
@@ -89,7 +102,6 @@ export default class Reservation extends Component {
                                 <div className="col">
                                     <input id="phone" name="phone" type="tel" placeholder="Phone Number Format: 2061231234"
                                         pattern="[0-9]{3}[0-9]{3}[0-9]{4}" className="form-control input-md" onChange={this.handleChange} required />
-
                                 </div>
                             </div>
 
@@ -107,7 +119,7 @@ export default class Reservation extends Component {
                                         <option value="8">8</option>
                                         <option value="9">9</option>
                                         <option value="10">10</option>
-                                        <option value="11">&gt;10</option>
+                                        <option value=">10">&gt;10</option>
                                     </select>
                                 </div>
                             </div>
@@ -116,22 +128,22 @@ export default class Reservation extends Component {
                                 <label className="col control-label" htmlFor="time">Time of Arrival</label>
                                 <div className="col">
                                     <select id="time" name="time" className="form-control" onChange={this.handleChange} required >
-                                        <option value="1">3:30 PM</option>
-                                        <option value="2">4:00 PM</option>
-                                        <option value="3">4:30 PM</option>
-                                        <option value="4">5:00 PM</option>
-                                        <option value="5">5:30 PM</option>
-                                        <option value="6">6:00 PM</option>
-                                        <option value="7">6:30 PM</option>
-                                        <option value="8">7:00 PM</option>
-                                        <option value="9">7:30 PM</option>
-                                        <option value="10">8:00 PM</option>
-                                        <option value="11">8:30 PM</option>
-                                        <option value="12">9:00 PM</option>
+                                        <option value="3:30 PM">3:30 PM</option>
+                                        <option value="4:00 PM">4:00 PM</option>
+                                        <option value="4:30 PM">4:30 PM</option>
+                                        <option value="5:00 PM">5:00 PM</option>
+                                        <option value="5:30 PM">5:30 PM</option>
+                                        <option value="6:00 PM">6:00 PM</option>
+                                        <option value="6:30 PM">6:30 PM</option>
+                                        <option value="7:00 PM">7:00 PM</option>
+                                        <option value="7:30 PM">7:30 PM</option>
+                                        <option value="8:00 PM">8:00 PM</option>
+                                        <option value="8:30 PM">8:30 PM</option>
+                                        <option value="9:00 PM">9:00 PM</option>
                                     </select>
                                 </div>
                             </div>
-                            <button className="form-control form-group btn btn-primary" onClick={(e)=>this.update.bind(this)} id="reserveBtn">Reserve
+                            <button className="form-control form-group btn btn-primary" onClick={(e)=>{this.update(e)}} id="reserveBtn">Reserve
                                 Now
                     </button>
                         </fieldset>

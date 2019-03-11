@@ -56,6 +56,7 @@ export default class NavBar extends Component{
                      <button className="btn btn-primary" style={{color:"white"}} onClick={()=>{
                          firebase.auth().signOut();
                         this.setState({user:undefined})}
+
                     }> Log out</button>
                   </li></>
                     }

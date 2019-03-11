@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SignUpForm from './SignUpForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
