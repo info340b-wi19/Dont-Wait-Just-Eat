@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import PreQuestions from './components/PreQuestions';
 import MapView from './components/Map';
 import ReservationPage from './reservationPage';
-import AboutPage from './components/About';
+import AboutPage from './About';
 import RestaurantPage from './RestaurantPage';
 import Loader from 'react-loader-spinner';
 import {Route, Switch, Link, Redirect,NavLink} from 'react-router-dom';

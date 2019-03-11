@@ -3,21 +3,21 @@ import React, { Component } from 'react';
 const teamInfo = [{
   name: "Xifei Wang",
   url: "./img/xifei.jpg",
-  description: "Sophmore student studying informatics @UW iScholl"
+  description: "Informatics @UW iScholl"
 },{
   name: "Yiren Qu",
   url: "./img/yiren.jpg",
-  description: "Sophmore student studying informatics @UW iScholl"
+  description: "Informatics @UW iScholl"
 },
 {
   name: "Seth Anderson",
   url: "./img/seth.jpg",
-  description: "Junior student studying informatics @UW iScholl"
+  description: "Informatics @UW iScholl"
 },
 {
   name: "Jarett Lund-Hopkins",
   url: "./img/jarett.jpg",
-  description: "Junior student studying informatics @UW iScholl"
+  description: "Informatics @UW iScholl"
 }
 ];
 //headername is header for each section, they need to be centered
