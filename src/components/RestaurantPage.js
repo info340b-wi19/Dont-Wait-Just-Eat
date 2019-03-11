@@ -9,7 +9,8 @@ export default class ResutrantPage extends Component{
             restID:this.props.match.match.params.id,
             data: undefined,
             reviews:undefined,
-            restData:this.props.restData
+            restData:this.props.restData,
+            user:this.props.user
         }
         this.apikey="0LKzxfI8zGQo_E4vxANgZOo6ybyHbiJrWlz_p13-MWWL1ONkjODBDTPTry3uzntUrh6nDB7H5wsZlp7DzFXh4lWbiFvdXYpm5uITu9MK-RoJD-doRfbBav7qhBhrXHYx"
         this.DataHandler(this.state.restID);
@@ -18,7 +19,6 @@ export default class ResutrantPage extends Component{
     componentWillUnmount(){
         this.props.resetSelected();
     }
-
 
     DataHandler(id){
         let url = "https://cors-anywhere.herokuapp.com/http://api.yelp.com/v3/businesses/"+this.state.restID;
@@ -55,7 +55,6 @@ export default class ResutrantPage extends Component{
                    console.log(e);
                     //this.props.onSetLoading(false);
                 } );
-        
     }
 
     render(){
@@ -64,7 +63,7 @@ export default class ResutrantPage extends Component{
                 margin:((window.innerHeight - 240) /2.0)+"px 0 0 "+((window.innerWidth - 240) /2.0)+"px"
                 }} >
             <Loader className="loader" type="Puff"
-            color="#b2cfff" height="240"	width="240" 
+            color="#b2cfff" height="240" width="240" 
             /></div></div>:
                 <>
             <div>
@@ -75,9 +74,11 @@ export default class ResutrantPage extends Component{
             <p>In mollitia cumque sapiente ducimus quo labore magni qui quas aperiam, voluptatibus nesciunt dicta enim dignissimos doloribus tempora iusto commodi alias recusandae tempore beatae atque? Totam cum et, perferendis itaque.</p>
             <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
         </div>
+        {this.state.user!==undefined && this.state.user!==null?
       <Reservation data={this.state.restData}
       selectedRest={this.state.restID}
-            onDataChange={this.props.onDataChange} /> 
+        onDataChange={this.props.onDataChange} /> :
+        <button className="btn btn-primary" onClick={this.props.togglePopup}>Please sign in first to reserve the restaurant.</button>}
             </>
         )
     }

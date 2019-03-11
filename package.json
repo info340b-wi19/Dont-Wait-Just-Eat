@@ -9,6 +9,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "bootstrap": "^4.3.1",
+    "firebase": "^5.8.6",
     "firebase-tools": "^6.4.0",
     "jest-style-matchers": "^0.1.2",
     "leaflet": "^1.4.0",

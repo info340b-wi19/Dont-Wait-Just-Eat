@@ -4,10 +4,19 @@ import _ from 'lodash';
 export default class Reservation extends Component {
     constructor(props) {
         super(props);
-        this.state = { success: false };
+        this.state = { 
+            success: false ,
+            fullname:undefined,
+            email:undefined,
+            phone:undefined,
+            size:undefined,
+            time:undefined
+        };
         
     }
-    update(){
+    update(e){
+        e.preventDefault();
+        console.log(e);
         this.setState({success:true});
     }
     componentWillReceiveProps(nextProps){
@@ -15,6 +24,17 @@ export default class Reservation extends Component {
           this.setState({success: false });
         }
       }
+
+    //update state for specific field
+    handleChange = (event) => {
+        let field = event.target.name; //which input
+        let value = event.target.value; //what value
+
+        let changes = {}; //object to hold changes
+        changes[field] = value; //change this field
+        this.setState(changes); //update state
+    }
+
     render() {
         let list = this.props.data.businesses;
         let selRes = _.find(list, ['id',this.props.selectedRest]);
@@ -30,17 +50,6 @@ export default class Reservation extends Component {
                         <h5>The restaurant does not accept any more reservation.</h5>
                         <small>The current wait time is over 1 Hour. You may add into the waitlist in store.</small>
 
-                        <hr className="my-4" />
-                        <h5 className="section-title">Please Let us know the current wait time.</h5>
-                        <select id="updatewait" name="updatewait" className="form-control col-md-10 col-sm-10 mb-4"
-                            aria-label="Current Wait Time"
-                            required>
-                            <option value="1">Less then 10 minutes</option>
-                            <option value="2">Less then 30 minutes</option>
-                            <option value="3">Less than 45 minutes</option>
-                            <option value="4">More than an hour!</option>
-                        </select>
-                        <a href="#updateWait" className="btn btn-primary text-light " id="updateWait" onClick={this.update.bind(this)}>Submit Update</a>
                     </div>
                     <div className="w-100"></div>
                     <div className={"col reserve-success ".concat((parseInt(selRes.wait) > 3 || !this.state.success) ? "collapse" : "")}>
@@ -50,14 +59,7 @@ export default class Reservation extends Component {
 
                     </div>
                     <div className="w-100"></div>
-                    <div className={"col reserve-update ".concat((parseInt(selRes.wait) <= 3 || !this.state.success) ? "collapse" : "") }>
-                        <h4>Wait Time Update</h4>
-                        <h5>Thank you for telling us the latest wait time.</h5>
-                        <small>We will use the latest data to serve you better.</small>
-
-                    </div>
-                    <div className="w-100"></div>
-                    <form className={"form-horizontal col ".concat(parseInt(selRes.wait) > 3  || this.state.success? "collapse" : "") } id="reservation-form" method="get" >
+                    <form className={"form-horizontal col ".concat(parseInt(selRes.wait) > 3  || this.state.success? "collapse" : "") } id="reservation-form"  >
                         <fieldset>
 
                             <h4>
@@ -68,8 +70,7 @@ export default class Reservation extends Component {
                                 <label className="col control-label" htmlFor="fullname">Your Name</label>
                                 <div className="col">
                                     <input id="fullname" name="fullname" type="text" placeholder="Enter Your Full Name"
-                                        className="form-control input-md" required />
-
+                                        className="form-control input-md" onChange={this.handleChange} required />
                                 </div>
                             </div>
 
@@ -77,7 +78,7 @@ export default class Reservation extends Component {
                                 <label className="col control-label" htmlFor="email">Your Email</label>
                                 <div className="col">
                                     <input id="email" name="email" type="email" placeholder="Enter Your Email"
-                                        className="form-control input-md"
+                                        className="form-control input-md" onChange={this.handleChange}
                                         required />
 
                                 </div>
@@ -87,7 +88,7 @@ export default class Reservation extends Component {
                                 <label className="col control-label" htmlFor="phone">Your Contact Number</label>
                                 <div className="col">
                                     <input id="phone" name="phone" type="tel" placeholder="Phone Number Format: 2061231234"
-                                        pattern="[0-9]{3}[0-9]{3}[0-9]{4}" className="form-control input-md" required />
+                                        pattern="[0-9]{3}[0-9]{3}[0-9]{4}" className="form-control input-md" onChange={this.handleChange} required />
 
                                 </div>
                             </div>
@@ -95,7 +96,7 @@ export default class Reservation extends Component {
                             <div className="form-group">
                                 <label className="col  control-label" htmlFor="size">Party Size</label>
                                 <div className="col">
-                                    <select id="size" name="size" className="form-control" required >
+                                    <select id="size" name="size" className="form-control" onChange={this.handleChange} required >
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -114,7 +115,7 @@ export default class Reservation extends Component {
                             <div className="form-group">
                                 <label className="col control-label" htmlFor="time">Time of Arrival</label>
                                 <div className="col">
-                                    <select id="time" name="time" className="form-control" required >
+                                    <select id="time" name="time" className="form-control" onChange={this.handleChange} required >
                                         <option value="1">3:30 PM</option>
                                         <option value="2">4:00 PM</option>
                                         <option value="3">4:30 PM</option>
@@ -130,7 +131,7 @@ export default class Reservation extends Component {
                                     </select>
                                 </div>
                             </div>
-                            <button className="form-control form-group btn btn-primary" onClick={this.update.bind(this)} type="submit" id="reserveBtn">Reserve
+                            <button className="form-control form-group btn btn-primary" onClick={(e)=>this.update.bind(this)} id="reserveBtn">Reserve
                                 Now
                     </button>
                         </fieldset>

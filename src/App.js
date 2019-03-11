@@ -3,12 +3,13 @@ import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import PreQuestions from './components/PreQuestions';
 import MapView from './components/Map';
-
+import ReservationPage from './components/reservationPage';
 import AboutPage from './components/About';
 import RestaurantPage from './components/RestaurantPage';
 import Loader from 'react-loader-spinner';
 import {Route, Switch, Link, Redirect,NavLink} from 'react-router-dom';
-
+import SignForm from './components/Sign';
+import firebase from 'firebase/app';
 
 export default class App extends Component {
   constructor(){
@@ -18,7 +19,9 @@ export default class App extends Component {
       view : "init", 
       pos:[],
       selectedRest:undefined,
-      loading:false
+      loading:false, 
+      popUp:false,
+      user:undefined
     }
     this.mapRef = React.createRef();
     this.mapViewRef = React.createRef();
@@ -43,18 +46,42 @@ export default class App extends Component {
 
     };
     this.onSetLoading=(bool)=>{
-
       this.setState({loading:bool});
     };
 
   }
+  togglePopup() {
+    this.setState({
+      popUp: !this.state.popUp
+    });
+  }
+
+  updateUser(user){
+    this.setState({
+      user:user
+    });
+  }
+
+  componentDidMount(){
+    this.authUnRegFunc = firebase.auth().onAuthStateChanged((user)=>{
+      if (user) {
+        // User is signed in.
+        this.setState({loading:false,user:user,popUp:false});
+      } else{
+        this.setState({loading:false,user:null,popUp:false});
+      }
+    });
+  }
+
+  componentWillUnmount(){
+    this.authUnRegFunc();
+  }
 
   render() {
-
     return (
       <React.Fragment>
       <header>
-      <NavBar />
+      <NavBar togglePopup={this.togglePopup.bind(this)} user={this.state.user}/>
       </header>
       <Switch>
         <Route path="/" exact render={()=>{
@@ -67,6 +94,7 @@ export default class App extends Component {
              <Loader className="loader" type="Puff"
              color="#b2cfff" height="240"	width="240" 
              /></div></div>
+            { this.state.popUp?<SignForm togglePopup={this.togglePopup.bind(this)} updateUser={this.updateUser.bind(this)}/>:null}
            <div className="container-fluid" id="main_wrapper">
            <PreQuestions data={this.state.data} onDataChange={this.onDataChange.bind(this)} onSetLoading={this.onSetLoading.bind(this)}/>
            <hr ref={this.mapViewRef}/>
@@ -79,9 +107,10 @@ export default class App extends Component {
            </main>:<Redirect from="/" push to={"/restaurant/"+this.state.selectedRest}></Redirect>
         )}} />
         <Route path="/aboutUs" component={AboutPage} />
+        <Route path="/reservation" component={ReservationPage} />
         {this.state.selectedRest &&
         <Route path="/restaurant/:id" component={(match)=>{return(
-          <RestaurantPage match={match} restData={this.state.data} onSetLoading={this.onSetLoading.bind(this)} onDataChange={this.onDataChange.bind(this)} resetSelected={this.resetSelected.bind(this)}/>
+          <RestaurantPage togglePopup={this.togglePopup.bind(this)} user={this.state.user} match={match} restData={this.state.data} onSetLoading={this.onSetLoading.bind(this)} onDataChange={this.onDataChange.bind(this)} resetSelected={this.resetSelected.bind(this)}/>
          )}} />}
         <Redirect to="/"></Redirect>
       </Switch>
