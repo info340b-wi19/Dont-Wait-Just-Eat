@@ -146,29 +146,7 @@ export default class ResutrantPage extends Component {
                 </div>
             );
         })
-        return(
-<<<<<<< HEAD
-            this.state.data ===undefined || this.state.reviews===undefined ?<div id="overlay" className="d-block"><div style={{
-                margin:((window.innerHeight - 240) /2.0)+"px 0 0 "+((window.innerWidth - 240) /2.0)+"px"
-                }} >
-            <Loader className="loader" type="Puff"
-            color="#b2cfff" height="240"	width="240" 
-            /></div></div>:
-                <>
-            <div>
-            <h2> {this.state.data.name}</h2>
-            <p>Here is some information about us. Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-            <blockquote>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</blockquote>
-            <p>Veniam dolorem cupiditate tenetur placeat nulla repellat dicta maxime architecto blanditiis non facere nesciunt quae animi quam quidem ullam, suscipit nisi ipsam voluptatem accusamus necessitatibus itaque autem in, sunt similique.</p>
-            <p>In mollitia cumque sapiente ducimus quo labore magni qui quas aperiam, voluptatibus nesciunt dicta enim dignissimos doloribus tempora iusto commodi alias recusandae tempore beatae atque? Totam cum et, perferendis itaque.</p>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-        </div>
-      <Reservation data={this.state.restData}
-      selectedRest={this.state.restID}
-            onDataChange={this.props.onDataChange} /> 
-            </>
-=======
-            <div id="reviews">
+        return( <div id="reviews">
                 <h2>Reviews({this.state.reviews.total}):</h2>
                 {reviewList}
             </div>
@@ -194,7 +172,6 @@ export default class ResutrantPage extends Component {
                     </div>
                     {this.reviews()}
                 </div>
->>>>>>> stage-4/withRouter
         )
     }
 }
