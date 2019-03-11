@@ -101,7 +101,9 @@ class Form extends Component{
                 this.setState({autocomplete:[]});
             }
         }
-        );
+        ).catch((e)=>{
+            //Ignore all errors when onChange API call for the location.
+        });
     }
 
     render(){

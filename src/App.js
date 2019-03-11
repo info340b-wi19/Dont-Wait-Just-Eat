@@ -40,17 +40,17 @@ export default class App extends Component {
       this.setState({
         selectedRest: index
       });
-      console.log(index);
+
     };
     this.onSetLoading=(bool)=>{
-      console.log(bool);
+
       this.setState({loading:bool});
     };
-    console.log(this.state.selectedRest);
+
   }
 
   render() {
-    console.log(this.state.selectedRest);
+
     return (
       <React.Fragment>
       <header>
