@@ -8,8 +8,7 @@ export default class ReservationPage extends Component{
         super(props);
         if(this.props.user){
         this.state={data:undefined, user:this.props.user};
-        console.log(firebase.auth());
-        this.resRef =firebase.database().ref("reservations/"+this.state.user.m);
+        this.resRef =firebase.database().ref("reservations/"+this.state.user.email.replace(".","_"));
         }
     }
     componentDidMount(){
@@ -30,10 +29,9 @@ export default class ReservationPage extends Component{
       }
 
     render(){
-
         return(
-            this.props.user===undefined?<Redirect to="/" />:
-            this.state.data === undefined ? <div id="overlay" className="d-block"><div style={{
+            this.props.user===undefined || this.state===null?<Redirect to="/" />:
+            this.state.data === undefined? <div id="overlay" className="d-block"><div style={{
                 margin: ((window.innerHeight - 240) / 2.0) + "px 0 0 " + ((window.innerWidth - 240) / 2.0) + "px"
             }} >
                 <Loader className="loader" type="Puff"
@@ -41,7 +39,8 @@ export default class ReservationPage extends Component{
                 /></div></div> :
             <div>
                 <h4>My Reservation Page</h4>
-                {Object.keys(this.state.data).map(key=><ReservationItem data={this.state.data[key]} />)}
+                {this.state.data === null?<h4>No Reservations</h4>:
+                Object.keys(this.state.data).map(key=><ReservationItem data={this.state.data[key]} />)}
             </div>
         )
     }
@@ -56,6 +55,7 @@ class ReservationItem extends Component{
             <li key={this.props.data.phone+Math.random()}>Contact: {this.props.data.phone}</li>
             <li key={this.props.data.size+Math.random()}>Party of {this.props.data.size}</li>
             <li key={this.props.data.time+Math.random()}>Reservation Time: {this.props.data.time}</li>
+            <li key={this.props.data.restID+Math.random()}>Reservation ID: {this.props.data.restID}</li>
             </ul>
         )
     }

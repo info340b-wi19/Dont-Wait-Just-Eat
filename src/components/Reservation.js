@@ -12,7 +12,8 @@ export default class Reservation extends Component {
             "email":undefined,
             "phone":undefined,
             "size":"1",
-            "time":"3:30 PM"
+            "time":"3:30 PM",
+            restID:this.props.restID
         };
         
     }
@@ -25,9 +26,10 @@ export default class Reservation extends Component {
             email: this.state.email,
             phone:this.state.phone,
             size: this.state.size,
-            time: this.state.time
+            time: this.state.time,
+            restID:this.state.restID
           }
-          var reservationListRef = firebase.database().ref("reservations/"+this.state.user.m);
+          var reservationListRef = firebase.database().ref("reservations/"+this.state.user.email.replace(".","_"));
           var newresRef = reservationListRef.push();
           newresRef.set(newReservation);
       

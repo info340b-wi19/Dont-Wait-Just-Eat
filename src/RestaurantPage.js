@@ -178,7 +178,7 @@ export default class ResutrantPage extends Component {
                     <Reservation data={this.state.restData}
                     selectedRest={this.state.restID}
                     user={this.state.user}
-                      onDataChange={this.props.onDataChange} /> :
+                      onDataChange={this.props.onDataChange} restID={this.state.restID}/> :
                       null}
              </>          
         )
