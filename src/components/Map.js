@@ -1,24 +1,59 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import {faClock as farClock } from "@fortawesome/free-regular-svg-icons"
+import L from 'leaflet'
+
+export const normalIcon = new L.Icon({
+    iconUrl: require('../normal.png'),
+    iconRetinaUrl: require('../normal.png'),
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [25, 41],
+    shadowUrl: '../normal.png',
+    shadowSize: [68, 95],
+    shadowAnchor: [20, 92],
+  })
+
+
+export const pointerIcon = new L.Icon({
+    iconUrl: require('../pin.png'),
+    iconRetinaUrl: require('../pin.png'),
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [25, 41],
+    shadowUrl: '../pin.png',
+    shadowSize: [68, 95],
+    shadowAnchor: [20, 92],
+  })
 
 export default class MapView extends Component{
     constructor(props){
         super(props);
+        this.mapRef = React.createRef();
         this.apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A";
         if (this.props.pos[0] === undefined || this.props.pos[1] === undefined){
             this.state={
                 pos:[47.65671,-122.308914,"University_of_Washington"],
                 data:this.props.data,
-                localView:"map"
+                localView:"map",
+                viewport:{
+                    center: [47.65671, -122.308914],
+                    zoom: 15
+                  },
+                selectedId:-1
             }
         }else{
             this.state={
             pos:this.props.pos,
             data:this.props.data,
-            localView:"map"
+            localView:"map",
+            viewport:{
+                center: [this.props.pos[0],this.props.pos[1]],
+                zoom: 15
+              },
+            selectedId:-1
         }
         }
         this.onDataChange = (data, view, pos)=>{
@@ -27,6 +62,7 @@ export default class MapView extends Component{
         this.onReserveChange = (index)=>{
             this.props.onReserveChange(index);
         }
+        this.markerRef = {}
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.pos !== this.state.pos ||nextProps.data !== this.state.data  ){
@@ -50,13 +86,40 @@ export default class MapView extends Component{
             </>
         )
     }
+    
 
+    onMarkerClick(id){
+        console.log(this.mapRef);
+        console.log(this.markerRef[id]);
+        let marker = this.markerRef[id][1].current;
+        console.log(this.mapRef.current.leafletElement.setView);
+        let temp = this.markerRef[id][1].current.leafletElement._latlng
+        this.setState({
+            viewport:{
+            center:[temp.lat,temp.lng],
+            zoom:15
+            },
+            selectedId:id,
+            localView:"map"
+        })
+        //marker.leafletElement.setIcon(pointerIcon);
+        // if (marker && marker.leafletElement) {
+        //    window.setTimeout(() => {
+        //      marker.leafletElement.openPopup()
+             
+        //    })
+        //  }
+ }
+
+   
     genRestLayer() {
         const rest = this.state.data.businesses;
-
-        let markers = rest.map(item=>
-            <Marker key={item.name+Math.random()} position={[item["coordinates"]["latitude"], item["coordinates"]["longitude"]]}>
-                <Popup>
+        let markers = rest.map(item=>{
+            let ref = React.createRef();
+            let ref_m = React.createRef();
+            this.markerRef[item.id] = [ref,ref_m];
+            return(<Marker icon={this.state.selectedId===item.id?pointerIcon:normalIcon} ref={ref_m} key={item.name+Math.random()} position={[item["coordinates"]["latitude"], item["coordinates"]["longitude"]]}>
+                <Popup ref={ref}>
                     <div onClick={()=>this.onSelected(item.id)}>
                     <h4 className="mapMarker" >{item.name}</h4>
                     <img src={item.image_url} style={{height:"100px", width:"100px"}} alt={item.name}/>
@@ -68,7 +131,8 @@ export default class MapView extends Component{
                     <br />
                     </div>
                 </Popup>
-            </Marker>
+            </Marker>)
+        }
         )
         return markers
       }
@@ -77,7 +141,7 @@ export default class MapView extends Component{
         const rest = this.state.data.businesses;
         return(
             rest.map(item=>
-                <tr key={item.name+Math.random()} className="marker" onClick={()=>this.onSelected(item.id)}>
+                <tr key={item.name+Math.random()} className="marker" onClick={()=>this.onMarkerClick(item.id)}>
                     <td>{item.name}</td>
                     <td> {this.genIcons(item.wait)}</td>
                 </tr>)
@@ -114,16 +178,16 @@ export default class MapView extends Component{
                     <div className={"col-md-12 ".concat(this.state.localView==="map"?"":"collapse")} id="mapView" data-parent="#restaurant">
                         <div className="card card-body" id="MapWrapper">
                             <div id="mainMap" className="mapBox">
-                            <Map center={[this.state.pos[0],this.state.pos[1]]} zoom={13}>
-        <TileLayer
-            url={'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='+this.apiKey}
-            attribution={""}
-            maxZoom= {18}
-            minZoom={10}
-            id= {'mapbox.light'}
-        />
-        {this.genRestLayer()}
-    </Map>
+                            <Map ref={this.mapRef} viewport={this.state.viewport} center={[this.state.pos[0],this.state.pos[1]]} zoom={15}>
+                                <TileLayer
+                                    url={'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='+this.apiKey}
+                                    attribution={""}
+                                    maxZoom= {18}
+                                    minZoom={10}
+                                    id= {'mapbox.light'}
+                                />
+                                {this.genRestLayer()}
+                            </Map>
                             </div>
                         </div>
                     </div>
