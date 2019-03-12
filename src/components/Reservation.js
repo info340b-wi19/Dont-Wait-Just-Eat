@@ -5,6 +5,8 @@ import firebase from 'firebase/app';
 export default class Reservation extends Component {
     constructor(props) {
         super(props);
+        let list = this.props.data.businesses;
+        let selRes = _.find(list, ['id',this.props.selectedRest]);
         this.state = { 
             user:this.props.user,
             success: false ,
@@ -13,7 +15,7 @@ export default class Reservation extends Component {
             "phone":undefined,
             "size":"1",
             "time":"3:30 PM",
-            restID:this.props.restID
+            restdata:selRes
         };
         
     }
@@ -27,7 +29,7 @@ export default class Reservation extends Component {
             phone:this.state.phone,
             size: this.state.size,
             time: this.state.time,
-            restID:this.state.restID
+            restdata:this.state.restdata
           }
           var reservationListRef = firebase.database().ref("reservations/"+this.state.user.email.replace(".","_"));
           var newresRef = reservationListRef.push();
@@ -54,7 +56,7 @@ export default class Reservation extends Component {
         let list = this.props.data.businesses;
         let selRes = _.find(list, ['id',this.props.selectedRest]);
         return (
-
+            
             <React.Fragment>
                 <div className="row reservation mt-5 pb-5" id="reservation">
                     <div className="col select-restaurant pt-5">

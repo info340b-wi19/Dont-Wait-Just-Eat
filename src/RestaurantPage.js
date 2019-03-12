@@ -60,11 +60,11 @@ export default class ResutrantPage extends Component {
     }
 
     hoursConvert(num) {
-        let ans = "";
+        //let ans = "";
         num = num / 100;
         let hours = Math.floor(num);
         let minutes = Math.round((num - hours) * 100);
-        if (minutes == 0) {
+        if (minutes === 0) {
             minutes = minutes.toString() + "0";
         } else {
             minutes = minutes.toString();
@@ -82,7 +82,7 @@ export default class ResutrantPage extends Component {
         for (let i = 0; i < days.length; i++) {
             let edited = false;
             for (let j = 0; j < hours.length; j++) {
-                if (hours[j].day == i) {
+                if (hours[j].day === i) {
                     if (edited) {
                         days[i] += ", " + this.hoursConvert(hours[j].start) + " - " + this.hoursConvert(hours[j].end);
                     } else {
@@ -91,7 +91,7 @@ export default class ResutrantPage extends Component {
                     }
                 }
             }
-            if (edited == false) {
+            if (edited === false) {
                 days[i] += "CLOSED";
             }
         }
@@ -124,9 +124,9 @@ export default class ResutrantPage extends Component {
         return (
             <div id="restPics">
                 <div id="restPictures">
-                    <img src={this.state.data.photos[0]} />
-                    <img src={this.state.data.photos[1]} />
-                    <img src={this.state.data.photos[2]} />
+                    <img src={this.state.data.photos[0]} alt="restaurant 1" />
+                    <img src={this.state.data.photos[1]} alt="restaurant 2"/>
+                    <img src={this.state.data.photos[2]} alt="restaurant 3"/>
                 </div>
             </div>
         )
@@ -178,7 +178,7 @@ export default class ResutrantPage extends Component {
                     <Reservation data={this.state.restData}
                     selectedRest={this.state.restID}
                     user={this.state.user}
-                      onDataChange={this.props.onDataChange} restID={this.state.restID}/> :
+                      onDataChange={this.props.onDataChange}/> :
                       null}
              </>          
         )

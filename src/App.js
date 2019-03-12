@@ -7,7 +7,7 @@ import ReservationPage from './reservationPage';
 import AboutPage from './About';
 import RestaurantPage from './RestaurantPage';
 import Loader from 'react-loader-spinner';
-import {Route, Switch, Link, Redirect,NavLink} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import SignForm from './components/Sign';
 import firebase from 'firebase/app';
 
@@ -82,6 +82,7 @@ export default class App extends Component {
       <React.Fragment>
       <header>
       <NavBar togglePopup={this.togglePopup.bind(this)} user={this.state.user}/>
+      { this.state.popUp?<SignForm togglePopup={this.togglePopup.bind(this)} updateUser={this.updateUser.bind(this)}/>:null}
       </header>
       <Switch>
         <Route path="/" exact render={()=>{
@@ -94,7 +95,7 @@ export default class App extends Component {
              <Loader className="loader" type="Puff"
              color="#b2cfff" height="240"	width="240" 
              /></div></div>
-            { this.state.popUp?<SignForm togglePopup={this.togglePopup.bind(this)} updateUser={this.updateUser.bind(this)}/>:null}
+            
            <div className="container-fluid" id="main_wrapper">
            <PreQuestions data={this.state.data} onDataChange={this.onDataChange.bind(this)} onSetLoading={this.onSetLoading.bind(this)}/>
            <hr ref={this.mapViewRef}/>
@@ -102,9 +103,9 @@ export default class App extends Component {
            <>
                <MapView ref={this.mapRef} data={this.state.data} pos={this.state.pos} 
                  onDataChange={this.onDataChange.bind(this)} 
-                 onReserveChange={this.onReserveChange.bind(this)}/>
+                 onReserveChange={this.onReserveChange.bind(this)} user={this.state.user}/>
 
-                 {this.state.user===undefined? <button className="btn btn-primary" onClick={()=>this.togglePopup()}>Please sign in first to view restaurant info.</button>
+                 {this.state.user===undefined? <button className="btn btn-dark mt-4 btn-primary" onClick={()=>this.togglePopup()}>Please sign in first to view restaurant info.</button>
                  :null}
                  </>
                  :null}

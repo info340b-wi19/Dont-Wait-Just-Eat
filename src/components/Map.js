@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Map, Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import {faClock as farClock } from "@fortawesome/free-regular-svg-icons"
 import L from 'leaflet'
@@ -42,7 +42,8 @@ export default class MapView extends Component{
                     center: [47.65671, -122.308914],
                     zoom: 15
                   },
-                selectedId:-1
+                selectedId:-1,
+                user:this.props.user
             }
         }else{
             this.state={
@@ -53,7 +54,8 @@ export default class MapView extends Component{
                 center: [this.props.pos[0],this.props.pos[1]],
                 zoom: 15
               },
-            selectedId:-1
+            selectedId:-1,
+            user:this.props.user
         }
         }
         this.onDataChange = (data, view, pos)=>{
@@ -74,8 +76,10 @@ export default class MapView extends Component{
     }
 
     onSelected(index){
+        if(this.state.user!==undefined && this.state.user!==null){
         this.onDataChange(this.state.data, "reservation", this.state.pos);
         this.onReserveChange(index);
+        }
     }
 
     genIcons(num){
@@ -89,10 +93,10 @@ export default class MapView extends Component{
     
 
     onMarkerClick(id){
-        console.log(this.mapRef);
-        console.log(this.markerRef[id]);
-        let marker = this.markerRef[id][1].current;
-        console.log(this.mapRef.current.leafletElement.setView);
+        // console.log(this.mapRef);
+        // console.log(this.markerRef[id]);
+        // let marker = this.markerRef[id][1].current;
+        // console.log(this.mapRef.current.leafletElement.setView);
         let temp = this.markerRef[id][1].current.leafletElement._latlng
         this.setState({
             viewport:{

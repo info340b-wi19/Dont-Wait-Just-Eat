@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import {Link} from 'react-router-dom';
+import {Link,NavLink} from 'react-router-dom';
 import firebase from 'firebase/app';
 
 
@@ -33,27 +33,27 @@ export default class NavBar extends Component{
   
                 <ul className="navbar-nav nav navbar-right">
                     <li className="nav-item active">
-                        <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
+                        <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
                     </li>
                     {this.props.user!==undefined&&this.props.user!==null?
                     <li className="nav-item">
-                        <Link className="nav-link" to="/reservation">My Reservations</Link>
+                        <NavLink className="nav-link" to="/reservation">My Reservations</NavLink>
                     </li>:null
                     }
                     <li className="nav-item">
-                        <Link className="nav-link" to="/aboutUs">About Us</Link>
+                        <NavLink className="nav-link" to="/aboutUs">About Us</NavLink>
                     </li>
 
                     {this.props.user===undefined||this.props.user==null?
                     <li className="nav-item ml-3">
-                       <button className="btn btn-primary" style={{color:"white"}} onClick={this.props.togglePopup}> Log in / Register</button>
+                       <button className="btn btn-dark btn-primary" style={{color:"white"}} onClick={this.props.togglePopup}> Log in / Register</button>
                     </li>:
                     <>
                     <li className="nav-item ml-3 username">
                     <p>{this.props.user.displayName}</p></li>
                     
                      <li className="nav-item ml-3">
-                     <button className="btn btn-primary" style={{color:"white"}} onClick={()=>{
+                     <button className="btn btn-dark btn-primary" style={{color:"white"}} onClick={()=>{
                          firebase.auth().signOut();
                         this.setState({user:undefined})}
 

@@ -28,7 +28,7 @@ const teamInfo = [{
 export default class AboutPage extends Component {
   render() {
     return (
-      <div>
+      <div className="p-5">
         <Description/>
         <Teamcard/>
         <Walkthrough/>
@@ -85,7 +85,7 @@ class Card extends Component {
     <img className="card-img-top" src={member.url} alt={member.name}/>
     <h5 className = "memberName">{member.name}</h5>
     <div className="card-body">
-      <p class="card-text">{member.description}</p>
+      <p className="card-text">{member.description}</p>
     </div>
   </div>)
   }
