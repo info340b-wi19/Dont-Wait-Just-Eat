@@ -11,16 +11,16 @@ export default class Footer extends Component {
 
                     <ul className="col-12 mt-1">
                         <li>
-                            <a href="twitter.com" aria-label="Twitter"> <FontAwesomeIcon icon={faTwitter} /></a>
+                            <a href="http://www.twitter.com" aria-label="Twitter"> <FontAwesomeIcon icon={faTwitter} /></a>
                         </li>
                         <li>
-                            <a href="facebook.com" aria-label="Facebook"> <FontAwesomeIcon icon={faFacebook} /></a>
+                            <a href="http://www.facebook.com" aria-label="Facebook"> <FontAwesomeIcon icon={faFacebook} /></a>
                         </li>
                         <li>
-                        <a href="google.com" aria-label="Google Plus"> <FontAwesomeIcon icon={faGooglePlus} /></a>
+                        <a href="http://www.google.com" aria-label="Google Plus"> <FontAwesomeIcon icon={faGooglePlus} /></a>
                         </li>
                         <li>
-                        <a href="instgram.com" aria-label="Instgram"> <FontAwesomeIcon icon={faInstagram} /></a>
+                        <a href="http://www.instgram.com" aria-label="Instgram"> <FontAwesomeIcon icon={faInstagram} /></a>
                         </li>
                     </ul>
                     <div>

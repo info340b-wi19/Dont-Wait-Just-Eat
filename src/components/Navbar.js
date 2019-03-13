@@ -22,7 +22,7 @@ export default class NavBar extends Component{
         <div className="container-fluid" id="container_top" >
             <Link className="navbar-brand" to="/">
                 <img src="favicon.png" className="d-inline-block align-top" alt="Icon" />
-                Only Food No Wait
+                Don't Wait, Just Eat!
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                     aria-label="Toggle Navigation Bar " onClick = {this.isClick}> 
@@ -32,33 +32,34 @@ export default class NavBar extends Component{
             <div className={this.state.collapse ? className: className + " show"} id="phoneNav" >
   
                 <ul className="navbar-nav nav navbar-right">
-                    <li className="nav-item active">
-                        <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
+                    <li className="nav-item">
+                        <NavLink exact className="nav-link" to="/" onClick = {this.isClick} >Home</NavLink>
                     </li>
                     {this.props.user!==undefined&&this.props.user!==null?
                     <li className="nav-item">
-                        <NavLink className="nav-link" to="/reservation">My Reservations</NavLink>
+                        <NavLink className="nav-link" to="/reservation" onClick = {this.isClick}>My Reservations</NavLink>
                     </li>:null
                     }
                     <li className="nav-item">
-                        <NavLink className="nav-link" to="/aboutUs">About Us</NavLink>
+                        <NavLink className="nav-link" to="/aboutUs" onClick = {this.isClick}>About Us</NavLink>
                     </li>
 
                     {this.props.user===undefined||this.props.user==null?
-                    <li className="nav-item ml-3">
-                       <button className="btn btn-dark btn-primary" style={{color:"white"}} onClick={this.props.togglePopup}> Log in / Register</button>
+                    <li className="nav-item" id="log-in">
+                       <button className="btn btn-dark btn-primary btn-sm" style={{color:"white"}} onClick={this.props.togglePopup}> Log in / Register</button>
                     </li>:
                     <>
-                    <li className="nav-item ml-3 username">
+                    <div id = "logged-in-pane">
+                    <li className="nav-item username" id="username">
                     <p>{this.props.user.displayName}</p></li>
                     
-                     <li className="nav-item ml-3">
-                     <button className="btn btn-dark btn-primary" style={{color:"white"}} onClick={()=>{
+                     <li className="nav-item" id="log-out">
+                     <button className="btn btn-dark btn-primary btn-sm" style={{color:"white"}} onClick={()=>{
                          firebase.auth().signOut();
                         this.setState({user:undefined})}
 
                     }> Log out</button>
-                  </li></>
+                  </li></div></>
                     }
   
                 </ul>

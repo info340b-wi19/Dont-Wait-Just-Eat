@@ -31,9 +31,9 @@ class TitleRow extends Component{
                     <h1 className="display-6">
                             <FontAwesomeIcon icon={faUtensils}/>
                             <br/>
-                            Only Food<br/> 
-                            <FontAwesomeIcon icon={faClock}/><br/> No Wait</h1>
-                    <p className="lead">Let's help you to enjoy food sooner!</p>
+                            Don't Wait<br/> 
+                            <FontAwesomeIcon icon={faClock}/><br/>Just Eat!</h1>
+                    <p className="lead" id="subtitle">Spend less time waiting, and more time eating!</p>
                 </div>
                 <hr className="my-1"/>
             </div>
@@ -110,7 +110,7 @@ class Form extends Component{
         return(
             <div className="loc mt-4" id="location">
             <div className="wrapper py-5 row" >
-                <h4 className="control-label col-md-6 col-sm-10 ml-4 mr-4 section-title col-lg-12" htmlFor="waitLimit">How
+                <h4 className="control-label section-title" htmlFor="waitLimit">How
                     long can you wait?</h4>
                 <div className="button-group">
                     <ButtonGroup selectedIndex={this.state.selectedIndex} onChange={this.change.bind(this)}/>
@@ -120,13 +120,12 @@ class Form extends Component{
                     <hr className="my-2" />
                 </div>
                 <h4 id="button_error">{this.state.error}</h4>
-                <a href="#location" className={this.state.locateme? "btn btn-success text-light btn-lg col-md-5 m-4 col-sm-10 .d-block":
-                              "btn btn-success text-light btn-lg col-md-5 m-4 col-sm-10 .d-none"} 
+                <a href="#location" className={this.state.locateme? "btn btn-success text-light btn-lg":
+                              "btn btn-success text-light btn-lg col-md-5 col-sm-10 .d-none"} 
                     id="locateme" 
                     onClick={()=>this.locateme(this)}>Locate Me</a>
                 <div className="w-100"></div>
-
-                <input className="form-control col-md-6 col-sm-5 mx-4 ml-4" type="search"
+                <input className="form-control col-md-6 col-sm-5" type="search"
                        placeholder="Where do you want to eat?"
                        aria-label="Search"
                        id="search_place" 
@@ -284,7 +283,7 @@ class ButtonGroup extends Component{
 
     item(num, str, index){
         return(
-            <li className={this.state.selectedIndex===index?"btn btn-select m-2 selected":"btn btn-select m-2 not-selected"} 
+            <li className={this.state.selectedIndex===index?"btn btn-select selected":"btn btn-select not-selected"} 
                 onClick={()=>this.updateIndex(index)}>
             {Array(num).fill(0).map(_=><FontAwesomeIcon key={index+str+Math.random()}  icon={faClock} className="mr-2"  />)}
                 <br/>{str}
@@ -295,11 +294,11 @@ class ButtonGroup extends Component{
     render(){
         return(
             <ul>
-                {this.item(1, "Less than 10 minutes", 1)}
+                {this.item(1, "Less than 15 minutes", 1)}
                 {this.item(2, "Less than 30 minutes", 2)}
                 {this.item(3, "Less than 45 minutes", 3)}
                 {this.item(4, "Less than 1 hour", 4)}
-                {this.item(5, "I have enough patience today.", 5)}
+                {this.item(5, "However long it takes", 5)}
             </ul>
         )
     }

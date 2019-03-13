@@ -52,12 +52,12 @@ body {
     margin: 0 auto;
   }
 .selected{
-    background: #d32323 !important;
-    color:#fff !important;
+    background: #d32323!important;
+    color:#fff!important;
     cursor: pointer !important;
 }
 .not-selected{
-    background: #fff !important;
+    background: #fff;
     color:#29445B !important;
     cursor: pointer !important;
 }
@@ -136,9 +136,13 @@ p {
 }
 
 .btn-select:hover {
-    background: #d32323;
-    color: #fff;
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 8px 20px 0 rgba(0,0,0,0.19);
+    background: #d32323!important;
+    color:#fff!important;
+    cursor: pointer !important;
 }
+
+
 
 .jumbotron h1,
 .jumbotron p {
@@ -392,7 +396,7 @@ footer .container {
 #restPictures{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     flex-wrap: wrap;
 }
 
@@ -420,6 +424,9 @@ footer .container {
     padding: 10px;
 }
 
+#aboutRestPage{
+    background-color: beige;
+}
 #reviews h2 {
     font-weight:700;
 }
@@ -433,23 +440,144 @@ footer .container {
     padding-left: 20px;
 }
 
+.navbar-brand{
+    font-size:1rem;
+}
+
+
+
+.button-group ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-inline-start: 0px;
+    margin-left:12%;
+    margin-right:12%;
+    margin-bottom:0px;
+}
+
+.button-group ul li{
+    display: block;
+    width: 100%;
+    margin: 3px;
+}
+
+
+
+#locateme{
+    width: 50%;
+    margin: 0 auto 2%;
+}
+
+
+#search_place{
+
+    margin: 0 10% 10px 10% !important;
+}
+
+#searchLoc{
+    margin: 0 10% 0 10% !important;
+    height: 48px !important;
+}
+.loc .wrapper h4{
+    width: 100%;
+    margin: 0 auto;
+}
+
+#log-in{
+    margin: 3px auto 3px 0px;
+    padding: 4px 0;
+}
+#username{
+    margin: 3px auto 3px auto;
+    display: inline;
+}
+#username p{
+    margin-bottom: 0;
+    text-align: center;
+    display: inline;
+}
+#logged-in-pane{
+    background-color: lightgray;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 3px auto 3px 0px;
+    padding: 4px 20px;
+    
+}
+
+#log-out{
+    margin: 0 auto 10px 15px;
+    text-align: center;
+    display: inline;
+}
+
+
+@media(min-width: 380px) {
+    .navbar-brand{
+        font-size: 1.3rem;
+    }
+}
+@media(min-width: 576px){
+
+    
+#search_place{
+
+    margin-left: auto !important;
+    margin-right: 30px !important;
+}
+
+#searchLoc{
+    margin-right: auto !important;
+    margin-left: initial !important;
+}
+
+    .button-group ul{
+        margin-left:20%;
+        margin-right:20%;
+        
+    }
+
+
+
+    #locateme{
+        width: 40%;
+        margin: 0 auto 2%;
+    }
+
+
+}
 @media(min-width: 768px) {
+
+    #locateme{
+        width: 30%;
+    }
+
     #updatewait {
         margin-left: 10%;
         margin-right: 10%;
     }
 
-    .loc h4,
+    .button-group ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left:30px;
+    margin-right:30px;
+    justify-content: center;
+    }
+    .button-group ul li{
+    width:350px;
+    }
+
+    
+
     .loc select {
         margin-left: 0 !important;
     }
 
     .loc button {
         margin-top: 0 !important;
-    }
-
-    .loc a {
-        margin-left: 14rem !important;
     }
 
     .waitTimeTable {
@@ -462,6 +590,8 @@ footer .container {
         width: 70%;
         margin-left: 15%;
     }
+
+
 
 }
 
@@ -480,13 +610,17 @@ footer .container {
 
     .loc input,
     .loc button {
-        margin-top: 3rem !important;
+        margin-top: 2rem !important;
     }
 
     #nav-map {
         display: none;
     }
 
+    #logged-in-pane, #log-in{
+        position: absolute;
+        right:0;
+    }
 
 
     #waitView {
@@ -537,4 +671,18 @@ footer .container {
         opacity: .7;
         z-index: 2000;
     }
+}
+
+@media(min-width: 1400px){
+    .button-group ul{
+        margin-left:10%;
+        margin-right:10%;
+        }
+}
+
+@media(min-width: 1750px){
+    .button-group ul{
+        margin-left:20%;
+        margin-right:20%;
+        }
 }
