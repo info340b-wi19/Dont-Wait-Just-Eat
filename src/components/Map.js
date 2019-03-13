@@ -75,6 +75,17 @@ export default class MapView extends Component{
         }
     }
 
+    // componentDidMount(){
+    //     if(this.state.selectedId!==-1){
+    //         let marker = this.markerRef[this.state.selectedId][1].current;
+    //         if (marker && marker.leafletElement) {
+    //             window.setTimeout(() => {
+    //                 marker.leafletElement.openPopup()
+    //             })
+    //         }
+    //     }
+    // }
+
     onSelected(index){
         if(this.state.user!==undefined && this.state.user!==null){
         this.onDataChange(this.state.data, "reservation", this.state.pos);
@@ -98,13 +109,26 @@ export default class MapView extends Component{
         // let marker = this.markerRef[id][1].current;
         // console.log(this.mapRef.current.leafletElement.setView);
         let temp = this.markerRef[id][1].current.leafletElement._latlng
+        console.log(temp.lng );
+        if(window.innerWidth > 992){
+            temp.lng = temp.lng +0.02;
+        }
+        console.log(temp.lng );
         this.setState({
             viewport:{
             center:[temp.lat,temp.lng],
-            zoom:15
+            zoom:14
             },
             selectedId:id,
             localView:"map"
+        },()=>{
+            let marker = this.markerRef[id][1].current;
+            marker.leafletElement.setIcon(pointerIcon);
+            if (marker && marker.leafletElement) {
+               window.setTimeout(() => {
+                 marker.leafletElement.openPopup()
+               })
+             }
         })
         //marker.leafletElement.setIcon(pointerIcon);
         // if (marker && marker.leafletElement) {
@@ -182,7 +206,7 @@ export default class MapView extends Component{
                     <div className={"col-md-12 ".concat(this.state.localView==="map"?"":"collapse")} id="mapView" data-parent="#restaurant">
                         <div className="card card-body" id="MapWrapper">
                             <div id="mainMap" className="mapBox">
-                            <Map ref={this.mapRef} viewport={this.state.viewport} center={[this.state.pos[0],this.state.pos[1]]} zoom={15}>
+                            <Map ref={this.mapRef} viewport={this.state.viewport} center={[this.state.pos[0],this.state.pos[1]]} zoom={14}>
                                 <TileLayer
                                     url={'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='+this.apiKey}
                                     attribution={""}
