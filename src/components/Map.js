@@ -150,7 +150,7 @@ export default class MapView extends Component{
                 <Popup ref={ref}>
                     <div onClick={()=>this.onSelected(item.id)}>
                     <h4 className="mapMarker" >{item.name}</h4>
-                    <img src={item.image_url} style={{height:"100px", width:"100px"}} alt={item.name}/>
+                    <img src={item.image_url} style={{height: "100px", width: "100px", display:"table", margin: "10px auto"}} alt={item.name}/>
                     <br />
                     Rating {item.rating} / 5. 
                     <br />

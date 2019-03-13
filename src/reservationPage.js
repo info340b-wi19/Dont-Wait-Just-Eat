@@ -48,9 +48,9 @@ export default class ReservationPage extends Component{
                 <Loader className="loader" type="Puff"
                     color="#b2cfff" height="240" width="240"
                 /></div></div> :
-            <div>
-                <h4 className="section-title">My Reservations</h4>
-                {this.state.data === null?<h4>No Reservations Made!</h4>:
+            <div id="reservations-bg">
+                <h4 className="section-title" id="reservation-title">My Reservations</h4>
+                {this.state.data === null?<h4 className="section-title" id="reservation-main-title">No Reservations Made!</h4>:
                 Object.keys(this.state.data).map(key=><ReservationItem data={this.state.data[key]}/>)}
             </div>
                 
@@ -61,13 +61,13 @@ export default class ReservationPage extends Component{
 class ReservationItem extends Component{
     render(){
         return(
-            <ul className="card card-body mx-4 list-unstyled">
-            <li className="card-title" key={this.props.data.fullname+Math.random()+Math.random()}>Reservation @ {this.props.data.restdata.name}</li>
-            <li key={this.props.data.fullname+Math.random()}>Full name: {this.props.data.fullname}</li>
-            <li key={this.props.data.email+Math.random()}>Email: {this.props.data.email}</li>
-            <li key={this.props.data.phone+Math.random()}>Contact: {this.props.data.phone}</li>
-            <li key={this.props.data.size+Math.random()}>Party of {this.props.data.size}</li>
-            <li key={this.props.data.time+Math.random()}>Reservation Time: {this.props.data.time}</li>
+            <ul className="card card-body list-unstyled" id = "reservation-list">
+            <li id="reservation-title" className="card-title" key={this.props.data.fullname+Math.random()+Math.random()}>Reservation @ {this.props.data.restdata.name}</li>
+            <li key={this.props.data.fullname+Math.random()}><strong>Full name: </strong>{this.props.data.fullname}</li>
+            <li key={this.props.data.email+Math.random()}><strong>Email: </strong>{this.props.data.email}</li>
+            <li key={this.props.data.phone+Math.random()}><strong>Contact: </strong>{this.props.data.phone}</li>
+            <li key={this.props.data.size+Math.random()}><strong>Party of </strong>{this.props.data.size}</li>
+            <li id="reservation-bottom" key={this.props.data.time+Math.random()}><strong>Reservation Time: </strong>{this.props.data.time}</li>
             </ul>
         )
     }

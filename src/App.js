@@ -105,7 +105,7 @@ export default class App extends Component {
                  onDataChange={this.onDataChange.bind(this)} 
                  onReserveChange={this.onReserveChange.bind(this)} user={this.state.user}/>
 
-                 {this.state.user===undefined? <button className="btn btn-dark mt-4 btn-primary" onClick={()=>this.togglePopup()}>Please sign in first to view restaurant info.</button>
+                 {this.state.user===undefined? <button className="btn btn-dark mt-4 btn-primary" onClick={()=>this.togglePopup()}>Please sign in to view restaurant information</button>
                  :null}
                  </>
                  :null}
