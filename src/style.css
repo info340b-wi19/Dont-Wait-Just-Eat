@@ -532,16 +532,10 @@ footer .container {
 }
 
 
-
-
-#reservation-main-title{
-    margin: 20px;
-}
-
 #reservation-list{
     text-align: center;
     width:85%;
-    margin: 15px auto;
+    margin: 5px auto 10px auto;
     background-color: beige;
 }
 
@@ -558,13 +552,21 @@ footer .container {
     margin-left: 0px;
 }
 
+#reservation-main-title{
+    padding: 15px 0px 10px 0px;
+}
+
+
+
 #reservation-bottom{
     margin-bottom: 5px;
 }
 
 #reservations-bg{
-    background-color: rgba(207, 200, 160, 0.363);
+    background-color: rgba(207, 200, 160, 0.226);
+    padding-bottom: 20px;
 }
+
 
 @media(min-width: 380px) {
     .navbar-brand{

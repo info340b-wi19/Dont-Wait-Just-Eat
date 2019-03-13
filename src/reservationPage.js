@@ -49,7 +49,7 @@ export default class ReservationPage extends Component{
                     color="#b2cfff" height="240" width="240"
                 /></div></div> :
             <div id="reservations-bg">
-                <h4 className="section-title" id="reservation-title">My Reservations</h4>
+                <h4 className="section-title" id="reservation-main-title">My Reservations</h4>
                 {this.state.data === null?<h4 className="section-title" id="reservation-main-title">No Reservations Made!</h4>:
                 Object.keys(this.state.data).map(key=><ReservationItem data={this.state.data[key]}/>)}
             </div>
