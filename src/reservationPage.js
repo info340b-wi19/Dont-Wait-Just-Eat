@@ -18,14 +18,9 @@ export default class ReservationPage extends Component{
     }
     
     componentDidMount(){
-        console.log("sss");
-        console.log(this.props);
         if (this.resRef){
             this.resRef =firebase.database().ref("reservations/"+this.state.user.email.replace(".","_"));
-            console.log("fff");
         this.resRef.on("value",(snapshot)=>{
-            console.log(snapshot);
-            console.log(snapshot.val());
           this.setState({data:snapshot.val()})
         });
        

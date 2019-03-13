@@ -434,7 +434,7 @@ footer .container {
 }
 
 #aboutRestPage{
-    background-color: beige;
+    background-color: rgba(207, 200, 160, 0.226);
 }
 #reviews h2 {
     font-weight:700;
@@ -494,7 +494,7 @@ footer .container {
 }
 
 #log-in{
-    margin: 3px auto 3px 0px;
+    margin: 3px 15px 3px 0px;
     padding: 4px 0;
 }
 #username{
@@ -520,17 +520,40 @@ footer .container {
     display: inline;
 }
 
-/*headername is header for each section, they need to be centered*/
-/*/aboutFont is the the content font for paragragh for each section*/
-/*/card-img-top is the img for each card, should be set a proper size*/
-/*/card-text is the fonts inside of each card*/
-/*/memberName is each member's name inside of each card, need to be centered*/
+#about-bg{
+    background-color: rgba(207, 200, 160, 0.226);
+}
 
 .headername{
     display: table;
-    margin: 10px auto 10px auto;
+    margin: 0 auto;
+    font-weight: 900;
+    padding: 15px 0 10px 0;
+}
+.memberName{
+    text-align: center;
+    font-weight: 600;
+    margin: 5px 0 5px 0;
 }
 
+.about-card-img-top{
+    display: table;
+    margin: 12px auto;
+    width: 120px;
+    height: 120px;
+}
+
+.about-card{
+    width:85%;
+    margin: 5px auto 10px auto;
+    background-color: beige;
+    padding-bottom: 5px;
+}
+
+.about-card-text{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
 #reservation-list{
     text-align: center;
@@ -683,7 +706,9 @@ footer .container {
     #logged-in-pane, #log-in{
         position: absolute;
         right:0;
+        margin-right: 15px;
     }
+
 
 
     #waitView {

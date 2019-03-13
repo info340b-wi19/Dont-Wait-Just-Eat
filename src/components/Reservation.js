@@ -64,8 +64,8 @@ export default class Reservation extends Component {
                     </div>
                     <div className="w-100"></div>
                     <div className={"col no-reserve mt-3 ".concat(parseInt(selRes.wait) <= 3  || this.state.success? "collapse" : "") }>
-                        <h5>The restaurant does not accept any more reservation.</h5>
-                        <small>The current wait time is over 1 Hour. You may place your party on the waitlist in the resteraunt.</small>
+                        <h5>This restaurant does not accept reservations right now</h5>
+                        <small>The current wait time is over 1 hour. You may place your party on the waitlist in the restaurant.</small>
 
                     </div>
                     <div className="w-100"></div>

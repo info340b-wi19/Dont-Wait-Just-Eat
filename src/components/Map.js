@@ -150,15 +150,14 @@ export default class MapView extends Component{
                 <Popup ref={ref}>
                     <div onClick={()=>this.onSelected(item.id)}>
                     <h4 className="mapMarker" >{item.name}</h4>
-                    <img src={item.image_url} style={{height: "100px", width: "100px", display:"table", margin: "10px auto"}} alt={item.name}/>
+                    <img src={item.image_url} style={{height: "100px", width: "100px", display:"table", margin: "13px auto"}} alt={item.name}/>
+                    Rating: {item.rating} / 5 
                     <br />
-                    Rating {item.rating} / 5. 
-                    <br />
-                    {item.price !==undefined? <React.Fragment>Price {item.price}<br /></ React.Fragment>:<br/>}
+                    {item.price !==undefined? <React.Fragment>Price: {item.price}<br /></ React.Fragment>:<br/>}
                     Wait Time: {this.genIcons(item.wait)}
                     <br />
                     {this.state.user!==undefined && this.state.user!==null?
-                    <button className="btn btn-primary btn-dark" onClick={()=>this.onSelected(item.id)}>View more info</button>
+                    <button className="btn btn-primary btn-dark mt-2" onClick={()=>this.onSelected(item.id)}>View more info</button>
                     :null}
                     </div>
                 </Popup>

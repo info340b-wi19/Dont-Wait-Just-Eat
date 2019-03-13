@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
 import Reservation from './components/Reservation';
 
-export default class ResutrantPage extends Component {
+export default class RestaurantPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,11 +33,9 @@ export default class ResutrantPage extends Component {
             credentials: 'same-origin'
         }).then(async (response) => {
             let res = await response.json();
-            console.log(res);
             this.setState({ data: res });
             //this.props.onSetLoading(false);
         }, function (e) {
-            console.log(e);
             //this.props.onSetLoading(false);
         });
         fetch(url + "/reviews", {
@@ -49,11 +47,9 @@ export default class ResutrantPage extends Component {
             credentials: 'same-origin'
         }).then(async (response) => {
             let res = await response.json();
-            console.log(res);
             this.setState({ reviews: res });
             //this.props.onSetLoading(false);
         }, function (e) {
-            console.log(e);
             //this.props.onSetLoading(false);
         });
 
@@ -134,7 +130,6 @@ export default class ResutrantPage extends Component {
 
     reviews() {
         let reviews = this.state.reviews.reviews;
-        console.log(reviews);
         let reviewList = [0,1,2];
         reviewList = reviewList.map((item, index)=> {
             return (
