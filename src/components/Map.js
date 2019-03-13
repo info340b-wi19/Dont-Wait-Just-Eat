@@ -168,10 +168,10 @@ export default class MapView extends Component{
             <div className="w-100"></div>
             <div className="col">
                 <div className="row" id="nav-map">
-                    <button className="btn btn-light col" id="showmap" onClick={()=>this.onChangeView("map")}><span className="fa fa-map-marked-alt mr-2"></span>Map
+                    <button className={"btn col ".concat(this.state.localView==="map"?"btn-dark":"btn-light")} id="showmap" onClick={()=>this.onChangeView("map")}><span className="fa fa-map-marked-alt mr-2"></span>Map
                         View
                     </button>
-                    <button className="btn btn-dark col" id="showwait" onClick={()=>this.onChangeView("table")} ><span className="far fa-clock mr-2"></span>Waittime
+                    <button className={"btn col ".concat(this.state.localView!=="map"?"btn-dark":"btn-light")} id="showwait" onClick={()=>this.onChangeView("table")} ><span className="far fa-clock mr-2"></span>Waittime
                     </button>
                 </div>
             </div>
