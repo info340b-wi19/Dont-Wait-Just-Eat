@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 const teamInfo = [{
   name: "Xifei Wang",
   url: "xifei.jpg",
-  description: "I am currently a student of University of Washington, studying Computer Engineering and Informatics. I have done projects in various fields in Computer Science and Engineering. I love to explore new ideas and do projects for the community."
+  description: "Informatics @UW iSchool"
 }, {
   name: "Yiren Qu",
   url: "yiren.jpg",
-  description: "Informatics @UW iSchool"
+  description: "I am currently a student of University of Washington, studying Computer Engineering and Informatics. I have done projects in various fields in Computer Science and Engineering. I love to explore new ideas and do projects for the community."
 },
 {
   name: "Seth Anderson",
@@ -80,7 +80,7 @@ class Card extends Component {
   render() {
     let member = this.props.member;
     return (<div className="card about-card">
-      <img className="about-card-img-top" src={"./img/" + member.url} alt={member.name} />
+      <img className="about-card-img-top" src={member.url} alt={member.name} />
       <h5 className="memberName">{member.name}</h5>
       <div className="card-body">
         <p className="about-card-text">{member.description}</p>
