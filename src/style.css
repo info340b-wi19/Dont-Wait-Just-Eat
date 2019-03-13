@@ -553,6 +553,14 @@ footer .container {
 .about-card-text{
     padding-top: 5px;
     padding-bottom: 5px;
+    text-align: center;
+}
+.about-app-Font{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.about-bottom-bg{
+    padding-bottom: 20px;
 }
 
 #reservation-list{

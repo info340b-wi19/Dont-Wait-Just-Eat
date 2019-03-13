@@ -35,7 +35,8 @@ class Description extends Component {
   render() {
     return (<div>
       <h4 className="section-title headername">App Description</h4>
-      <p className="aboutFont">The users for this web app could be young college students or workers in the Seattle area. And they love to explore the different type of food around the neighborhood.
+      <div className="card about-card">
+      <p className="about-app-Font">The users for this web app could be young college students or workers in the Seattle area. And they love to explore the different type of food around the neighborhood.
 
 When they open up this web app, they are able to see the restaurant around itself. The restaurant data would come from Yelp API and Google Map API for mapping.Customers are able to view the Yelp comments and photos on the map and able to see its own waiting information.
 
@@ -45,20 +46,21 @@ After they enjoyed the meal, they can rate the restaurant with starts. In the ba
 
 This Web App could effectively show people estimate waiting time, which could be a very important factor to help people to decide where to eat.</p>
 
-    </div>)
+    </div></div>)
   }
 
 }
 class Walkthrough extends Component {
   render() {
-    return (<div>
+    return (<div className="about-bottom-bg">
       <h4 className="section-title headername">App functionality Walkthrough</h4>
-      <ol>
+      <div className="card about-card">
+      <ol className="about-app-Font">
         <li className="aboutFont">User need to input their location. and it will show the nearest restaurants around the user.</li>
         <li className="aboutFont">And they are able to click each restaurant and view the comments and current wait estimate time.</li>
         <li className="aboutFont">And customers can either submit their waiting estimate time or reserve a table in that restaurant via OpenTable.</li>
         <li className="aboutFont">After they enjoyed the meal, they are able to rate the restaurant.</li>
-      </ol>
+      </ol></div>
     </div>)
   }
 }
@@ -78,7 +80,7 @@ class Card extends Component {
   render() {
     let member = this.props.member;
     return (<div className="card about-card">
-      <img className="about-card-img-top" src={"url(./img/" + member.url + ")"} alt={member.name} />
+      <img className="about-card-img-top" src={"./img/" + member.url} alt={member.name} />
       <h5 className="memberName">{member.name}</h5>
       <div className="card-body">
         <p className="about-card-text">{member.description}</p>
