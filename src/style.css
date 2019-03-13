@@ -687,6 +687,19 @@ footer .container {
 }
 
 @media (min-width: 992px) {
+    .infoFlex {
+        display: flex;
+        margin-left: 30px;
+        margin-right: 70px;
+    }
+    #centered {
+        margin: auto;
+    }
+    .card {
+        border-radius: 20px !important;
+        box-shadow: 3px 3px 3px rgb(56, 55, 55) !important;
+        margin-left: 10px;
+    }
     #reservation-list{
         width:60%;
     }

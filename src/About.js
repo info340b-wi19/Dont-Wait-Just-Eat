@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 const teamInfo = [{
   name: "Xifei Wang",
   url: "xifei.jpg",
-  description: "Informatics @UW iSchool"
+  description: "I am currently a student studying @University of Washington, class of 2021, particularly interested in Data Science track. I am also a member of Probability Research Organization." 
 }, {
   name: "Yiren Qu",
   url: "yiren.jpg",
@@ -35,7 +35,7 @@ class Description extends Component {
   render() {
     return (<div>
       <h4 className="section-title headername">App Description</h4>
-      <div className="card about-card">
+      <div className="card about-card" id = "centered">
       <p className="about-app-Font">The users for this web app could be young college students or workers in the Seattle area. And they love to explore the different type of food around the neighborhood.
 
 When they open up this web app, they are able to see the restaurant around itself. The restaurant data would come from Yelp API and Google Map API for mapping.Customers are able to view the Yelp comments and photos on the map and able to see its own waiting information.
@@ -54,7 +54,7 @@ class Walkthrough extends Component {
   render() {
     return (<div className="about-bottom-bg">
       <h4 className="section-title headername">App functionality Walkthrough</h4>
-      <div className="card about-card">
+      <div className="card about-card" id = "centered">
       <ol className="about-app-Font">
         <li className="aboutFont">User need to input their location. and it will show the nearest restaurants around the user.</li>
         <li className="aboutFont">And they are able to click each restaurant and view the comments and current wait estimate time.</li>
@@ -71,7 +71,9 @@ class Teamcard extends Component {
     });
     return <div className="aboutContainer">
       <h4 className="section-title headername">About Our Team</h4>
+      <div className = "infoFlex">
       {list}
+      </div>
     </div>
   }
 }
@@ -79,7 +81,7 @@ class Teamcard extends Component {
 class Card extends Component {
   render() {
     let member = this.props.member;
-    return (<div className="card about-card">
+    return (<div className="card about-card card col-lg-3 col-md-3 col-sm-6 col-xs-12">
       <img className="about-card-img-top" src={member.url} alt={member.name} />
       <h5 className="memberName">{member.name}</h5>
       <div className="card-body">
