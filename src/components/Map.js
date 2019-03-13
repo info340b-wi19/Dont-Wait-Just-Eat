@@ -157,6 +157,9 @@ export default class MapView extends Component{
                     {item.price !==undefined? <React.Fragment>Price {item.price}<br /></ React.Fragment>:<br/>}
                     Wait Time: {this.genIcons(item.wait)}
                     <br />
+                    {this.state.user!==undefined && this.state.user!==null?
+                    <button className="btn btn-primary btn-dark" onClick={()=>this.onSelected(item.id)}>View more info</button>
+                    :null}
                     </div>
                 </Popup>
             </Marker>)

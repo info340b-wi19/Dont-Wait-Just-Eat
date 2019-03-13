@@ -383,7 +383,7 @@ a.btn-dark {
 }
 
 .mapMarker{
-    color: blue;
+    color: crimson;
     font-family: 'Courier New', Courier, monospace;
     font-weight: 700;
 }
@@ -591,8 +591,6 @@ footer .container {
         margin-right:20%;
         
     }
-
-
 
     #locateme{
         width: 40%;
