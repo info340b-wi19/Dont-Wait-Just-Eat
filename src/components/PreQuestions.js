@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faUtensils } from '@fortawesome/free-solid-svg-icons'
+import exampleRestaurantList from './example.json';
 
 export default class PreQuestions extends Component {
     constructor(props) {
@@ -51,6 +52,7 @@ class Form extends Component {
                 selectedIndex: index
             });
         }
+        this.debug = true;
         this.apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A";
         this.apikey2 = "0LKzxfI8zGQo_E4vxANgZOo6ybyHbiJrWlz_p13-MWWL1ONkjODBDTPTry3uzntUrh6nDB7H5wsZlp7DzFXh4lWbiFvdXYpm5uITu9MK-RoJD-doRfbBav7qhBhrXHYx"
         this.state = {
@@ -217,7 +219,7 @@ class Form extends Component {
     }
 
     async successCallback(response) {
-        var RestaurantList = await response.json();
+        var RestaurantList = response;
         if (RestaurantList["businesses"].length === 0) {
             this.setState({ error: "No Restaurant Found, Pleace check another location." });
             this.props.onSetLoading(false);
@@ -260,9 +262,15 @@ class Form extends Component {
             method: "GET",
             redirect: "follow",
             credentials: 'same-origin'
-        }).then((response) => { this.successCallback(response) },  (e)=> {
-            this.setState({ error: "Please Try Again Later." });
-            this.props.onSetLoading(false);
+        }).then(async (response) => { this.successCallback(await response.json()) },  (e)=> {
+            console.log(e);
+            if(this.debug){
+                this.successCallback(exampleRestaurantList)
+            }else{
+                this.setState({ error: "Please Try Again Later." });
+                this.props.onSetLoading(false);
+            }
+            
         });
     }
 }
