@@ -29,10 +29,14 @@ export const pointerIcon = new L.Icon({
   })
 
 export default class MapView extends Component{
+    //This is a Map View Components
+    //This contains Map view of the Data and List view of the data
+    //This receives the data from last step and then generate markers, list and show them on the list.
+    //It used Leaflet Map
     constructor(props){
         super(props);
         this.mapRef = React.createRef();
-        this.apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A";
+        this.apiKey = process.env.REACT_APP_API_MAP;
         if (this.props.pos[0] === undefined || this.props.pos[1] === undefined){
             this.state={
                 pos:[47.65671,-122.308914,"University_of_Washington"],

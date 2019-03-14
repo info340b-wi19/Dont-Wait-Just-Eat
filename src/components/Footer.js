@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faFacebook, faGooglePlus, faInstagram } from "@fortawesome/free-brands-svg-icons"
 
 export default class Footer extends Component {
+    //Footer Components. This component displays social media icons, copyright info and rights.
     render() {
         return (
             <div className="container mt-5" >

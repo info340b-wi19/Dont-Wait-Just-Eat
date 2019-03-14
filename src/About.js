@@ -21,6 +21,7 @@ const teamInfo = [{
 }
 ];
 export default class AboutPage extends Component {
+  //This render the About Us Page.
   render() {
     return (
       <div id="about-bg">
@@ -32,6 +33,7 @@ export default class AboutPage extends Component {
   }
 }
 class Description extends Component {
+  //This renders the descripotion of the App
   render() {
     return (<div>
       <h4 className="section-title headername">App Description</h4>
@@ -51,6 +53,7 @@ This Web App could effectively show people estimate waiting time, which could be
 
 }
 class Walkthrough extends Component {
+  //This renders the walkthrough of the this app
   render() {
     return (<div className="about-bottom-bg">
       <h4 className="section-title headername">App functionality Walkthrough</h4>
@@ -65,6 +68,7 @@ class Walkthrough extends Component {
   }
 }
 class Teamcard extends Component {
+  //This renders the cards for each temmate
   render() {
     let list = teamInfo.map((element) => {
       return <Card key={element.name + Math.random()} member={element} />
@@ -79,6 +83,7 @@ class Teamcard extends Component {
 }
 
 class Card extends Component {
+  //This renders the card for one teammate
   render() {
     let member = this.props.member;
     return (<div className="card about-card card col-lg-3 col-md-7 col-sm-9 col-xs-12">

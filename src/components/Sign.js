@@ -5,6 +5,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import firebase from 'firebase/app';
 
 export default class SignForm extends Component{
+  //This is the sign in Form to do the user login with Google
     constructor(props){
         super(props);
         this.state={errorMessage:""};
@@ -41,7 +42,7 @@ export default class SignForm extends Component{
         return(<div className='popup'>
         <div className='popup_inner'>
           <FontAwesomeIcon icon={faTimes} style={{right:"28%",position:"fixed",cursor:"pointer"}} onClick={this.props.togglePopup}/>
-          <button className="btn btn-primary card" onClick={this.handleSignIn.bind(this)}><FontAwesomeIcon icon={faGoogle} /> Sign in with Google</button>
+          <button className="btn btn-primary card" onClick={()=>this.handleSignIn()}><FontAwesomeIcon icon={faGoogle} /> Sign in with Google</button>
           {this.state.errorMessage?<p style={{color:"red"}}>{this.state.errorMessage}</p>:null}
         </div>
       </div>

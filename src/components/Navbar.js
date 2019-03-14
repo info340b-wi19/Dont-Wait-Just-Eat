@@ -6,10 +6,11 @@ import firebase from 'firebase/app';
 
 
 export default class NavBar extends Component{
+    //This is a NavBar Components.
+    //Displays Navlinks for different pages, and login button 
     constructor(props) {
         super(props);
         this.state = {collapse: true, user:this.props.user};
-        this.isClick = this.isClick.bind(this);
     }
     isClick() {
         this.setState({collapse: !this.state.collapse});
@@ -25,7 +26,7 @@ export default class NavBar extends Component{
                 Don't Wait, Just Eat!
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-                    aria-label="Toggle Navigation Bar " onClick = {this.isClick}> 
+                    aria-label="Toggle Navigation Bar " onClick = {()=>this.isClick()}> 
                 <FontAwesomeIcon icon={faBars} />
             </button>
   
@@ -33,20 +34,20 @@ export default class NavBar extends Component{
   
                 <ul className="navbar-nav nav navbar-right">
                     <li className="nav-item">
-                        <NavLink exact className="nav-link" to="/" onClick = {this.isClick} >Home</NavLink>
+                        <NavLink exact className="nav-link" to="/" onClick = {()=>this.isClick()} >Home</NavLink>
                     </li>
                     {this.props.user!==undefined&&this.props.user!==null?
                     <li className="nav-item">
-                        <NavLink className="nav-link" to="/reservation" onClick = {this.isClick}>My Reservations</NavLink>
+                        <NavLink className="nav-link" to="/reservation" onClick = {()=>this.isClick()}>My Reservations</NavLink>
                     </li>:null
                     }
                     <li className="nav-item">
-                        <NavLink className="nav-link" to="/aboutUs" onClick = {this.isClick}>About Us</NavLink>
+                        <NavLink className="nav-link" to="/aboutUs" onClick = {()=>this.isClick()}>About Us</NavLink>
                     </li>
 
                     {this.props.user===undefined||this.props.user==null?
                     <li className="nav-item" id="log-in">
-                       <button className="btn btn-dark btn-primary btn-sm" style={{color:"white"}} onClick={this.props.togglePopup}> Log in / Register</button>
+                       <button className="btn btn-dark btn-primary btn-sm mr-3" onClick={this.props.togglePopup}> Log in / Register</button>
                     </li>:
                     <>
                     <div id = "logged-in-pane">

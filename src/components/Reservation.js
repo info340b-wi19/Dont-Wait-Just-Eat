@@ -3,6 +3,8 @@ import _ from 'lodash';
 import firebase from 'firebase/app';
 
 export default class Reservation extends Component {
+
+    //This component generates a reservation form for te restaurant, and save the data into the firebase database
     constructor(props) {
         super(props);
         let list = this.props.data.businesses;

@@ -6,6 +6,7 @@ import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import {faStar as farFaStar} from '@fortawesome/free-regular-svg-icons';
 
 export default class RestaurantPage extends Component {
+    //This renders the Restaurant page which showing the info from Yelp API of the selected restaurant
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +16,7 @@ export default class RestaurantPage extends Component {
             restData:this.props.restData,
             user:this.props.user
         }
-        this.apikey = "0LKzxfI8zGQo_E4vxANgZOo6ybyHbiJrWlz_p13-MWWL1ONkjODBDTPTry3uzntUrh6nDB7H5wsZlp7DzFXh4lWbiFvdXYpm5uITu9MK-RoJD-doRfbBav7qhBhrXHYx"
+        this.apikey = process.env.REACT_APP_API_YELP;
         this.DataHandler(this.state.restID);
     }
 

@@ -4,6 +4,10 @@ import { faClock, faUtensils } from '@fortawesome/free-solid-svg-icons'
 import exampleRestaurantList from './example.json';
 
 export default class PreQuestions extends Component {
+    //This is the components for the first form. 
+    //It provides user to input the wait time , location search and locate me functon
+    //It calls the mapbox API to do reverse GeoJson of the location, 
+    //it calls Yelp API to retrieve the restaurant information of the locations
     constructor(props) {
         super(props);
         this.state = {
@@ -24,6 +28,7 @@ export default class PreQuestions extends Component {
 }
 
 class TitleRow extends Component {
+    //This is the Main title of the main page
     render() {
         return (
             <div className="title row">
@@ -45,6 +50,7 @@ class TitleRow extends Component {
 
 
 class Form extends Component {
+    //This is the form components asking about the wait time, locaitons inputs
     constructor(props) {
         super(props);
         this.change = (index) => {
@@ -53,8 +59,8 @@ class Form extends Component {
             });
         }
         this.debug = true;
-        this.apiKey = "pk.eyJ1IjoicmFtb25xdSIsImEiOiJjamU4M3l1dWYwOWQ4MnlvMXZ1NTQ4c21oIn0.ael5riwgSHwAvbLZaYps0A";
-        this.apikey2 = "0LKzxfI8zGQo_E4vxANgZOo6ybyHbiJrWlz_p13-MWWL1ONkjODBDTPTry3uzntUrh6nDB7H5wsZlp7DzFXh4lWbiFvdXYpm5uITu9MK-RoJD-doRfbBav7qhBhrXHYx"
+        this.apiKey = process.env.REACT_APP_API_MAP;
+        this.apikey2 = process.env.REACT_APP_API_YELP;
         this.state = {
             error: "",
             lat: 47.65671,
@@ -232,7 +238,8 @@ class Form extends Component {
                 rand = Math.round(rand / 120.0 * 5).toString();
                 RestaurantList["businesses"][i]["wait"] = rand;
             }
-            let data = RestaurantList.businesses.filter(item => parseInt(item.wait) <= this.state.selectedIndex)
+            let data = RestaurantList.businesses.filter(item => eval(item.wait) <= this.state.selectedIndex);
+
             RestaurantList.businesses = data;
             if (RestaurantList.businesses.length === 0) {
                 this.setState({ error: "No Restaurant Found, Pleace change search query." });
@@ -252,6 +259,7 @@ class Form extends Component {
     }
 
     getYelpData() {
+        console.log("Start YELP");
         if (this.state.lat === undefined || this.state.long === undefined) {
             this.setState({ error: "Please Enter an Valid Location." })
         }
@@ -265,7 +273,8 @@ class Form extends Component {
             method: "GET",
             redirect: "follow",
             credentials: 'same-origin'
-        }).then(async (response) => { this.successCallback(await response.json()) },  (e)=> {
+        }).then(async (response) => {
+             this.successCallback(await response.json()) },  (e)=> {
             console.log(e);
             if(this.debug){
                 this.successCallback(exampleRestaurantList)
@@ -280,6 +289,7 @@ class Form extends Component {
 
 
 class ButtonGroup extends Component {
+    //This components render the Wait time option buttons.
     constructor(props) {
         super(props);
         this.state = {
@@ -316,6 +326,7 @@ class ButtonGroup extends Component {
 }
 
 class AutoComplete extends Component {
+    //This componenets rendered the location list when you type in the input
     render() {
         let data = this.props.data;
         data = data.map(item => <li key={item.place_name + Math.random()} onClick={() => this.props.callback(item.place_name)}>{item.place_name}</li>)

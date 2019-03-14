@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 
 export default class ReservationPage extends Component {
+    //This renders reservation page from the database reservations, Also cancel reservation button
     constructor(props) {
         super(props);
         if (this.props.user) {
@@ -18,7 +19,6 @@ export default class ReservationPage extends Component {
     }
     cancel =(id) =>{
         delete this.state.data[id] 
-       // this.resRef.push(this.state.data);
         this.forceUpdate();
         this.resRef.child(id).remove();
        
@@ -64,6 +64,7 @@ export default class ReservationPage extends Component {
 }
 
 class ReservationItem extends Component {
+    //This renders reservation card which contains the info like time, name, email..
     render() {
         return (
             <ul className="card list-unstyled reservation-list">
