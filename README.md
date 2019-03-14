@@ -1,41 +1,26 @@
-# Only Food, No Wait
+# Don't Wait, Just Eat!
 
-This repository contains code for an interactive bootstraped React web app. 
+This repository contains code for an interactive React web app bootstrapped with Create React App. 
 
-## Author: Yiren Qu, Xifei Wang
+## Authors: Yiren Qu, Xifei Wang, Jarett Lund-Hopkins, Seth Anderson
 
-### The site can be viewed at <https://foodie-map-b331b.firebaseapp.com> or <https://info340b-wi19.github.io/Foodie-WaitTime-Map/>
+### The site can be viewed at <https://foodie-map-b331b.firebaseapp.com> or <https://info340b-wi19.github.io/Dont-Wait-Just-Eat/>
 
 ![](./src/img/waiting.jpg)
-
-In our project, we are looking into problems about waiting in line in restaurants. In Seattle, there are a lot of famous restaurants.
-
-And the most problem people may encounter is that they need to wait for hours and hours to get into the restaurant. But they did not have a plan for that.
-
-The waiting list information in a lot of the restaurants are on an old-school paper, not digital.
-
-In some places, you would have a fancier app which helps to get in line and send you a text message. However, they do not share the data with the customer. Those app companies are restaurant-centric not customer-centric.
-            
-Customers would love to see the waiting list of each restaurant and would make their choice based on that as well.
-        
         
 ### App Description
 
-The users for this web app could be young college students or workers in the Seattle area. And they love to explore the different type of food around the neighborhood.
-
-When they open up this web app, they are able to see the restaurant around itself. The restaurant data would come from Yelp API and Google Map API for mapping.Customers are able to view the Yelp comments and photos on the map and able to see its own waiting information. 
-                
-For those which do not have waiting information, customers can submit a wait estimate time to earn some points, which can be exchanged the coupon for some restaurants.
-
-After they enjoyed the meal, they can rate the restaurant with starts. In the backend of the system, we can have a machine learning model running for each customer, and making their own profile to give our recommendation in restaurants. 
-
-This Web App could effectively show people estimate waiting time, which could be a very important factor to help people to decide where to eat.
+This web app helps hungry users find a place to eat within a desired waiting time. Users first log in with their Google account. They then input their location (automatic geolocation, or manual entry), and are prompted with nearby restaurants and their respective wait times. After selecting an option, they are brought to a page where they can read about the restaurant's hours, type of cuisine, and rating. They can then book a reservation for themselves or a party and then check the reservation they booked, cancelling it if needed.
 
 ### App functionality Walkthrough
-- User need to input their location. and it will show the nearest restaurants around the user.
-- And they are able to click each restaurant and view the comments and current wait estimate time.
-- And customers can either submit their waiting estimate time or reserve a table in that restaurant via OpenTable
-- After they enjoyed the meal, they are able to rate the restaurant.
+1. Log in via the "Log in / register" button in the navagition bar.
+2. Select a waiting time from the options under "How long can you wait?"
+3. Click "Locate Me" or enter a location in the text field and click "Start Search"
+4. Click a restaurant marker on the map, or click one under the "Waittime" list
+5. Click "View more info" on the restaurant's info window
+6. Enter reservation information at the bottom of the page, and click "Reserve Now"
+7. Check on their reservation by clicking "My Reservations" in the navigation bar, cancelling their resrvation as needed
+
 
 ### Sources and references
 [Google Map API Search for nearest restaurant.]("https://developers.google.com/places/web-service/search#PlaceSearchRequests)

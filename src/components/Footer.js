@@ -28,7 +28,7 @@ export default class Footer extends Component {
                     </div>
                     <div className="w-100 my-1"></div>
                     <p className="col-12"> © Copyright 2019</p>
-                    <p className="col-12 pb-3">All Rights Reserved. Data is from <a href="yelp.com" style={{"color":"white"}}>Yelp.com</a></p>
+                    <p className="col-12 pb-3">All Rights Reserved. Data is from <a href="yelp.com" id="yelp">Yelp.com</a></p>
                 </div>
             </div>
         )

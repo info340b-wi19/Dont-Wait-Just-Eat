@@ -152,7 +152,7 @@ export default class MapView extends Component{
                 <Popup ref={ref}>
                     <div onClick={()=>this.onSelected(item.id)}>
                     <h4 className="mapMarker" >{item.name}</h4>
-                    <img src={item.image_url} style={{height: "100px", width: "100px", display:"table", margin: "13px auto"}} alt={item.name}/>
+                    <img src={item.image_url} alt={item.name} id="map-marker-img"/>
                     Rating: {item.rating} / 5 
                     <br />
                     {item.price !==undefined? <React.Fragment>Price: {item.price}<br /></ React.Fragment>:<br/>}

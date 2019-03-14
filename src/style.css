@@ -633,7 +633,15 @@ footer .container {
 #mainMap div a{
     border-radius:15px;
 }
-
+#yelp{
+    color:white;
+}
+#map-marker-img{
+    height: 100px;
+    width: 100px;
+    display: table;
+    margin: 13px auto;
+}
 @media(min-width: 380px) {
     .navbar-brand{
         font-size: 1.3rem;
