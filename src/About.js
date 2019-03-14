@@ -81,7 +81,7 @@ class Teamcard extends Component {
 class Card extends Component {
   render() {
     let member = this.props.member;
-    return (<div className="card about-card card col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    return (<div className="card about-card card col-lg-3 col-md-7 col-sm-9 col-xs-12">
       <img className="about-card-img-top" src={member.url} alt={member.name} />
       <h5 className="memberName">{member.name}</h5>
       <div className="card-body">
