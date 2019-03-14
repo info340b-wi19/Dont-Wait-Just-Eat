@@ -19,7 +19,6 @@ export default class ReservationPage extends Component {
     }
     cancel =(id) =>{
         delete this.state.data[id] 
-        console.log(this.state);
        // this.resRef.push(this.state.data);
         this.forceUpdate();
         this.resRef.child(id).remove();
@@ -30,7 +29,6 @@ export default class ReservationPage extends Component {
         if (this.resRef) {
             this.resRef = firebase.database().ref("reservations/" + this.state.user.email.replace(".", "_"));
             this.resRef.on("value", (snapshot) => {
-                console.log(snapshot.val());
                 this.setState({ data: snapshot.val() })
             });
 
@@ -41,7 +39,6 @@ export default class ReservationPage extends Component {
             this.resRef.off('value', (snapshot) => {
                 this.setState({ data: snapshot.val() })
             })
-            console.log(this.state);
         }
     }
 
@@ -69,8 +66,6 @@ export default class ReservationPage extends Component {
 
 class ReservationItem extends Component {
     render() {
-        console.log(this.props.data);
-        console.log(this.props.keys);
         return (
             <ul className="card list-unstyled reservation-list">
                 <li id="reservation-title" className="card-title" key={this.props.data.fullname + Math.random() + Math.random()}>Reservation @ {this.props.data.restdata.name}</li>
@@ -80,7 +75,6 @@ class ReservationItem extends Component {
                 <li key={this.props.data.size + Math.random()}><strong>Party Size: </strong>{this.props.data.size}</li>
                 <li id="reservation-bottom" key={this.props.data.time + Math.random()}><strong>Reservation Time: </strong>{this.props.data.time}</li>
                 <button type="button" className="btn btn-danger" onClick={ () =>{
-                    console.log();
                        this.props.function(this.props.keys);
                 }
                  
