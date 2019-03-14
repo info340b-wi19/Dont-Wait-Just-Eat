@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Foodie-WaitTime-Map/precache-manifest.13038383a3fe612dc30d9c1ac3250076.js"
+  "/Dont-Wait-Just-Eat/precache-manifest.4bbe5b6def7c30d245bfcdfa8d68a4f9.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/Foodie-WaitTime-Map/index.html", {
+workbox.routing.registerNavigationRoute("/Dont-Wait-Just-Eat/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
