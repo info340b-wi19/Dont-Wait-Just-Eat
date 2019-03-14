@@ -582,9 +582,10 @@ footer .container {
 }
 
 .reservation-list{
+    display: table;
     text-align: center;
     width:85%;
-    margin: 5px auto 10px auto;
+    margin: 5px auto 10px auto !important;
     background-color: beige
 }
 
@@ -621,6 +622,9 @@ footer .container {
     box-shadow: 3px 3px 3px rgb(56, 55, 55) !important;
 }
 
+#mainMap div{
+    border-radius:15px;
+}
 
 @media(min-width: 380px) {
     .navbar-brand{
@@ -763,7 +767,10 @@ footer .container {
         margin-left: 55%;
         background-color: #d32323;
         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+        border-radius: 10px;
     }
+
+   
 
     .outter-wrap #mapview,
     .outter-wrap #waitView {
