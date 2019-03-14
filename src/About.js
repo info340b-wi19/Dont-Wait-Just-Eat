@@ -7,7 +7,7 @@ const teamInfo = [{
 }, {
   name: "Yiren Qu",
   url: "yiren.jpg",
-  description: "I am currently a student of University of Washington, studying Computer Engineering and Informatics. I have done projects in various fields in Computer Science and Engineering. I love to explore new ideas and do projects for the community."
+  description: "I am currently a student of University of Washington, studying Informatics. I love to explore new ideas and do projects for the community."
 },
 {
   name: "Seth Anderson",
