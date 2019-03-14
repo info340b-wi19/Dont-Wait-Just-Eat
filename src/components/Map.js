@@ -109,11 +109,9 @@ export default class MapView extends Component{
         // let marker = this.markerRef[id][1].current;
         // console.log(this.mapRef.current.leafletElement.setView);
         let temp = this.markerRef[id][1].current.leafletElement._latlng
-        console.log(temp.lng );
         if(window.innerWidth > 992){
             temp.lng = temp.lng +0.02;
         }
-        console.log(temp.lng );
         this.setState({
             viewport:{
             center:[temp.lat,temp.lng],

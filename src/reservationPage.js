@@ -46,7 +46,9 @@ export default class ReservationPage extends Component{
             <div id="reservations-bg">
                 <h4 className="section-title" id="reservation-main-title">My Reservations</h4>
                 {this.state.data === null?<h4 className="section-title" id="reservation-main-title">No Reservations Made!</h4>:
-                Object.keys(this.state.data).map(key=><ReservationItem data={this.state.data[key]}/>)}
+               
+                Object.keys(this.state.data).map(key=><ReservationItem key={Math.random()} data={this.state.data[key]}/>)}
+
             </div>
                 
         )
@@ -56,7 +58,7 @@ export default class ReservationPage extends Component{
 class ReservationItem extends Component{
     render(){
         return(
-            <ul className="card card-body list-unstyled" id = "reservation-list">
+            <ul className="card list-unstyled reservation-list">
             <li id="reservation-title" className="card-title" key={this.props.data.fullname+Math.random()+Math.random()}>Reservation @ {this.props.data.restdata.name}</li>
             <li key={this.props.data.fullname+Math.random()}><strong>Full name: </strong>{this.props.data.fullname}</li>
             <li key={this.props.data.email+Math.random()}><strong>Email: </strong>{this.props.data.email}</li>
