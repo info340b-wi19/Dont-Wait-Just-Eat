@@ -12,7 +12,7 @@ const teamInfo = [{
 {
   name: "Seth Anderson",
   url: "seth.jpg",
-  description: "Informatics @UW iSchool"
+  description: "I am currently a student at the University of Washington, studying Informatics. I am interested in software development and cybersecurity however would be interested in any oppurtunity to work with technology."
 },
 {
   name: "Jarett Lund-Hopkins",
