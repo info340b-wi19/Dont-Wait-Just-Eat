@@ -127,23 +127,26 @@ class Form extends Component {
                         id="locateme"
                         onClick={() => this.locateme(this)}>Locate Me</a>
                     <div className="w-100"></div>
-                    <input className="form-control col-md-6 col-sm-5" type="search"
+                    <div id="search_place" className="col-md-6 col-sm-5">
+                    <input className="form-control" type="search"
                         placeholder="Where do you want to eat?"
                         aria-label="Search"
-                        id="search_place"
+            
                         value={this.state.searchLocation}
                         onChange={(e) => {
                             this.TextOnChange(e);
                         }}
                     />
-                    <button className="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" id="searchLoc" onClick={() => this.searchloc(this)}>Start
-                 Search
-                </button>
-                    <ul className={"col-md-6 col-sm-5 mx-4 ml-4 autocomplete".concat(this.state.autocomplete.length === 0 ? "collapse" : "")}>
+                    <ul className={"col-md-6 col-sm-5 autocomplete".concat(this.state.autocomplete.length === 0 ? "collapse" : "")}>
                         <AutoComplete data={this.state.autocomplete} callback={(text) => {
                             this.setState({ searchLocation: text, autocomplete: [] });
                         }} />
                     </ul>
+                    </div>
+                    <button className="btn btn-primary col-md-4 mx-4 btn-lg col-sm-4" id="searchLoc" onClick={() => this.searchloc(this)}>Start
+                 Search
+                </button>
+                    
 
                 </div>
             </div>
