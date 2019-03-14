@@ -25,7 +25,7 @@ export default class RestaurantPage extends Component {
 
 
     DataHandler(id) {
-        let url = "https://cors-anywhere.herokuapp.com/http://api.yelp.com/v3/businesses/" + this.state.restID;
+        let url = "https://sheltered-mesa-40009.herokuapp.com/http://api.yelp.com/v3/businesses/" + this.state.restID;
         //Because Yelp API blocked the CORS from front end directly, has to use this trick to call this api from front-end
         fetch(url, {
             headers: {

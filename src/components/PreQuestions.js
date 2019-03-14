@@ -255,7 +255,7 @@ class Form extends Component {
         if (this.state.lat === undefined || this.state.long === undefined) {
             this.setState({ error: "Please Enter an Valid Location." })
         }
-        let url = "https://cors-anywhere.herokuapp.com/http://api.yelp.com/v3/businesses/search?open_now=true&term=restaurant";
+        let url = "https://sheltered-mesa-40009.herokuapp.com/http://api.yelp.com/v3/businesses/search?open_now=true&term=restaurant";
         //Because Yelp API blocked the CORS from front end directly, has to use this trick to call this api from front-end
         url += "&latitude=" + this.state.lat + "&longitude=" + this.state.long;
         fetch(url, {
