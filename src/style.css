@@ -708,10 +708,6 @@ footer .container {
 }
 
 @media (min-width: 992px) {
-<<<<<<< HEAD
-
-=======
->>>>>>> 97589185a6068a14413cb4ed046f077d06675af2
     .infoFlex {
         display: flex;
         margin-left: 30px;
