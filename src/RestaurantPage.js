@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
 import Reservation from './components/Reservation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
+import {faStar as farFaStar} from '@fortawesome/free-regular-svg-icons';
 
 export default class RestaurantPage extends Component {
     constructor(props) {
@@ -134,7 +137,7 @@ export default class RestaurantPage extends Component {
         reviewList = reviewList.map((item, index)=> {
             return (
                 <div className = "review" key = {index}>
-                    <h3><b>{reviews[index].user.name}</b>     <i>{reviews[index].rating}/5</i></h3>
+                    <h3><b>{reviews[index].user.name}</b>     <i>{this.stars(reviews[index].rating)}</i></h3>
                     <div className = "reviewDesc">
                         <p>"{reviews[index].text}"</p>
                         <p><i>Posted: {reviews[index].time_created.split(" ")[0]}</i></p>
@@ -147,6 +150,21 @@ export default class RestaurantPage extends Component {
                 {reviewList}
             </div>
         )
+    }
+
+    stars(rating) {
+        let starCount = [];
+        for(let i = 0; i < 5; i ++) {
+            if(rating >= 1) {
+                starCount.push(<FontAwesomeIcon icon={faStar}/>);
+            } else if(rating > 0) {
+                starCount.push(<FontAwesomeIcon icon={faStarHalfAlt}/>);
+            } else {
+                starCount.push(<FontAwesomeIcon icon={farFaStar}/>);
+            }
+            rating --;
+        }
+        return starCount;
     }
 
     render() {
@@ -162,7 +180,7 @@ export default class RestaurantPage extends Component {
                 <div id = "aboutRestPage">
                     <h2 id ="aboutRestName">{this.state.data.name}</h2>
                     <h4 id="cuisine">Type of Cuisine: <i>{this.state.data.categories[0].title}</i>
-                    <br/>Overall Rating: {this.state.data.rating}/5</h4>
+                    <br/>Overall Rating: {this.stars(this.state.data.rating)}</h4>
                     <div id="restBody">
                         {this.aboutRest()}
                         {this.restPics()}

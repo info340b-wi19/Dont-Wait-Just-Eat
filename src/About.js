@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 const teamInfo = [{
   name: "Xifei Wang",
   url: "xifei.jpg",
-  description: "I am currently a student studying @University of Washington, class of 2021, particularly interested in Data Science track. I am also a member of Probability Research Organization."
+  description: "I am currently a student studying @University of Washington, class of 2021, particularly interested in Data Science track. I am also a member of Probability Research Organization." 
 }, {
   name: "Yiren Qu",
   url: "yiren.jpg",
-  description: "I am currently a student of University of Washington, studying Computer Engineering and Informatics. I have done projects in various fields in Computer Science and Engineering. I love to explore new ideas and do projects for the community."
+  description: "I am currently a student of University of Washington, studying Informatics. I love to explore new ideas and do projects for the community."
 },
 {
   name: "Seth Anderson",
@@ -53,7 +53,7 @@ This Web App could effectively show people estimate waiting time, which could be
 class Walkthrough extends Component {
   render() {
     return (<div className="about-bottom-bg">
-      <h4 className="section-title headername">App Functionality Walkthrough</h4>
+      <h4 className="section-title headername">App functionality Walkthrough</h4>
       <div className="card about-card" id = "centered">
       <ol className="about-app-Font">
         <li className="aboutFont">User need to input their location. and it will show the nearest restaurants around the user.</li>

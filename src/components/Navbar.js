@@ -54,7 +54,7 @@ export default class NavBar extends Component{
                     <p>{this.props.user.displayName}</p></li>
                     
                      <li className="nav-item" id="log-out">
-                     <button className="btn btn-dark btn-primary btn-sm" style={{color:"white"}} onClick={()=>{
+                     <button className="btn btn-dark btn-primary btn-sm mr-3" onClick={()=>{
                          firebase.auth().signOut();
                         this.setState({user:undefined})}
 

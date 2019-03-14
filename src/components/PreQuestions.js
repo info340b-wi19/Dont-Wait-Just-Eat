@@ -260,7 +260,7 @@ class Form extends Component {
             method: "GET",
             redirect: "follow",
             credentials: 'same-origin'
-        }).then((response) => { this.successCallback(response) }, function (e) {
+        }).then((response) => { this.successCallback(response) },  (e)=> {
             this.setState({ error: "Please Try Again Later." });
             this.props.onSetLoading(false);
         });
