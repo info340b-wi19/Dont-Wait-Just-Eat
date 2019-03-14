@@ -496,7 +496,7 @@ footer .container {
 
 #search_place{
 
-    margin: 0 10% 10px 10% !important;
+    margin: 0 10% 0 10% !important;
 }
 
 
@@ -640,7 +640,8 @@ footer .container {
 #search_place{
 
     margin-left: auto !important;
-    margin-right: 30px !important;
+    margin-right: 10px !important;
+    min-width: 55%;
 }
 
 
@@ -745,11 +746,6 @@ footer .container {
 
     .jumbotron .lead {
         font-size: 2rem;
-    }
-
-    .loc input,
-    .loc button {
-        margin-top: 2rem !important;
     }
 
     #nav-map {
