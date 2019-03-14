@@ -46,7 +46,7 @@ export default class NavBar extends Component{
 
                     {this.props.user===undefined||this.props.user==null?
                     <li className="nav-item" id="log-in">
-                       <button className="btn btn-dark btn-primary btn-sm" style={{color:"white"}} onClick={this.props.togglePopup}> Log in / Register</button>
+                       <button className="btn btn-dark btn-primary btn-sm mr-3" style={{color:"white"}} onClick={this.props.togglePopup}> Log in / Register</button>
                     </li>:
                     <>
                     <div id = "logged-in-pane">

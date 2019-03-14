@@ -66,9 +66,9 @@ export default class App extends Component {
     this.authUnRegFunc = firebase.auth().onAuthStateChanged((user)=>{
       if (user) {
         // User is signed in.
-        this.setState({loading:false,user:user,popUp:false});
+        this.setState({loading:false,user:user,popUp:false,view:"init"});
       } else{
-        this.setState({loading:false,user:undefined,popUp:false});
+        this.setState({loading:false,user:undefined,popUp:false,view:"init"});
       }
     });
   }
@@ -78,6 +78,7 @@ export default class App extends Component {
   }
 
   render() {
+
     return (
       <React.Fragment>
       <header>
