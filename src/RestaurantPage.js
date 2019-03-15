@@ -157,11 +157,11 @@ export default class RestaurantPage extends Component {
         let starCount = [];
         for(let i = 0; i < 5; i ++) {
             if(rating >= 1) {
-                starCount.push(<FontAwesomeIcon icon={faStar}/>);
+                starCount.push(<FontAwesomeIcon icon={faStar} key={i}/>);
             } else if(rating > 0) {
-                starCount.push(<FontAwesomeIcon icon={faStarHalfAlt}/>);
+                starCount.push(<FontAwesomeIcon icon={faStarHalfAlt}key={i}/>);
             } else {
-                starCount.push(<FontAwesomeIcon icon={farFaStar}/>);
+                starCount.push(<FontAwesomeIcon icon={farFaStar}key={i}/>);
             }
             rating --;
         }
