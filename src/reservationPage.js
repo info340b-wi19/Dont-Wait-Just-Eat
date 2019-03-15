@@ -13,7 +13,7 @@ export default class ReservationPage extends Component {
                 user: this.props.user,
                 rest: undefined
             };
-            this.resRef = firebase.database().ref("reservations/" + this.state.user.email.replace(".", "_"));
+            this.resRef = firebase.database().ref("reservations/" + this.state.user.email.split(".").join("_"));
         }
 
     }
@@ -26,7 +26,7 @@ export default class ReservationPage extends Component {
     }
     componentDidMount() {
         if (this.resRef) {
-            this.resRef = firebase.database().ref("reservations/" + this.state.user.email.replace(".", "_"));
+            this.resRef = firebase.database().ref("reservations/" + this.state.user.email.split(".").join("_"));
             this.resRef.on("value", (snapshot) => {
                 this.setState({ data: snapshot.val() })
             });
@@ -69,14 +69,14 @@ class ReservationItem extends Component {
         return (
             <ul className="card list-unstyled reservation-list">
                 <li id="reservation-title" className="card-title" key={this.props.data.fullname + Math.random() + Math.random()}>Reservation @ {this.props.data.restdata.name}</li>
-                <li><img src={this.props.data.restdata.image_url} id="restaurant-picture" alt="restaurant"></img></li>
+                <li key = "restdataimg"><img src={this.props.data.restdata.image_url} id="restaurant-picture" alt="restaurant"></img></li>
                 <li key={this.props.data.fullname + Math.random()}><strong>Full name: </strong>{this.props.data.fullname}</li>
                 <li key={this.props.data.email + Math.random()}><strong>Email: </strong>{this.props.data.email}</li>
                 <li key={this.props.data.phone + Math.random()}><strong>Contact: </strong>{this.props.data.phone}</li>
                 <li key={this.props.data.size + Math.random()}><strong>Party Size: </strong>{this.props.data.size}</li>
                 <li id="reservation-bottom" key={this.props.data.time + Math.random()}><strong>Reservation Time: </strong>{this.props.data.time}</li>
-                <li><strong>Restaurant Contact Info: </strong> <a href={"tel:"+this.props.data.restdata.phone}>{this.props.data.restdata.phone}</a></li>
-                <button type="button" className="btn btn-danger m-3" onClick={ () =>{
+                <li key = "Rest contact info"><strong>Restaurant Contact Info: </strong> <a href={"tel:"+this.props.data.restdata.phone}>{this.props.data.restdata.phone}</a></li>
+                <button key="buttonkey" type="button" className="btn btn-danger m-3" onClick={ () =>{
                        this.props.callback(this.props.keys);
                 }
                  

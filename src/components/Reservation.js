@@ -33,7 +33,7 @@ export default class Reservation extends Component {
             time: this.state.time,
             restdata:this.state.restdata
           }
-          var reservationListRef = firebase.database().ref("reservations/"+this.state.user.email.replace(".","_"));
+          var reservationListRef = firebase.database().ref("reservations/"+this.state.user.email.split(".").join("_"));
           var newresRef = reservationListRef.push();
           newresRef.set(newReservation);
       
