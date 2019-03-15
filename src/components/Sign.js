@@ -43,7 +43,7 @@ export default class SignForm extends Component{
         <div className='popup_inner'>
           <FontAwesomeIcon icon={faTimes} id = "time-icon" onClick={this.props.togglePopup}/>
           <button className="btn btn-primary card" onClick={()=>this.handleSignIn()}><FontAwesomeIcon icon={faGoogle} /> Sign in with Google</button>
-          {this.state.errorMessage?<p style={{color:"red"}}>{this.state.errorMessage}</p>:null}
+          {this.state.errorMessage?<p class = "error-out">{this.state.errorMessage}</p>:null}
         </div>
       </div>
       )
