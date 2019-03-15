@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Dont-Wait-Just-Eat/precache-manifest.4bbe5b6def7c30d245bfcdfa8d68a4f9.js"
+  "/Dont-Wait-Just-Eat/precache-manifest.40241a4f0e754ddfec50a03209e0196e.js"
 );
 
 workbox.clientsClaim();
