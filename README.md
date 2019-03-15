@@ -4,7 +4,12 @@ This repository contains code for an interactive React web app bootstrapped with
 
 ## Authors: Yiren Qu, Xifei Wang, Jarett Lund-Hopkins, Seth Anderson
 
-### The site can be viewed at <https://foodie-map-b331b.firebaseapp.com> or <https://info340b-wi19.github.io/Dont-Wait-Just-Eat/>
+### The site can be viewed at:
+<https://foodie-map-b331b.firebaseapp.com> 
+
+OR
+
+<https://info340b-wi19.github.io/Dont-Wait-Just-Eat/>
 
 ![](./src/img/waiting.jpg)
         
@@ -24,4 +29,5 @@ This web app helps hungry users find a place to eat within a desired waiting tim
 
 ### External APIs Used
 [Yelp API]("https://www.yelp.com/developers/documentation/v3/get_started")
+
 [MapBox API](https://docs.mapbox.com/api/)
