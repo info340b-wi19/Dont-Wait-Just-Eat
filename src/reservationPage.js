@@ -69,7 +69,7 @@ class ReservationItem extends Component {
         return (
             <ul className="card list-unstyled reservation-list">
                 <li id="reservation-title" className="card-title" key={this.props.data.fullname + Math.random() + Math.random()}>Reservation @ {this.props.data.restdata.name}</li>
-                <li><img src={this.props.data.restdata.image_url} style={{width:"10rem"}} alt="restaurant"></img></li>
+                <li><img src={this.props.data.restdata.image_url} id="restaurant-picture" alt="restaurant"></img></li>
                 <li key={this.props.data.fullname + Math.random()}><strong>Full name: </strong>{this.props.data.fullname}</li>
                 <li key={this.props.data.email + Math.random()}><strong>Email: </strong>{this.props.data.email}</li>
                 <li key={this.props.data.phone + Math.random()}><strong>Contact: </strong>{this.props.data.phone}</li>

@@ -642,6 +642,17 @@ footer .container {
     display: table;
     margin: 13px auto;
 }
+#time-icon{
+    right: 28%;
+    position: fixed;
+    cursor: pointer;
+}
+.error-out{
+    color:red;
+}
+#restaurant-picture{
+    width: 10rem;
+}
 @media(min-width: 380px) {
     .navbar-brand{
         font-size: 1.3rem;

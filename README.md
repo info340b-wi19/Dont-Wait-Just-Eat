@@ -18,11 +18,10 @@ This web app helps hungry users find a place to eat within a desired waiting tim
 3. Click "Locate Me" or enter a location in the text field and click "Start Search"
 4. Click a restaurant marker on the map, or click one under the "Waittime" list
 5. Click "View more info" on the restaurant's info window
-6. Enter reservation information at the bottom of the page, and click "Reserve Now"
+6. Enter reservation information at the bottom of the page, and click "Reserve Now" (you must enter a valid email and phone number to save the reservation)
 7. Check on their reservation by clicking "My Reservations" in the navigation bar, cancelling their resrvation as needed
 
 
-### Sources and references
-[Google Map API Search for nearest restaurant.]("https://developers.google.com/places/web-service/search#PlaceSearchRequests)
+### External APIs Used
 [Yelp API]("https://www.yelp.com/developers/documentation/v3/get_started")
-
+[MapBox API](https://docs.mapbox.com/api/)

@@ -259,7 +259,6 @@ class Form extends Component {
     }
 
     getYelpData() {
-        console.log("Start YELP");
         if (this.state.lat === undefined || this.state.long === undefined) {
             this.setState({ error: "Please Enter an Valid Location." })
         }

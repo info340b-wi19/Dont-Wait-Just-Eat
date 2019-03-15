@@ -41,7 +41,7 @@ export default class SignForm extends Component{
     render(){
         return(<div className='popup'>
         <div className='popup_inner'>
-          <FontAwesomeIcon icon={faTimes} style={{right:"28%",position:"fixed",cursor:"pointer"}} onClick={this.props.togglePopup}/>
+          <FontAwesomeIcon icon={faTimes} id = "time-icon" onClick={this.props.togglePopup}/>
           <button className="btn btn-primary card" onClick={()=>this.handleSignIn()}><FontAwesomeIcon icon={faGoogle} /> Sign in with Google</button>
           {this.state.errorMessage?<p style={{color:"red"}}>{this.state.errorMessage}</p>:null}
         </div>
